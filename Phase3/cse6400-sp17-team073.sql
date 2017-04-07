@@ -54,6 +54,7 @@ CREATE TABLE Item (
 
 CREATE TABLE Request (
   username varchar(250) NOT NULL,
+  user_email varchar(250) NOT NULL,
   item_name varchar(250) NOT NULL,
   request_status int(16) unsigned NOT NULL,
   units_requested int(16) unsigned NOT NULL,
