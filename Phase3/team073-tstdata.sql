@@ -1,0 +1,5 @@
+INSERT INTO `cs6400_sp17_team073`.`Site` (`site_id`, `short_name`, `street_address`, `city`, `state`, `full_name`, `zip`, `contact_number`) VALUES ('101', 'TestAus1', '100 Main', 'Austin', 'TX', 'Austin Downtown', '78701', '5125551212');
+INSERT INTO `cs6400_sp17_team073`.`Site` (`site_id`, `short_name`, `street_address`, `city`, `state`, `full_name`, `zip`, `contact_number`) VALUES ('102', 'TestSA1', '200 Side', 'San Antonio', 'TX', 'San Antonio Downtown 1', '787301', '2105551212');
+INSERT INTO `cs6400_sp17_team073`.`User` (`username`, `user_email`, `password`, `full_name`, `site_id`) VALUES ('TestAus1Admin', 'testa1@gatech.edu', 'TestA1$', 'Test Austin Admin 1', '101');
+INSERT INTO `cs6400_sp17_team073`.`User` (`username`, `user_email`, `password`, `full_name`, `site_id`) VALUES ('TestSAAdmin1', 'testb1@gatech.edu', 'TestB1$', 'Test SA Admin 1', '102');
+INSERT INTO `cs6400_sp17_team073`.`User` (`username`, `user_email`, `password`, `full_name`, `site_id`) VALUES ('TestNoAdmin', 'testc1@gatech.edu', 'TestC1$', 'Test No Admin', null);
