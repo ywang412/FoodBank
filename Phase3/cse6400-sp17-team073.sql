@@ -53,7 +53,7 @@ CREATE TABLE Item (
 );
 
 CREATE TABLE Request (
-  user_email varchar(250) NOT NULL,
+  username varchar(250) NOT NULL,
   item_name varchar(250) NOT NULL,
   request_status int(16) unsigned NOT NULL,
   units_requested int(16) unsigned NOT NULL,
@@ -149,10 +149,11 @@ ALTER TABLE `Provide`
 
 ALTER TABLE `Item`
   ADD CONSTRAINT Item_ibfk_1 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id) ON DELETE SET NULL;
-    
+
 ALTER TABLE `Request`
-  ADD CONSTRAINT Request_ibfk_1 FOREIGN KEY (user_email) REFERENCES `User` (user_email),
-  ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (item_name) REFERENCES `Item` (item_name);   
+  ADD CONSTRAINT Request_ibfk_1 FOREIGN KEY (username) REFERENCES `User` (username),
+  ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (item_name) REFERENCES `Item` (item_name);
+    
 
 ALTER TABLE `Room`
   ADD CONSTRAINT Room_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE;
