@@ -9,7 +9,7 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Login Form</h1>
+		<h1>Phebus1 </h1>
 		<form:form action="login" method="post" modelAttribute="user">
 		
 		<form:errors />
