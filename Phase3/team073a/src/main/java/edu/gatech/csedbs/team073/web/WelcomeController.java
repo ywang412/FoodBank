@@ -25,16 +25,16 @@ public class WelcomeController {
 		this.team073StartupService = team073StartupService;
 	}
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Map<String, Object> model) {
-
-		logger.debug("index() is executed!");
-
-		model.put("title", team073StartupService.getTitle(""));
-		model.put("msg", team073StartupService.getDesc());
-		
-		return "index";
-	}
+//	@RequestMapping(value = "/", method = RequestMethod.GET)
+//	public String index(Map<String, Object> model) {
+//
+//		logger.debug("index() is executed!");
+//
+//		model.put("title", team073StartupService.getTitle(""));
+//		model.put("msg", team073StartupService.getDesc());
+//
+//		return "index";
+//	}
 
 	@RequestMapping(value = "/echo/{name:.+}", method = RequestMethod.GET)
 	public ModelAndView echo(@PathVariable("name") String name) {

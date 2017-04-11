@@ -13,7 +13,11 @@
 		<form:form action="saveSite" method="post">
 		<table>
 			<tr>
-				<td>Name:</td>
+				<td>Username:</td>
+				<td>${user.userName}</td>
+			</tr>
+			<tr>
+				<td>Full Name:</td>
 				<td>${user.fullName}</td>
 			</tr>
 			<tr>
