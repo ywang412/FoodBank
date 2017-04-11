@@ -12,6 +12,7 @@ import javax.sql.DataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
+import edu.gatech.csedbs.team073.model.MealCount;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,27 +28,28 @@ public class ItemDAOImpl implements ItemDAO {
     }
 
 
-    public int getMealCount() {
-        String sql = "SELECT min(counts.count) AS low FROM (SELECT 'vegetable' AS type, count(item_name) AS count FROM cs6400_sp17_team073.Item WHERE food_category = 'vegetables' UNION SELECT 'mineral' AS type, count(item_name) AS count FROM cs6400_sp17_team073.Item WHERE food_category = 'beans' OR food_category = 'nuts' OR food_category = 'grains' UNION SELECT 'animal' AS type, count(item_name) AS count FROM cs6400_sp17_team073.Item WHERE food_category = 'meat' OR food_category = 'seafood' OR food_category = 'dairy') AS counts";
+    public MealCount getMealCount() {
+        String sql = "SELECT counts.count AS low, counts.type AS type FROM (SELECT 'vegetable' AS type, sum(number_of_units) AS count FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum WHERE food_category_name = 'vegetables' UNION SELECT 'mineral' AS type, sum(number_of_units) AS count FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum WHERE food_category_name = 'beans' OR food_category_name = 'nuts' OR food_category_name = 'grains' UNION SELECT 'animal' AS type, sum(number_of_units) AS count FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum WHERE food_category_name = 'meat' OR food_category_name = 'seafood' OR food_category_name = 'dairy') AS counts order by counts.count asc limit 1";
+//        String sql = "SELECT counts.count AS low, counts.type AS type FROM (SELECT 'vegetable' AS type, sum(number_of_units) AS count FROM cs6400_sp17_team073.Item WHERE food_category = 'vegetables' UNION SELECT 'mineral' AS type, sum(number_of_units) AS count FROM cs6400_sp17_team073.Item WHERE food_category = 'beans' OR food_category = 'nuts' OR food_category = 'grains' UNION SELECT 'animal' AS type, sum(number_of_units) AS count FROM cs6400_sp17_team073.Item WHERE food_category = 'meat' OR food_category = 'seafood' OR food_category = 'dairy') AS counts order by counts.count asc limit 1";
 
 
-        Integer count = jdbcTemplate.query(sql, new ResultSetExtractor<Integer>() {
+        MealCount m = jdbcTemplate.query(sql, new ResultSetExtractor<MealCount>() {
 
             @Override
-            public Integer extractData(ResultSet rs) throws SQLException, DataAccessException {
+            public MealCount extractData(ResultSet rs) throws SQLException, DataAccessException {
                 //final String rsUserName = userName;
                 if (rs.next()) {
-                    return rs.getInt("low");
+                    MealCount m = new MealCount();
+	            m.count = rs.getInt("low");
+                    m.itemMin = rs.getString("type");
+                    return m;
                 }
-                return -1;
+                return null;
             }
 
         });
-
-        return count;
-    }
-    public String getCategoryWithCount(int count){
-        return "TODO";
+	//Java needs to implement a pair or allow multiple returns
+        return m;
     }
 
 
