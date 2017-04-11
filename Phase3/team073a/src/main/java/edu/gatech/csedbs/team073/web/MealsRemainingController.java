@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.gatech.csedbs.team073.dao.ItemDAO;
+import edu.gatech.csedbs.team073.model.MealCount;
 
 @Controller
 public class MealsRemainingController {
@@ -31,13 +32,13 @@ public class MealsRemainingController {
     @RequestMapping(value="/MealsRemaining")
     public void MealsRemaining(Model model) {
 
-        int count = ItemDAO.getMealCount();
+        MealCount m = ItemDAO.getMealCount();
 
 
 //      model = new ModelAndView("MealsRemaining");
 //        model.setViewName("meals");
-        model.addAttribute("remaining", count);
-        model.addAttribute("needs", ItemDAO.getCategoryWithCount(count));
+        model.addAttribute("remaining", m.count);
+        model.addAttribute("needs", m.itemMin);
 
 
 //        return model;

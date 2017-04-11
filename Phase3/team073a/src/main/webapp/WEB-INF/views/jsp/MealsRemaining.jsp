@@ -12,10 +12,10 @@
 		<h1>ASACS Available Meals</h1>
 	</div>
 	<div align="center">
-		<h1>Meals Remaining: ${remaining}</h1>
+		<h1>We have ${remaining} complete meals remaining</h1>
 	</div>
 	<div align="center">
-		<h1>Donations Needed ${needs}</h1>
+		<h1>We are most in need of: ${needs}, send more</h1>
 	</div>
 
 </body>
