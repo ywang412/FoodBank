@@ -51,4 +51,16 @@ public class WelcomeController {
 
 	}
 
+
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Map<String, Object> model) {
+
+		logger.debug("test is executed!");
+
+		model.put("title", team073StartupService.getTitle(""));
+		model.put("msg", team073StartupService.getDesc());
+
+		return "test";
+	}
+
 }
