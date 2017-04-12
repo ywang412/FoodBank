@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="com.github.slugify:slugify-integration-jstl:2.0.1-RELEASE" type="repository">
+    <properties maven-id="com.github.slugify:slugify-integration-jstl:2.0.1-RELEASE" />
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/slugify-integration-jstl-2.0.1-RELEASE.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/slugify-2.0.1-RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
