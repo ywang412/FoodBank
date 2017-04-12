@@ -5,6 +5,7 @@ package edu.gatech.csedbs.team073.service;
  */
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.gatech.csedbs.team073.dao.*;
@@ -65,5 +66,7 @@ public class SiteInfoService {
     }
 
 
-
+    //simple get max count of tables - would help for display
+    public int foodPantryCount() {  return foodPantryDAO.getFoodPantryCount();}
+    public List GetFoodPantryTable() {  return foodPantryDAO.GetFoodPantryTable();}
 }

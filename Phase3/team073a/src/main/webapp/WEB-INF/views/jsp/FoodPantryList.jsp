@@ -14,11 +14,15 @@
 	<div align="center">
 		<h1>Food Pantries</h1>
 
+		<h2>Count is: ${count}</h2>
 
 		<table>
-			<c:forEach items="${lists}" var="firstname">
+			<c:forEach items="${lists}" var="foodpantry">
 				<tr>
-					<td>${firstname}</td>
+					<td>${foodpantry.foodPantryId}</td>
+					<td>${foodpantry.descriptionString}</td>
+					<td>${foodpantry.hours}</td>
+					<td>${foodpantry.conditionsForUse}</td>
 				</tr>
 			</c:forEach>
 

@@ -11,6 +11,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import edu.gatech.csedbs.team073.dao.FoodPantryDAO;
+import edu.gatech.csedbs.team073.model.FoodPantry;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -65,13 +67,29 @@ public class FoodPantryController {
     public ModelAndView foodPantryList() {
 
         //Site site = SiteDAO.getSite(siteId);
-        List<String> list = getList();
+        List<FoodPantry> foodpantries;
 
         ModelAndView model = null;
 
         model = new ModelAndView("FoodPantryList");
+
+        //do a select * for all food pantries to get the table
+        FoodPantry foodPantry = siteInfoService.getFoodPantryDAO(1);
+
+
+
+        int fpcount = siteInfoService.foodPantryCount();
+
+        model.addObject("count", fpcount);
+
+        foodpantries = siteInfoService.GetFoodPantryTable();
+
         //model.addObject("", site);
-        model.addObject("lists", list);
+        model.addObject("lists", foodpantries);
+
+        //query all of the food pantries in the food pantry list
+
+
 
 
         return model;
