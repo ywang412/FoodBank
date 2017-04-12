@@ -19,7 +19,7 @@
 <body>
 <div align="center">
     <h1>ASACS Site Information </h1>
-    <form:form action="saveSite" method="post">
+    <form:form action="login" method="post">
         <table>
             <tr>
                 <td>Site Name:</td>
