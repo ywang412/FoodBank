@@ -49,7 +49,7 @@ public class SiteInfoController {
 //    }
 
     @RequestMapping("/SiteInfo")
-    public String showOffers(Model model) {
+    public String showSiteInfo(Model model) {
 
         SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(101);
         FoodBank foodBank = siteInfoService.getFoodBankDAO(101);
@@ -62,6 +62,7 @@ public class SiteInfoController {
         model.addAttribute("foodPantry", foodPantry);
         model.addAttribute("soupKitchen", soupKitchen);
         model.addAttribute("shelter", shelter);
+
 
         return "SiteInfoForm";
     }

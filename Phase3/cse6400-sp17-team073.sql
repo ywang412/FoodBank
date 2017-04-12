@@ -53,7 +53,7 @@ CREATE TABLE Item (
 );
 
 CREATE TABLE Request (
-  user_email varchar(250) NOT NULL,
+  username varchar(250) NOT NULL,
   item_name varchar(250) NOT NULL,
   request_status int(16) unsigned NOT NULL,
   units_requested int(16) unsigned NOT NULL,
@@ -134,6 +134,30 @@ CREATE TABLE Log_Entry (
   PRIMARY KEY (log_id)
 );
 
+CREATE TABLE Item_type_enum (
+  item_type int(16) unsigned NOT NULL AUTO_INCREMENT,
+  item_type_name varchar(250) NOT NULL,
+  PRIMARY KEY (item_type)
+);
+
+CREATE TABLE Item_food_category_enum (
+  food_category int(16) unsigned NOT NULL AUTO_INCREMENT,
+  food_category_name varchar(250) NOT NULL,
+  PRIMARY KEY (food_category)
+);
+
+CREATE TABLE Item_supply_category_enum (
+  supply_category int(16) unsigned NOT NULL AUTO_INCREMENT,
+  supply_category_name varchar(250) NOT NULL,
+  PRIMARY KEY (supply_category)
+);
+
+CREATE TABLE Item_storage_type_enum (
+  storage_type int(16) unsigned NOT NULL AUTO_INCREMENT,
+  storage_type_name varchar(250) NOT NULL,
+  PRIMARY KEY (storage_type)
+);
+
 
 --  Table Constraints 
 
@@ -148,11 +172,16 @@ ALTER TABLE `Provide`
   ADD CONSTRAINT Provide_ibfk_5 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE SET NULL;
 
 ALTER TABLE `Item`
-  ADD CONSTRAINT Item_ibfk_1 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id) ON DELETE SET NULL;
-    
+  ADD CONSTRAINT Item_ibfk_1 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id) ON DELETE SET NULL,
+  ADD CONSTRAINT Item_ibfk_2 FOREIGN KEY (storage_type) REFERENCES `Item_storage_type_enum` (storage_type),
+  ADD CONSTRAINT Item_ibfk_3 FOREIGN KEY (item_type) REFERENCES `Item_type_enum` (item_type),
+  ADD CONSTRAINT Item_ibfk_4 FOREIGN KEY (food_category) REFERENCES `Item_food_category_enum` (food_category),
+  ADD CONSTRAINT Item_ibfk_5 FOREIGN KEY (supply_category) REFERENCES `Item_supply_category_enum` (supply_category);
+
 ALTER TABLE `Request`
-  ADD CONSTRAINT Request_ibfk_1 FOREIGN KEY (user_email) REFERENCES `User` (user_email),
-  ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (item_name) REFERENCES `Item` (item_name);   
+  ADD CONSTRAINT Request_ibfk_1 FOREIGN KEY (username) REFERENCES `User` (username),
+  ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (item_name) REFERENCES `Item` (item_name);
+    
 
 ALTER TABLE `Room`
   ADD CONSTRAINT Room_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE;

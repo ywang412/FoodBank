@@ -8,10 +8,7 @@ import edu.gatech.csedbs.team073.model.*;
 public interface SiteInfoDAO {
 
     public SiteInfo getSiteInfo(int id);
-    public FoodPantry getFoodPantry(int id);
-    public FoodBank getFoodBank(int id);
-    public SoupKitchen getSoupKitchen(int id);
-    public Shelter getShelter(int id);
+
 
 
 }

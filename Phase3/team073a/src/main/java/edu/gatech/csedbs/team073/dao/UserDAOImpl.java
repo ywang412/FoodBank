@@ -64,6 +64,10 @@ public class UserDAOImpl implements UserDAO {
 					rsUser.setSiteId(rs.getInt("site_id"));
 					rsUser.setFullName(rs.getString("full_name"));
 					rsUser.setUserEmail(rs.getString("user_email"));
+					rsUser.setUserName(rs.getString("username"));
+					rsUser.setPassword(rs.getString("password"));
+
+
 					//rsUser.setUserName(rsUserName);
 					 
 				}

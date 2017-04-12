@@ -7,8 +7,7 @@ package edu.gatech.csedbs.team073.service;
 
 import java.util.List;
 
-import edu.gatech.csedbs.team073.dao.SiteInfoDAO;
-import edu.gatech.csedbs.team073.dao.SiteInfoDAOImpl;
+import edu.gatech.csedbs.team073.dao.*;
 import edu.gatech.csedbs.team073.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,27 +17,51 @@ import org.springframework.stereotype.Service;
 public class SiteInfoService {
 
     private SiteInfoDAO siteInfoDAO;
+    private FoodBankDAO foodBankDAO;
+    private FoodPantryDAO foodPantryDAO;
+    private SoupKitchenDAO soupKitchenDAO;
+    private ShelterDAO shelterDAO;
 
     @Autowired
     public void setSiteInfoDAO(SiteInfoDAO siteInfoDAO) {
         this.siteInfoDAO = siteInfoDAO;
     }
 
+    @Autowired
+    public void setFoodBankDAO(FoodBankDAO foodBankDAO) {
+        this.foodBankDAO = foodBankDAO;
+    }
+
+    @Autowired
+    public void setFoodPantryDAO(FoodPantryDAO foodPantryDAO) {
+        this.foodPantryDAO = foodPantryDAO;
+    }
+
+    @Autowired
+    public void setSoupKitchenDAO(SoupKitchenDAO soupKitchenDAO) {
+        this.soupKitchenDAO = soupKitchenDAO;
+    }
+
+    @Autowired
+    public void setShelterDAO(ShelterDAO shelterDAO) {
+        this.shelterDAO = shelterDAO;
+    }
+
+
     public SiteInfo getSiteInfoDAO(int id) {
         return siteInfoDAO.getSiteInfo(101);
     }
-
     public FoodBank getFoodBankDAO(int id) {
-        return siteInfoDAO.getFoodBank(101);
+        return foodBankDAO.getFoodBank(101);
     }
     public FoodPantry getFoodPantryDAO(int id) {
-        return siteInfoDAO.getFoodPantry(101);
+        return foodPantryDAO.getFoodPantry(101);
     }
     public SoupKitchen getSoupKitchenDAO(int id) {
-        return siteInfoDAO.getSoupKitchen(101);
+        return soupKitchenDAO.getSoupKitchen(101);
     }
     public Shelter getShelterDAO(int id) {
-        return siteInfoDAO.getShelter(101);
+        return shelterDAO.getShelter(101);
     }
 
 
