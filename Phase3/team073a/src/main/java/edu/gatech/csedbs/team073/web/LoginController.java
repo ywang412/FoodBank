@@ -79,20 +79,6 @@ public class LoginController {
 
 
 
-		if (authUser == null) {
-			model = new ModelAndView("LoginForm");
-			model.addObject("user", user);
-			result.rejectValue(null,"error.invalidUserNamePassword", "Invalid userid and/or password");
-			
-		} else {
-
-			SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(authUser.getSiteId());
-			FoodBank foodBank = siteInfoService.getFoodBankDAO(authUser.getSiteId());
-			FoodPantry foodPantry = siteInfoService.getFoodPantryDAO(authUser.getSiteId());
-			SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAO(authUser.getSiteId());
-			Shelter shelter = siteInfoService.getShelterDAO(authUser.getSiteId());
-
-
 			model = new ModelAndView("UserDashboard");
 		if (authUser == null) {
 			model = new ModelAndView("LoginForm");
