@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Gradle : edu.gatech.csedbs.team073 : team073a.war">
+    <output-path>$PROJECT_DIR$/build/libs</output-path>
+    <properties id="gradle-properties">
+      <options external-project-path="$PROJECT_DIR$" />
+    </properties>
+    <root id="archive" name="team073a.war">
+      <element id="artifact" artifact-name="Gradle : edu.gatech.csedbs.team073 : team073a.war (exploded)" />
+    </root>
+  </artifact>
+</component>

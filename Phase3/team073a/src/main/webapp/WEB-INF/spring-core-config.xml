@@ -8,6 +8,7 @@
         http://www.springframework.org/schema/context 
         http://www.springframework.org/schema/context/spring-context.xsd ">
  
+
  	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
         <property name="username" value="team073app" />
@@ -16,6 +17,18 @@
 	</bean>
  
  	<bean id="userDaoImpl" class="edu.gatech.csedbs.team073.dao.UserDAOImpl">
+ 		<constructor-arg ref="dataSource" />
+ 	</bean>
+
+
+
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan
+			base-package="edu.gatech.csedbs.team073.dao">
+	</context:component-scan>
+
+
+ 	<bean id="itemDaoImpl" class="edu.gatech.csedbs.team073.dao.ItemDAOImpl">
  		<constructor-arg ref="dataSource" />
  	</bean> 
  

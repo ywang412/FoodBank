@@ -13,6 +13,11 @@ public class User {
 	private String password;
 	private String fullName;
 	private int siteId;
+
+
+	public User() {
+	}
+
 	/**
 	 * @return the userName
 	 */
