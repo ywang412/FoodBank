@@ -8,6 +8,8 @@ import edu.gatech.csedbs.team073.model.Provide;
 public interface ProvideDAO {
 
 
-    public Provide getProvideBySiteId(int site_id);
+
+
+    public Provide getProvide(int site_id);
 
 }

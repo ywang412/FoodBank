@@ -16,9 +16,9 @@ import java.sql.SQLException;
  * Created by Phil on 4/12/2017.
  */
 
-@Component("ProvideDAO")
 
-public class ProvideDAOImpl {
+@Component("ProvideDAO")
+public class ProvideDAOImpl implements ProvideDAO {
 
     private JdbcTemplate jdbcTemplate;
 
@@ -31,7 +31,9 @@ public class ProvideDAOImpl {
         this.jdbcTemplate = new JdbcTemplate(jdbc);
     }
 
-    public Provide getProvideBySiteId(int site_id) {
+
+
+    public Provide getProvide(int site_id) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("site_id", site_id);
 

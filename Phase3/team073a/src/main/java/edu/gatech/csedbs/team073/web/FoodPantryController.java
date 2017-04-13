@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import edu.gatech.csedbs.team073.dao.FoodPantryDAO;
-import edu.gatech.csedbs.team073.model.FoodPantry;
+import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,9 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.gatech.csedbs.team073.dao.UserDAO;
-import edu.gatech.csedbs.team073.model.User;
 import edu.gatech.csedbs.team073.dao.SiteDAO;
-import edu.gatech.csedbs.team073.model.Site;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,15 +45,143 @@ public class FoodPantryController {
     }
 
 
-    @RequestMapping("/FoodPantryForm")
+    @RequestMapping(value="/foodpantryform", method = RequestMethod.GET)
     public ModelAndView foodPantry(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId) {
 
-
-
+        SiteInfo siteInfo;
+        Provide provides;
+        User user;
         ModelAndView model = null;
+        int foodPantryId = 0;
+        FoodPantry foodPantry;
+        boolean userAuthorized = false;
+        boolean sitefound = false;
+        boolean foodpantryfound = false;
 
-        model = new ModelAndView("FoodPantryForm");
+        siteInfo = null;
+        provides = null;
+        foodPantry = null;
+        user = null;
 
+        if (siteId != null) {
+            //get the site that corresponds to the site id
+            siteInfo = siteInfoService.getSiteInfoDAO(siteId);
+
+            if (siteInfo != null) {
+                sitefound = true;
+                //query the provides the 'Provides' associated with the site id
+                provides = siteInfoService.getProvideDAO(siteId);
+
+                if (provides != null) {
+                    //now you have the food pantry ID - not sure what happens when this is NULL
+                    foodPantryId = provides.getFood_pantry_id();
+
+                    if (foodPantryId != 0) {
+                        foodPantry = siteInfoService.getFoodPantryDAO(foodPantryId);
+
+                        if (foodPantry != null) {
+                            foodpantryfound = true;
+                        }
+                    }
+
+                }
+            }
+        }
+
+
+
+
+        if (username != null)
+        {
+            user = siteInfoService.getUserDAO(username);
+
+            //check if this user belongs to this food pantry
+
+            //if the site exists then check if the site id matches the site id the user is associated with
+            if (siteInfo != null) {
+                if (user.getSiteId() == siteId) {
+                    userAuthorized = true;
+                }
+            }
+        }
+
+
+
+
+        if ((userAuthorized == true) && (sitefound == true)){
+
+
+            model = new ModelAndView("FoodPantryForm");
+
+
+            //add items to the view
+            model.addObject("shortName", siteInfo.getShortName());
+            model.addObject("StreetAddress", siteInfo.getStreetAddress());
+            model.addObject("City", siteInfo.getCity());
+            model.addObject("State", siteInfo.getState());
+            model.addObject("zipcode", siteInfo.getZip());
+            model.addObject("contactNumber", siteInfo.getContactNumber());
+
+            if ((foodpantryfound == true) && (foodPantry != null) ) {
+                model.addObject("descriptionString", foodPantry.getDescriptionString());
+                model.addObject("conditionsForUse", foodPantry.getConditionsForUse());
+                model.addObject("hours", foodPantry.getHours());
+
+                //ungrey out check in client button, edit, and request items
+
+                model.addObject("disabled", "false");
+
+            }
+            else {
+                model.addObject("descriptionString", "N/A");
+                model.addObject("conditionsForUse", "N/A");
+                model.addObject("hours", "N/A");
+                model.addObject("disabled", "true");
+            }
+
+        }
+        else {
+
+
+           if (sitefound == true) {
+               model = new ModelAndView("NotAuthorized");
+           }
+           else {
+               model = new ModelAndView("SiteNotFound");
+           }
+
+        }
+
+
+        return model;
+
+    }
+
+
+    //allows editing of the food pantry informational data
+
+    @RequestMapping(value="/foodpantryedit", method = RequestMethod.GET)
+    public ModelAndView FoodPantryEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="food_pantry_id") Integer foodPantryId) {
+        SiteInfo siteInfo;
+        User user;
+        ModelAndView model = null;
+        FoodPantry foodPantry;
+
+        foodPantry = siteInfoService.getFoodPantryDAO(foodPantryId);
+        siteInfo = siteInfoService.getSiteInfoDAO(siteId);
+        user = siteInfoService.getUserDAO(username);
+
+        model = new ModelAndView("FoodPantryEdit");
+
+        model.addObject("shortName", siteInfo.getShortName());
+
+        model.addObject("descriptionString", foodPantry.getDescriptionString());
+        model.addObject("conditionsForUse", foodPantry.getConditionsForUse());
+        model.addObject("hours", foodPantry.getHours());
+
+        //ungrey out check in client button, edit, and request items
+
+        model.addObject("disabled", "false");
 
 
         return model;
