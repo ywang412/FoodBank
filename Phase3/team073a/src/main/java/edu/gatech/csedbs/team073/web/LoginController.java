@@ -54,7 +54,7 @@ public class LoginController {
 
 
 
-	@RequestMapping(value="/", method = RequestMethod.GET)
+	@RequestMapping(value="/loginForm", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView model) {
 //		User user = new User();
 //		model.addObject("user", user);
