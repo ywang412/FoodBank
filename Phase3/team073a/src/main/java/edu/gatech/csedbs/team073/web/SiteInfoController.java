@@ -49,13 +49,13 @@ public class SiteInfoController {
 //    }
 
     @RequestMapping("/SiteInfo")
-    public String showSiteInfo(Model model) {
+    public String showSiteInfo(@ModelAttribute("user") User user, Model model) {
 
-        SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(101);
-        FoodBank foodBank = siteInfoService.getFoodBankDAO(101);
-        FoodPantry foodPantry = siteInfoService.getFoodPantryDAO(101);
-        SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAO(101);
-        Shelter shelter = siteInfoService.getShelterDAO(101);
+        SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(user.getSiteId());
+        FoodBank foodBank = siteInfoService.getFoodBankDAO(user.getSiteId());
+        FoodPantry foodPantry = siteInfoService.getFoodPantryDAO(user.getSiteId());
+        SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAO(user.getSiteId());
+        Shelter shelter = siteInfoService.getShelterDAO(user.getSiteId());
 
         model.addAttribute("siteInfo", siteInfo);
         model.addAttribute("foodBank", foodBank);
