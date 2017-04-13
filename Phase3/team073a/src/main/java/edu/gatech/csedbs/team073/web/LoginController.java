@@ -17,6 +17,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.gatech.csedbs.team073.dao.UserDAO;
@@ -27,6 +28,8 @@ import edu.gatech.csedbs.team073.dao.UserDAO;
  *
  */
 @Controller
+@SessionAttributes("user")
+
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -41,21 +44,28 @@ public class LoginController {
 
 	@Autowired
 	private UserDAO userDAO;
-	
-	@RequestMapping(value="/", method = RequestMethod.GET)
-	public ModelAndView login(ModelAndView model) {
+
+
+	@ModelAttribute("user")
+	public User populateUser() {
 		User user = new User();
-		model.addObject("user", user);
+		return user;
+	}
+
+
+
+	@RequestMapping(value="/loginForm", method = RequestMethod.GET)
+	public ModelAndView login(ModelAndView model) {
+//		User user = new User();
+//		model.addObject("user", user);
 		model.setViewName("LoginForm");
 		
 		return model;
 	}
-	
+
+
 	@RequestMapping(value="/login", method = RequestMethod.POST)	
-	public ModelAndView loginSubmit(@ModelAttribute User user, BindingResult result) {
-
-
-
+	public ModelAndView loginSubmit(@ModelAttribute("user") User user, BindingResult result) {
 
 		String userName = user.getUserName();
 		String password = user.getPassword();
@@ -69,6 +79,7 @@ public class LoginController {
 
 
 
+			model = new ModelAndView("UserDashboard");
 		if (authUser == null) {
 			model = new ModelAndView("LoginForm");
 			model.addObject("user", user);
