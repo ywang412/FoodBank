@@ -29,7 +29,7 @@ public class MealsRemainingController {
     private ItemDAO ItemDAO;
 
 
-    @RequestMapping(value="/MealsRemaining")
+    @RequestMapping(value="/public/MealsRemaining")
     public void MealsRemaining(Model model) {
 
         MealCount m = ItemDAO.getMealCount();
