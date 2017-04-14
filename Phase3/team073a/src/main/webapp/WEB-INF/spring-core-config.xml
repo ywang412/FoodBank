@@ -20,6 +20,14 @@
  		<constructor-arg ref="dataSource" />
  	</bean>
 
+ 	<bean id="clientDaoImpl" class="edu.gatech.csedbs.team073.dao.ClientDAOImpl">
+ 		<constructor-arg ref="dataSource" />
+ 	</bean>
+
+	<bean id="logEntryDaoImpl" class="edu.gatech.csedbs.team073.dao.LogEntryDAOImpl">
+ 		<constructor-arg ref="dataSource" />
+ 	</bean>
+
 
 
 	<context:annotation-config></context:annotation-config>
