@@ -116,7 +116,7 @@ public class UserDAOImpl implements UserDAO {
 		MapSqlParameterSource params = new MapSqlParameterSource();
 		params.addValue("username", username);
 
-		String sql = "select user.username,user.user_email, user.password, user.full_name, user.site_id FROM User  WHERE User.username=:username";
+		String sql = "select User.username,User.user_email, User.password, User.full_name, User.site_id FROM User WHERE User.username=:username";
 
 
 		return jdbc.queryForObject(sql, params, new UserMapper());

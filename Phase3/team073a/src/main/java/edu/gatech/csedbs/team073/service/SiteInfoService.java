@@ -70,12 +70,26 @@ public class SiteInfoService {
     public FoodPantry getFoodPantryDAO(int id) {
         return foodPantryDAO.getFoodPantry(id);
     }
+    public FoodPantry getFoodPantryDAObysiteID(int id) {
+        return foodPantryDAO.getFoodPantrybysiteID(id);
+    }
+
     public SoupKitchen getSoupKitchenDAO(int id) {
         return soupKitchenDAO.getSoupKitchen(id);
     }
+    public SoupKitchen getSoupKitchenDAObysiteID(int id) {
+        return soupKitchenDAO.getSoupKitchenbysiteID(id);
+    }
+
+
     public Shelter getShelterDAO(int id) {
         return shelterDAO.getShelter(id);
     }
+    public Shelter getShelterDAObysiteID(int id) {
+        return shelterDAO.getShelterbysiteID(id);
+    }
+
+
     public User getUserDAO(String username) {
         return UserDAO.getUser(username);
     }

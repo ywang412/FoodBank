@@ -26,6 +26,7 @@
           <element id="library" level="project" name="Gradle: org.slf4j:jcl-over-slf4j:1.7.5" />
           <element id="library" level="project" name="Gradle: org.slf4j:slf4j-log4j12:1.7.5" />
           <element id="library" level="project" name="Gradle: mysql:mysql-connector-java:5.1.41" />
+          <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.5" />
           <element id="library" level="project" name="Gradle: javax.servlet:com.springsource.javax.servlet.jsp.jstl:1.1.2" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-aop:4.3.7.RELEASE" />
           <element id="library" level="project" name="Gradle: org.springframework:spring-beans:4.3.7.RELEASE" />
@@ -36,7 +37,6 @@
           <element id="library" level="project" name="Gradle: org.apache.taglibs:com.springsource.org.apache.taglibs.standard:1.1.2" />
           <element id="library" level="project" name="Gradle: commons-logging:commons-logging:1.2" />
           <element id="library" level="project" name="Gradle: log4j:log4j:1.2.17" />
-          <element id="library" level="project" name="Gradle: org.apache.commons:commons-lang3:3.5" />
         </element>
       </element>
     </root>

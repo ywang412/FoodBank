@@ -44,7 +44,7 @@ public class LoginController {
 	@RequestMapping(value="/loginForm", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView model) {
 		User user = new User();
-		user.setSiteId(101);
+//		user.setSiteId(101);
 		model.addObject("user", user);
 		model.setViewName("LoginForm");
 
@@ -78,9 +78,9 @@ public class LoginController {
 
 			SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(authUser.getSiteId());
 			FoodBank foodBank = siteInfoService.getFoodBankDAO(authUser.getSiteId());
-			FoodPantry foodPantry = siteInfoService.getFoodPantryDAO(authUser.getSiteId());
-			SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAO(authUser.getSiteId());
-			Shelter shelter = siteInfoService.getShelterDAO(authUser.getSiteId());
+			FoodPantry foodPantry = siteInfoService.getFoodPantryDAObysiteID(authUser.getSiteId());
+			SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAObysiteID(authUser.getSiteId());
+			Shelter shelter = siteInfoService.getShelterDAObysiteID(authUser.getSiteId());
 
 
 			model = new ModelAndView("UserDashboard");

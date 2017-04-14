@@ -12,6 +12,8 @@ import java.util.List;
 public interface ShelterDAO {
 
     public Shelter getShelter(int id);
+    public Shelter getShelterbysiteID(int id);
+
 
     public int getShelterCount();
 

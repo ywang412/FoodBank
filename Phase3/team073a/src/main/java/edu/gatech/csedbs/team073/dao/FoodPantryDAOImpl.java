@@ -58,6 +58,32 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
                 });
     }
 
+
+
+    public FoodPantry getFoodPantrybysiteID(int id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbc.queryForObject("select Food_Pantry.food_pantry_id, Food_Pantry.description_string, Food_Pantry.hours, Food_Pantry.conditions_for_use FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Pantry on Food_Pantry.food_pantry_id=Provide.food_pantry_id WHERE Site.site_id=:id", params,
+                new RowMapper<FoodPantry>() {
+
+                    public FoodPantry mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+                        FoodPantry foodPantry = new FoodPantry();
+
+                        foodPantry.setDescriptionString(rs.getString("description_string"));
+                        foodPantry.setFoodPantryId(rs.getInt("food_pantry_id"));
+                        foodPantry.setHours(rs.getString("hours"));
+                        foodPantry.setConditionsForUse(rs.getString("conditions_for_use"));
+
+                        return foodPantry;
+                    }
+
+                });
+    }
+
+
+
     //return the total count of food pantries
     public int getFoodPantryCount() {
 
