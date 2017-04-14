@@ -1,16 +1,16 @@
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Phil
-  Date: 4/12/2017
-  Time: 10:39 PM
+  Date: 4/13/2017
+  Time: 11:50 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit Food Pantry Information</title>
+    <title>Edit Shelter Information</title>
 
     <style>
         .error {
@@ -30,8 +30,8 @@
 <body>
 
 <div align="center">
-    <h1>Edit Food Pantry Information</h1>
-    <form:form action="editFoodPantry" method="post">
+    <h1>Edit Shelter Information</h1>
+    <form:form action="editShelter" method="post">
         <table>
             <tr>
                 <td>Editing Site:</td>

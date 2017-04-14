@@ -88,4 +88,13 @@ public class SiteInfoService {
     //simple get max count of tables - would help for display
     public int foodPantryCount() {  return foodPantryDAO.getFoodPantryCount();}
     public List GetFoodPantryTable() {  return foodPantryDAO.GetFoodPantryTable();}
+
+    //simple get max count of tables - would help for display
+    public int soupKitchenCount() {  return soupKitchenDAO.getSoupKitchenCount();}
+    public List GetSoupKitchenTable() {  return soupKitchenDAO.GetSoupKitchenTable();}
+
+
+    public int shelterCount() {  return shelterDAO.getShelterCount();}
+    public List GetShelterTable() {  return shelterDAO.GetShelterTable();}
+
 }
