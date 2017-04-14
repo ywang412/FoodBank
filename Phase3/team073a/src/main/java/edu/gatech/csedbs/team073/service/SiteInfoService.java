@@ -93,4 +93,8 @@ public class SiteInfoService {
     public int soupKitchenCount() {  return soupKitchenDAO.getSoupKitchenCount();}
     public List GetSoupKitchenTable() {  return soupKitchenDAO.GetSoupKitchenTable();}
 
+
+    public int shelterCount() {  return shelterDAO.getShelterCount();}
+    public List GetShelterTable() {  return shelterDAO.GetShelterTable();}
+
 }

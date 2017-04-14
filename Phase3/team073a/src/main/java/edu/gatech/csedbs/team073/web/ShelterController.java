@@ -1,31 +1,29 @@
 package edu.gatech.csedbs.team073.web;
 
-
-import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.model.Provide;
+import edu.gatech.csedbs.team073.model.Shelter;
 import edu.gatech.csedbs.team073.model.SiteInfo;
-import edu.gatech.csedbs.team073.model.SoupKitchen;
 import edu.gatech.csedbs.team073.model.User;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
-import java.util.Map;
-import java.util.ArrayList;
 
 /**
  * Created by Phil on 4/13/2017.
  */
+
 @Controller
-public class SoupKitchenController {
-    private final Logger logger = LoggerFactory.getLogger(SoupKitchenController.class);
+public class ShelterController {
+
+    private final Logger logger = LoggerFactory.getLogger(ShelterController.class);
 
     private SiteInfoService siteInfoService;
 
@@ -35,22 +33,23 @@ public class SoupKitchenController {
     }
 
 
-    @RequestMapping(value="/soupkitchenform", method = RequestMethod.GET)
-    public ModelAndView soupKitchen(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId) {
+
+    @RequestMapping(value="/shelterform", method = RequestMethod.GET)
+    public ModelAndView ShelterView(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId) {
 
         SiteInfo siteInfo;
         Provide provides;
         User user;
         ModelAndView model = null;
-        int skitchenId = 0;
-        SoupKitchen skitchen;
+        int shelterId = 0;
+        Shelter shelter;
         boolean userAuthorized = false;
         boolean sitefound = false;
-        boolean skitchenfound = false;
+        boolean shelterfound = false;
 
         siteInfo = null;
         provides = null;
-        skitchen = null;
+        shelter = null;
         user = null;
 
         if (siteId != null) {
@@ -64,13 +63,13 @@ public class SoupKitchenController {
 
                 if (provides != null) {
                     //now you have the food pantry ID - not sure what happens when this is NULL
-                    skitchenId = provides.getSoup_kitchen_id();
+                    shelterId = provides.getShelter_id();
 
-                    if (skitchenId != 0) {
-                        skitchen = siteInfoService.getSoupKitchenDAO(skitchenId);
+                    if (shelterId != 0) {
+                        shelter = siteInfoService.getShelterDAO(shelterId);
 
-                        if (skitchen != null) {
-                            skitchenfound = true;
+                        if (shelter != null) {
+                            shelterfound = true;
                         }
                     }
 
@@ -101,7 +100,7 @@ public class SoupKitchenController {
         if ((userAuthorized == true) && (sitefound == true)){
 
 
-            model = new ModelAndView("SoupKitchenForm");
+            model = new ModelAndView("ShelterForm");
 
 
             //add items to the view
@@ -112,11 +111,14 @@ public class SoupKitchenController {
             model.addObject("zipcode", siteInfo.getZip());
             model.addObject("contactNumber", siteInfo.getContactNumber());
 
-            if ((skitchenfound == true) && (skitchen != null) ) {
-                model.addObject("descriptionString", skitchen.getDescriptionString());
-                model.addObject("conditionsForUse", skitchen.getConditionsForUse());
-                model.addObject("hours", skitchen.getHours());
-                model.addObject("available_seats", skitchen.getAvailableSeats());
+            if ((shelterfound == true) && (shelter != null) ) {
+                model.addObject("descriptionString", shelter.getDescriptionString());
+                model.addObject("conditionsForUse", shelter.getConditionsForUse());
+                model.addObject("hours", shelter.getHours());
+
+
+                model.addObject("available_bunks", shelter.getAvailableBunks());
+                model.addObject("available_rooms", shelter.getAvailableRooms());
 
                 //ungrey out check in client button, edit, and request items
 
@@ -124,7 +126,7 @@ public class SoupKitchenController {
 
                 model.addObject("username", user.getUserName());
                 model.addObject("siteId", siteId);
-                model.addObject("soup_kitchen_id", skitchenId);
+                model.addObject("shelterId", shelterId);
             }
             else {
                 model.addObject("descriptionString", "N/A");
@@ -159,26 +161,27 @@ public class SoupKitchenController {
 
     //allows editing of the food pantry informational data
 
-    @RequestMapping(value="/soupkitchenedit", method = RequestMethod.GET)
-    public ModelAndView FoodPantryEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="soup_kitchen_id") Integer SoupKitchenId) {
+    @RequestMapping(value="/shelteredit", method = RequestMethod.GET)
+    public ModelAndView ShelterEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="shelter_id") Integer ShelterId) {
         SiteInfo siteInfo;
         User user;
         ModelAndView model = null;
-        SoupKitchen skitchen;
+        Shelter shelter;
 
-        skitchen = siteInfoService.getSoupKitchenDAO(SoupKitchenId);
+        shelter = siteInfoService.getShelterDAO(ShelterId);
         siteInfo = siteInfoService.getSiteInfoDAO(siteId);
         user = siteInfoService.getUserDAO(username);
 
-        model = new ModelAndView("SoupKitchenEdit");
+        model = new ModelAndView("ShelterEdit");
 
         model.addObject("shortName", siteInfo.getShortName());
 
-        model.addObject("descriptionString", skitchen.getDescriptionString());
-        model.addObject("conditionsForUse", skitchen.getConditionsForUse());
-        model.addObject("hours", skitchen.getHours());
-        model.addObject("available_seats", skitchen.getAvailableSeats());
+        model.addObject("descriptionString", shelter.getDescriptionString());
+        model.addObject("conditionsForUse", shelter.getConditionsForUse());
+        model.addObject("hours", shelter.getHours());
 
+        model.addObject("available_rooms", shelter.getAvailableRooms());
+        model.addObject("available_bunks", shelter.getAvailableBunks());
 
         //ungrey out check in client button, edit, and request items
 
@@ -188,31 +191,31 @@ public class SoupKitchenController {
         return model;
     }
 
-    @RequestMapping(value="/soupkitchenlist", method = RequestMethod.GET)
+    @RequestMapping(value="/shelterlist", method = RequestMethod.GET)
 
-    public ModelAndView SoupKitchenList() {
+    public ModelAndView ShelterList() {
 
-        //Site site = SiteDAO.getSite(siteId);
-        List<SoupKitchen> soupkitchens;
+
+        List<Shelter> shelters;
 
         ModelAndView model = null;
 
-        model = new ModelAndView("SoupKitchenList");
+        model = new ModelAndView("ShelterList");
 
 
 
 
 
-        int skcount = siteInfoService.soupKitchenCount();
+        int sheltercount = siteInfoService.shelterCount();
 
-        model.addObject("count", skcount);
+        model.addObject("count", sheltercount);
 
-        soupkitchens = siteInfoService.GetSoupKitchenTable();
+        shelters = siteInfoService.GetShelterTable();
 
-        //model.addObject("", site);
-        model.addObject("lists", soupkitchens);
 
-        //query all of the food pantries in the food pantry list
+        model.addObject("lists", shelters);
+
+        //query all of the shelters in shelters list
 
 
 
@@ -222,4 +225,8 @@ public class SoupKitchenController {
 
 
 
+
 }
+
+
+

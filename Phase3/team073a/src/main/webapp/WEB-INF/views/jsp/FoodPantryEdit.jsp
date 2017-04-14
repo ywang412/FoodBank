@@ -30,7 +30,7 @@
 <body>
 
 <div align="center">
-    <h1>Site Details </h1>
+    <h1>Edit Food Pantry Information</h1>
     <form:form action="editFoodPantry" method="post">
         <table>
             <tr>

@@ -131,6 +131,10 @@ public class FoodPantryController {
 
                 model.addObject("disabled", "false");
 
+                model.addObject("username", user.getUserName());
+                model.addObject("siteId", siteId);
+                model.addObject("foodPantryId", foodPantryId);
+
             }
             else {
                 model.addObject("descriptionString", "N/A");
@@ -138,9 +142,7 @@ public class FoodPantryController {
                 model.addObject("hours", "N/A");
                 model.addObject("disabled", "true");
 
-                model.addObject("username", user.getUserName());
-                model.addObject("siteId", siteId);
-                model.addObject("food_pantry_id", foodPantryId);
+
 
             }
 

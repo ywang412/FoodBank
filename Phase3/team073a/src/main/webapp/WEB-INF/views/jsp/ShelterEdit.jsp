@@ -1,16 +1,16 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: Phil
   Date: 4/13/2017
-  Time: 10:20 PM
+  Time: 11:50 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Edit Soup Kitchen Information</title>
-
+    <title>Edit Shelter Information</title>
 
     <style>
         .error {
@@ -30,8 +30,8 @@
 <body>
 
 <div align="center">
-    <h1>Edit Soup Kitchen Information</h1>
-    <form:form action="EditSoupKitchen" method="post">
+    <h1>Edit Shelter Information</h1>
+    <form:form action="editShelter" method="post">
         <table>
             <tr>
                 <td>Editing Site:</td>
@@ -68,17 +68,6 @@
 
 
             </tr>
-
-            <tr>
-                <td>Available Seats:</td>
-                <td>   ${available_seats}  </td>
-                <td>Change Available Seats To:</td>
-                <td>
-                </td>
-
-
-            </tr>
-
             <tr>
 
                 <c:choose>
@@ -94,7 +83,6 @@
         </table>
     </form:form>
 </div>
-
 
 </body>
 </html>
