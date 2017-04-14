@@ -1,6 +1,3 @@
-/**
- * 
- */
 package edu.gatech.csedbs.team073.web;
 
 
@@ -28,8 +25,7 @@ import edu.gatech.csedbs.team073.dao.UserDAO;
  *
  */
 @Controller
-@SessionAttributes("user")
-
+@SessionAttributes({"user"})
 public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -45,46 +41,39 @@ public class LoginController {
 	@Autowired
 	private UserDAO userDAO;
 
-
-	@ModelAttribute("user")
-	public User populateUser() {
-		User user = new User();
-		return user;
-	}
-
-
-
 	@RequestMapping(value="/loginForm", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView model) {
-//		User user = new User();
-//		model.addObject("user", user);
+		User user = new User();
+		user.setSiteId(101);
+		model.addObject("user", user);
 		model.setViewName("LoginForm");
-		
+
 		return model;
 	}
 
-
-	@RequestMapping(value="/login", method = RequestMethod.POST)	
+	@RequestMapping(value="/login", method = RequestMethod.POST)
 	public ModelAndView loginSubmit(@ModelAttribute("user") User user, BindingResult result) {
+
+
+
 
 		String userName = user.getUserName();
 		String password = user.getPassword();
-		
+
 		ModelAndView model = null;
-		
-		
+
+
 		User authUser = userDAO.login(userName, password);
 
 
 
 
 
-			model = new ModelAndView("UserDashboard");
 		if (authUser == null) {
 			model = new ModelAndView("LoginForm");
 			model.addObject("user", user);
 			result.rejectValue(null,"error.invalidUserNamePassword", "Invalid userid and/or password");
-			
+
 		} else {
 
 			SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(authUser.getSiteId());
@@ -122,9 +111,9 @@ public class LoginController {
 
 
 		}
-		
+
 		return model;
 	}
-	
-	
+
+
 }
