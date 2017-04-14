@@ -22,6 +22,8 @@ public class SiteInfoService {
     private FoodPantryDAO foodPantryDAO;
     private SoupKitchenDAO soupKitchenDAO;
     private ShelterDAO shelterDAO;
+    private UserDAO UserDAO;
+    private ProvideDAO ProvideDAO;
 
     @Autowired
     public void setSiteInfoDAO(SiteInfoDAO siteInfoDAO) {
@@ -49,21 +51,38 @@ public class SiteInfoService {
     }
 
 
+    @Autowired
+    public void setUserDAO(UserDAO UserDAO) {
+        this.UserDAO = UserDAO;
+    }
+
+    @Autowired
+    public void setProvideDAO(ProvideDAO ProvideDAO) {
+        this.ProvideDAO = ProvideDAO;
+    }
+
     public SiteInfo getSiteInfoDAO(int id) {
-        return siteInfoDAO.getSiteInfo(101);
+        return siteInfoDAO.getSiteInfo(id);
     }
     public FoodBank getFoodBankDAO(int id) {
-        return foodBankDAO.getFoodBank(101);
+        return foodBankDAO.getFoodBank(id);
     }
     public FoodPantry getFoodPantryDAO(int id) {
-        return foodPantryDAO.getFoodPantry(101);
+        return foodPantryDAO.getFoodPantry(id);
     }
     public SoupKitchen getSoupKitchenDAO(int id) {
-        return soupKitchenDAO.getSoupKitchen(101);
+        return soupKitchenDAO.getSoupKitchen(id);
     }
     public Shelter getShelterDAO(int id) {
-        return shelterDAO.getShelter(101);
+        return shelterDAO.getShelter(id);
     }
+    public User getUserDAO(String username) {
+        return UserDAO.getUser(username);
+    }
+    public Provide getProvideDAO(int id) {
+        return ProvideDAO.getProvide(id);
+    }
+
 
 
     //simple get max count of tables - would help for display
