@@ -10,8 +10,8 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Site Details </h1>
-		<form:form action="foodpantryedit" method="post" >
+		<h1>Food Pantry</h1>
+		<form:form action="foodpantryedit" method="get" >
 		<table>
 			<tr>
 				<td>Site Name:</td>

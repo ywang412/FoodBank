@@ -40,7 +40,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 
-        return jdbc.queryForObject("select Food_Pantry.food_pantry_id, Food_Pantry.description_string, Food_Pantry.hours, Food_Pantry.conditions_for_use FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Pantry on Food_Pantry.food_pantry_id=Provide.food_pantry_id WHERE Site.site_id=:id", params,
+        return jdbc.queryForObject("select Food_Pantry.food_pantry_id, Food_Pantry.description_string, Food_Pantry.hours, Food_Pantry.conditions_for_use FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Pantry on Food_Pantry.food_pantry_id=Provide.food_pantry_id WHERE Food_Pantry.food_pantry_id=:id", params,
                 new RowMapper<FoodPantry>() {
 
                     public FoodPantry mapRow(ResultSet rs, int rowNum)
@@ -112,7 +112,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         */
 
         return fpantries;
-}
+    }
 
 
 
