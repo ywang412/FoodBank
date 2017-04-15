@@ -194,4 +194,5 @@ public class SiteInfoService {
         return roomDAO.findNextAvailableRoom(shelterId);
     }
 
+    public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
 }

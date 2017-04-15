@@ -2,6 +2,7 @@ package edu.gatech.csedbs.team073.dao;
 
 import edu.gatech.csedbs.team073.model.FoodPantry;
 import edu.gatech.csedbs.team073.model.Request;
+import edu.gatech.csedbs.team073.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -112,6 +113,15 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         }
     }
 
+    public List  GetItemTable() {
+        //here we want to to a SELECT * FROM food_pantry  table
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        //here we want to get total from food pantry table
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide NATURAL JOIN cs6400_sp17_team073.Site";
+
+        List <Item> items = jdbcTemplate.query(sql, new ItemMapper());
+        return items;
+    }
     public List  GetRequestTable() {
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
@@ -159,6 +169,21 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         jdbc.update(sql,params);
 
         return true;
+    }
+    public class ItemMapper implements RowMapper<Item> {
+        public Item mapRow(ResultSet row, int rowNum) throws SQLException {
+            Item i = new Item();
+            i.itemName=row.getString("item_name");
+            i.numberOfUnits=row.getInt("number_of_units");
+            i.storageType=row.getString("storage_type_name");
+            i.itemType=row.getString("item_type_name");
+            i.foodCategory=row.getString("food_category_name");
+            i.supplyCategory=row.getString("supply_category_name");
+            i.expirationDate=row.getString("expiration_date");
+            i.foodBank=row.getString("short_name");
+
+            return i;
+        }
     }
     public class RequestMapper implements RowMapper<Request> {
         public Request mapRow(ResultSet row, int rowNum) throws SQLException {
