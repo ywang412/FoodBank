@@ -156,4 +156,5 @@ public class SiteInfoService {
 
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
+    public List GetRequestTable() {  return foodPantryDAO.GetRequestTable();}
 }
