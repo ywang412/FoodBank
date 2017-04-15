@@ -113,7 +113,8 @@ CREATE TABLE Client (
   client_id int(16) unsigned NOT NULL AUTO_INCREMENT,
   full_name varchar(250) NOT NULL,  
   description_string varchar(250) NOT NULL,
-  head_of_household boolean,  
+  head_of_household boolean,
+  phone_number char(12),
   PRIMARY KEY (client_id)
 );
 
@@ -129,7 +130,7 @@ CREATE TABLE Log_Entry (
   log_id int(16) unsigned NOT NULL AUTO_INCREMENT,
   log_entry_string varchar(250) NOT NULL,  
   timestamp datetime NOT NULL, 
-  log_usage int(16) unsigned NOT NULL,
+  log_usage varchar(250) NOT NULL,
   client_id int(16) unsigned NOT NULL,  
   PRIMARY KEY (log_id)
 );
@@ -194,7 +195,7 @@ ALTER TABLE `Room`
       
 ALTER TABLE `Bunk`
   ADD CONSTRAINT Bunk_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE,
-  ADD CONSTRAINT Bunk_ibfk_2 FOREIGN KEY (bunk_type) REFERENCES `Bunk_type_enum` (bunk_type);;
+  ADD CONSTRAINT Bunk_ibfk_2 FOREIGN KEY (bunk_type) REFERENCES `Bunk_type_enum` (bunk_type);
         
 ALTER TABLE `Waitlist`
   ADD CONSTRAINT Waitlist_ibfk_1 FOREIGN KEY (room_number) REFERENCES `Room` (room_number),
