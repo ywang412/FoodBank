@@ -22,6 +22,7 @@ import java.util.ArrayList;
  * Created by Phil on 4/13/2017.
  */
 @Controller
+@SessionAttributes({"serviceObj"})
 public class SoupKitchenController {
     private final Logger logger = LoggerFactory.getLogger(SoupKitchenController.class);
 
@@ -46,6 +47,9 @@ public class SoupKitchenController {
         boolean sitefound = false;
         boolean skitchenfound = false;
 
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
+
+
         siteInfo = null;
         provides = null;
         skitchen = null;
@@ -69,6 +73,9 @@ public class SoupKitchenController {
 
                         if (skitchen != null) {
                             skitchenfound = true;
+                            serviceInfo.setSoup_kitchen(true);
+                            serviceInfo.setServiceId(skitchenId);
+                            serviceInfo.setDescription(skitchen.getDescriptionString());
                         }
                     }
 
@@ -134,6 +141,9 @@ public class SoupKitchenController {
 
             }
 
+            serviceInfo.setSoup_kitchen(true);
+            model.addObject("serviceObj", serviceInfo);
+
         }
         else {
 
@@ -146,6 +156,8 @@ public class SoupKitchenController {
             }
 
         }
+
+
 
 
         return model;

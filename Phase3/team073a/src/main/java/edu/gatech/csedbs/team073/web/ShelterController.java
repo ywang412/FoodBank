@@ -1,9 +1,6 @@
 package edu.gatech.csedbs.team073.web;
 
-import edu.gatech.csedbs.team073.model.Provide;
-import edu.gatech.csedbs.team073.model.Shelter;
-import edu.gatech.csedbs.team073.model.SiteInfo;
-import edu.gatech.csedbs.team073.model.User;
+import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +16,7 @@ import java.util.List;
  */
 
 @Controller
+@SessionAttributes({"serviceObj"})
 public class ShelterController {
 
     private final Logger logger = LoggerFactory.getLogger(ShelterController.class);
@@ -45,6 +43,8 @@ public class ShelterController {
         boolean sitefound = false;
         boolean shelterfound = false;
 
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
+
         siteInfo = null;
         provides = null;
         shelter = null;
@@ -68,6 +68,10 @@ public class ShelterController {
 
                         if (shelter != null) {
                             shelterfound = true;
+
+                            serviceInfo.setShelter(true);
+                            serviceInfo.setServiceId(shelterId);
+                            serviceInfo.setDescription(shelter.getDescriptionString());
                         }
                     }
 
@@ -135,6 +139,9 @@ public class ShelterController {
 
 
             }
+
+            serviceInfo.setShelter(true);
+            model.addObject("serviceObj", serviceInfo);
 
         }
         else {

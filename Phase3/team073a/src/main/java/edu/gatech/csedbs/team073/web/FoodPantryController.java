@@ -29,6 +29,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Controller
+@SessionAttributes({"serviceObj"})
+
 public class FoodPantryController {
     private final Logger logger = LoggerFactory.getLogger(FoodPantryController.class);
 
@@ -55,6 +57,8 @@ public class FoodPantryController {
         boolean sitefound = false;
         boolean foodpantryfound = false;
 
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
+
         siteInfo = null;
         provides = null;
         foodPantry = null;
@@ -78,6 +82,13 @@ public class FoodPantryController {
 
                         if (foodPantry != null) {
                             foodpantryfound = true;
+
+                            serviceInfo.setFood_pantry(true);
+                            serviceInfo.setServiceId(foodPantryId);
+                            serviceInfo.setDescription(foodPantry.getDescriptionString());
+
+
+
                         }
                     }
 
@@ -142,6 +153,9 @@ public class FoodPantryController {
 
 
             }
+
+            serviceInfo.setFood_pantry(true);
+            model.addObject("serviceObj", serviceInfo);
 
         }
         else {
