@@ -1,4 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Phil
@@ -31,7 +32,7 @@
 
 <div align="center">
     <h1>Edit Soup Kitchen Information</h1>
-    <form:form action="EditSoupKitchen" method="post">
+    <form action="/soupkitchenedit" method="post">
         <table>
             <tr>
                 <td>Editing Site:</td>
@@ -43,7 +44,7 @@
                 <td>  ${descriptionString} </td>
 
                 <td>Change Description To:</td>
-                <td>
+                <td><input type="text" name="descriptionString" />
                 </td>
 
 
@@ -53,7 +54,7 @@
                 <td>  ${conditionsForUse}  </td>
 
                 <td>Change Conditions For Use To:</td>
-                <td>
+                <td><input type="text" name="conditionsForUse" />
                 </td>
 
 
@@ -63,7 +64,7 @@
                 <td>Hours Of Operation:</td>
                 <td>   ${hours}  </td>
                 <td>Change Hours of Operation To:</td>
-                <td>
+                <td><input type="text" name="hours" />
                 </td>
 
 
@@ -73,28 +74,41 @@
                 <td>Available Seats:</td>
                 <td>   ${available_seats}  </td>
                 <td>Change Available Seats To:</td>
-                <td>
+                <td><input type="number" name="available_seats" />
                 </td>
 
 
             </tr>
 
-            <tr>
 
-                <c:choose>
-                    <c:when test="${disabled}">
-                        <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  disabled="disabled"> </td>
-                    </c:when>
-                    <c:otherwise>
-                        <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
-                    </c:otherwise>
-                </c:choose>
-
-            </tr>
         </table>
-    </form:form>
-</div>
+        <br>
+        <br>
+        <table>
+            <c:choose>
+                <c:when test="${disabled}">
+                    <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  disabled="disabled"> </td>
+                </c:when>
+                <c:otherwise>
+                    <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
+                    <input type="hidden" name="soupKitchenId" value="${soupKitchenId}">
+                    <input type="hidden" name="username" value="${username}">
+                    <input type="hidden" name="siteId" value="${siteId}">
+                </c:otherwise>
+            </c:choose>
+        </table>
 
+    </form>
+</div>
+<br>
+<br>
+<div align="center">
+    <form method="get" action="/soupkitchenform">
+        <button type="submit" align="center">Return</button>
+        <input type="hidden" name="username" value="${username}">
+        <input type="hidden" name="siteId" value="${siteId}">
+    </form>
+</div>
 
 </body>
 </html>

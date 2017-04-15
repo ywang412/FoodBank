@@ -9,9 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -187,9 +185,63 @@ public class ShelterController {
 
         model.addObject("disabled", "false");
 
+        model.addObject("username", username);
+
+        model.addObject("siteId", siteId);
+
+        model.addObject("shelterId", shelter.getShelterId());
+
+        model.addObject("shelter", new Shelter());
+
+
 
         return model;
     }
+
+
+    //post then reload with the changes
+    @PostMapping(value="/shelteredit")
+    public ModelAndView ShelterEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                        @RequestParam(value="available_bunks") Integer bunks,
+                                    @RequestParam(value="available_rooms") Integer rooms,   @ModelAttribute Shelter shelter) {
+
+        User user;
+        ModelAndView model = null;
+        Shelter newshelter = null;
+
+        model = new ModelAndView("ShelterEdit");
+
+        //push new values to the database
+        siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+
+        //query the new database entry if it took
+        newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
+
+
+        model.addObject("descriptionString", newshelter.getDescriptionString());
+        model.addObject("conditionsForUse", newshelter.getConditionsForUse());
+        model.addObject("hours", newshelter.getHours());
+        model.addObject("available_bunks", newshelter.getAvailableBunks());
+        model.addObject("available_rooms", newshelter.getAvailableRooms());
+
+        //ungrey out check in client button, edit, and request items
+
+        model.addObject("disabled", "false");
+        model.addObject("shelterId", newshelter.getShelterId());
+
+
+        //find the site that goes with this
+
+
+        model.addObject("username", username);
+
+        model.addObject("siteId", siteId);
+
+        return model;
+    }
+
+
+
 
     @RequestMapping(value="/shelterlist", method = RequestMethod.GET)
 

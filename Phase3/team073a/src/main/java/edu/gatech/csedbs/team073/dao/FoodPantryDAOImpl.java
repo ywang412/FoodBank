@@ -124,22 +124,32 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         List <FoodPantry> fpantries = jdbcTemplate.query(sql, new PantryMapper());
 
-        /*
-        List<Map> rows = jdbcTemplate.queryForList(sql);
 
-        for (Map row : rows) {
-            FoodPantry fpantry = new FoodPantry();
-            fpantry.setFoodPantryId( (int)(row.get("food_pantry_id"))  ) ;
-            fpantry.setDescriptionString( (String) row.get("description_string")  ) ;
-            fpantry.setHours( (String) row.get("hours")  ) ;
-            fpantry.setConditionsForUse( (String) row.get("conditions_for_use")  ) ;
-            fpantries.add(fpantry);
-        }
-        */
 
         return fpantries;
     }
 
+
+    public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use) {
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        //if this doesn't work or gets exceptin then it needs to return an error
+
+        String sql = "UPDATE cs6400_sp17_team073.food_pantry SET description_string = :description_string, " +
+                "hours=:hours, conditions_for_use = :conditions_for_use " +
+                "WHERE food_pantry_id=:id";
+
+
+
+        jdbc.update(sql,params);
+
+        return true;
+    }
 
 
 }

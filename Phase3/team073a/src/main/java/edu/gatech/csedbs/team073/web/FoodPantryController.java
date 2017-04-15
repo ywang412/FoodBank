@@ -20,10 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.gatech.csedbs.team073.dao.UserDAO;
@@ -167,7 +164,7 @@ public class FoodPantryController {
 
     //allows editing of the food pantry informational data
 
-    @RequestMapping(value="/foodpantryedit", method = RequestMethod.GET)
+    @GetMapping(value="/foodpantryedit")
     public ModelAndView FoodPantryEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="food_pantry_id") Integer foodPantryId) {
         SiteInfo siteInfo;
         User user;
@@ -190,9 +187,55 @@ public class FoodPantryController {
 
         model.addObject("disabled", "false");
 
+        model.addObject("username", username);
+
+        model.addObject("siteId", siteId);
+
+        model.addObject("foodPantryId", foodPantry.getFoodPantryId());
+
+        model.addObject("foodPantry", new FoodPantry());
 
         return model;
     }
+
+    //post then reload with the changes
+    @PostMapping(value="/foodpantryedit")
+    public ModelAndView FoodPantryEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                       @ModelAttribute FoodPantry foodPantry) {
+
+        User user;
+        ModelAndView model = null;
+        FoodPantry newfoodpantry = null;
+
+        model = new ModelAndView("FoodPantryEdit");
+
+        //push new values to the database
+        siteInfoService.updateFoodPantry(foodPantry.getFoodPantryId(),  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse() );
+
+        //query the new database entry if it took
+        newfoodpantry = siteInfoService.getFoodPantryDAO(foodPantry.getFoodPantryId());
+
+
+        model.addObject("descriptionString", newfoodpantry.getDescriptionString());
+        model.addObject("conditionsForUse", newfoodpantry.getConditionsForUse());
+        model.addObject("hours", newfoodpantry.getHours());
+
+        //ungrey out check in client button, edit, and request items
+
+        model.addObject("disabled", "false");
+
+        model.addObject("foodPantryId", newfoodpantry.getFoodPantryId());
+
+        //find the site that goes with this
+
+
+         model.addObject("username", username);
+
+         model.addObject("siteId", siteId);
+
+        return model;
+    }
+
 
 
     @RequestMapping(value="/foodpantrylist", method = RequestMethod.GET)

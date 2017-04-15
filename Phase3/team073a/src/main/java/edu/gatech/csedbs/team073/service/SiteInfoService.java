@@ -111,4 +111,22 @@ public class SiteInfoService {
     public int shelterCount() {  return shelterDAO.getShelterCount();}
     public List GetShelterTable() {  return shelterDAO.GetShelterTable();}
 
+
+    public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use) {
+
+        return foodPantryDAO.updateFoodPantry(id, description_string, hours, conditions_for_use);
+    }
+
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats ) {
+
+        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats);
+    }
+
+    public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks, int available_rooms) {
+
+        return shelterDAO.updateShelter(id, description_string, hours, conditions_for_use, available_bunks,available_rooms);
+    }
+
+
+
 }
