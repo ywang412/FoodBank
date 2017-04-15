@@ -10,7 +10,7 @@ public class SoupKitchen {
     private String hours;
     private String conditionsForUse;
     private int availableSeats;
-
+    private int seatLimit;
 
     public SoupKitchen() {
     }
@@ -53,5 +53,13 @@ public class SoupKitchen {
 
     public void setAvailableSeats(int availableSeats) {
         this.availableSeats = availableSeats;
+    }
+
+    public int getSeatLimit() {
+        return seatLimit;
+    }
+
+    public void setSeatLimit(int seatLimit) {
+        this.seatLimit = seatLimit;
     }
 }

@@ -1,5 +1,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
 <%--
   Created by IntelliJ IDEA.
   User: Phil
@@ -46,6 +48,10 @@
                 <td>Available Seats:</td>
                 <td>   ${available_seats}  </td>
             </tr>
+            <tr>
+                <td>Total Seats:</td>
+                <td>   ${seats_limit}  </td>
+            </tr>
             <tr align="center">
 
                 <c:choose>
@@ -79,18 +85,42 @@
         <c:when test="${disabled}">
             <b align="center">Not Applicable</b>
         </c:when>
+        <c:when test="${not_available}">
+            <b align="center">No Seats Available!</b>
+
+        </c:when>
         <c:otherwise>
 
-            <form method="get" action="/ClientSearchForm" align="center">
+            <form method="post" action="/soupkitchenform" align="center">
                 <button type="submit" align="center">Check In Client</button>
                 <input type="hidden" name="username" value="${username}">
                 <input type="hidden" name="siteId" value="${siteId}">
                 <input type="hidden" name="soup_kitchen_id" value="${soup_kitchen_id}">
-
             </form>
         </c:otherwise>
     </c:choose>
 
+    <br>
+
+    <c:choose>
+        <c:when test="${disabled}">
+            <b align="center">Not Applicable</b>
+        </c:when>
+        <c:when test="${not_release}">
+            <b align="center">All Seats Unoccupied.</b>
+
+        </c:when>
+
+        <c:otherwise>
+
+            <form method="post" action="/soupkitchenrelease" align="center">
+                <button type="submit" align="center">Release Seat</button>
+                <input type="hidden" name="username" value="${username}">
+                <input type="hidden" name="siteId" value="${siteId}">
+                <input type="hidden" name="soup_kitchen_id" value="${soup_kitchen_id}">
+            </form>
+        </c:otherwise>
+    </c:choose>
 
 
 </div>
@@ -104,6 +134,7 @@
             <b align="center">Not Applicable</b>
 
         </c:when>
+
         <c:otherwise>
 
             <form method="post" action="/requestitems">

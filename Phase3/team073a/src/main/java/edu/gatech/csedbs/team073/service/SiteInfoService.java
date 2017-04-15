@@ -117,9 +117,9 @@ public class SiteInfoService {
         return foodPantryDAO.updateFoodPantry(id, description_string, hours, conditions_for_use);
     }
 
-    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats ) {
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit ) {
 
-        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats);
+        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats, seats_limit);
     }
 
     public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks, int available_rooms) {
@@ -128,5 +128,8 @@ public class SiteInfoService {
     }
 
 
+    public boolean decrementSoupKitchenSeats(int id)  {return soupKitchenDAO.decrementSoupKitchenSeats(id);}
+
+    public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
 }

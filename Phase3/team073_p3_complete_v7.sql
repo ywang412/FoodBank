@@ -195,7 +195,7 @@ ALTER TABLE `Room`
       
 ALTER TABLE `Bunk`
   ADD CONSTRAINT Bunk_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE,
-  ADD CONSTRAINT Bunk_ibfk_2 FOREIGN KEY (bunk_type) REFERENCES `Bunk_type_enum` (bunk_type);;
+  ADD CONSTRAINT Bunk_ibfk_2 FOREIGN KEY (bunk_type) REFERENCES `Bunk_type_enum` (bunk_type);
         
 ALTER TABLE `Waitlist`
   ADD CONSTRAINT Waitlist_ibfk_1 FOREIGN KEY (room_number) REFERENCES `Room` (room_number),
