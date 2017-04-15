@@ -52,9 +52,9 @@ public class SiteInfoController {
 
         SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(user.getSiteId());
         FoodBank foodBank = siteInfoService.getFoodBankDAO(user.getSiteId());
-        FoodPantry foodPantry = siteInfoService.getFoodPantryDAO(user.getSiteId());
-        SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAO(user.getSiteId());
-        Shelter shelter = siteInfoService.getShelterDAO(user.getSiteId());
+        FoodPantry foodPantry = siteInfoService.getFoodPantryDAObysiteID(user.getSiteId());
+        SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAObysiteID(user.getSiteId());
+        Shelter shelter = siteInfoService.getShelterDAObysiteID(user.getSiteId());
 
         model.addAttribute("siteInfo", siteInfo);
         model.addAttribute("foodBank", foodBank);

@@ -13,7 +13,12 @@ public interface FoodPantryDAO {
 
     public FoodPantry getFoodPantry(int id);
 
+    public FoodPantry getFoodPantrybysiteID(int id);
+
     public int getFoodPantryCount();
 
     public List GetFoodPantryTable();
+
+
+    public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use);
 }

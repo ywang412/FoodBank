@@ -12,9 +12,14 @@ import java.util.List;
 public interface ShelterDAO {
 
     public Shelter getShelter(int id);
+    public Shelter getShelterbysiteID(int id);
+
 
     public int getShelterCount();
 
     public List GetShelterTable();
 
-}
+    public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms);
+
+
+ }

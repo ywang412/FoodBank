@@ -56,6 +56,31 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
 
 
+    public SoupKitchen getSoupKitchenbysiteID(int id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbc.queryForObject("\n" +
+                        "SELECT Soup_Kitchen.soup_kitchen_id, Soup_Kitchen.description_string, Soup_Kitchen.hours, Soup_Kitchen.conditions_for_use, Soup_Kitchen.available_seats FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Soup_Kitchen on Soup_Kitchen.soup_kitchen_id=Provide.soup_kitchen_id WHERE Site.site_id=:id", params,
+                new RowMapper<SoupKitchen>() {
+
+                    public SoupKitchen mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+                        SoupKitchen soupKitchen = new SoupKitchen();
+
+                        soupKitchen.setDescriptionString(rs.getString("description_string"));
+                        soupKitchen.setSoupKitchenId(rs.getInt("soup_kitchen_id"));
+                        soupKitchen.setHours(rs.getString("hours"));
+                        soupKitchen.setConditionsForUse(rs.getString("conditions_for_use"));
+                        soupKitchen.setAvailableSeats(rs.getInt("available_seats"));
+
+                        return soupKitchen;
+                    }
+
+                });
+    }
+
+
     //return the total count of food pantries
     public int getSoupKitchenCount() {
 
@@ -96,20 +121,32 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
         List<SoupKitchen> skitchens = jdbcTemplate.query(sql, new SkitchenMapper());
 
-        /*
-        List<Map> rows = jdbcTemplate.queryForList(sql);
 
-        for (Map row : rows) {
-            FoodPantry fpantry = new FoodPantry();
-            fpantry.setFoodPantryId( (int)(row.get("food_pantry_id"))  ) ;
-            fpantry.setDescriptionString( (String) row.get("description_string")  ) ;
-            fpantry.setHours( (String) row.get("hours")  ) ;
-            fpantry.setConditionsForUse( (String) row.get("conditions_for_use")  ) ;
-            fpantries.add(fpantry);
-        }
-        */
 
         return skitchens;
+    }
+
+
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats) {
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        params.addValue("available_seats", available_seats);
+        //if this doesn't work or gets exceptin then it needs to return an error
+
+        String sql = "UPDATE cs6400_sp17_team073.soup_kitchen SET description_string = :description_string, " +
+                "hours=:hours, conditions_for_use = :conditions_for_use, available_seats = :available_seats " +
+                "WHERE soup_kitchen_id=:id";
+
+
+
+        jdbc.update(sql,params);
+
+        return true;
     }
 
 

@@ -11,8 +11,10 @@ public interface SoupKitchenDAO {
 
     public int getSoupKitchenCount();
     public SoupKitchen getSoupKitchen(int id);
+    public SoupKitchen getSoupKitchenbysiteID(int id);
 
     public List GetSoupKitchenTable();
 
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats);
 }
 

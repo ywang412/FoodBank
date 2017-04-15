@@ -135,8 +135,8 @@ public class ClientDAOImpl implements ClientDAO {
 	 * @see edu.gatech.csedbs.team073.dao.ClientDAO#addClient(Client inClient)
 	 */
 	@Override
-	public Client addClient(Client inClient) {
-		String sql = "INSERT INTO cs6400_sp17_team073.Client" +
+	public Client addClient(final Client inClient) {
+		final String sql = "INSERT INTO cs6400_sp17_team073.Client" +
 				 "(full_name, description_string, head_of_household, phone_number) "+
 				 "values(?,?,?,?)";
 		

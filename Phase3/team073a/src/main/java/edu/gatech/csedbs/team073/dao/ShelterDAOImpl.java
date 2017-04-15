@@ -61,6 +61,31 @@ public class ShelterDAOImpl implements ShelterDAO {
 
 
 
+    public Shelter getShelterbysiteID(int id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+
+        return jdbc.queryForObject("SELECT Shelter.shelter_id, Shelter.description_string, Shelter.hours, Shelter.conditions_for_use, Shelter.available_bunks, Shelter.available_rooms FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Shelter on Shelter.shelter_id=Provide.shelter_id WHERE Site.site_id=:id", params,
+                new RowMapper<Shelter>() {
+
+                    public Shelter mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+                        Shelter shelter = new Shelter();
+
+                        shelter.setConditionsForUse(rs.getString("conditions_for_use"));
+                        shelter.setHours(rs.getString("hours"));
+                        shelter.setDescriptionString(rs.getString("description_string"));
+                        shelter.setAvailableBunks(rs.getInt("available_bunks"));
+                        shelter.setAvailableRooms(rs.getInt("available_rooms"));
+                        shelter.setShelterId(rs.getInt("shelter_id"));
+
+
+                        return shelter;
+                    }
+
+                });
+    }
+
     //return the total count of food pantries
     public int getShelterCount() {
 
@@ -106,6 +131,27 @@ public class ShelterDAOImpl implements ShelterDAO {
     }
 
 
+    public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms) {
 
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        params.addValue("available_bunks", available_bunks);
+        params.addValue("available_rooms", available_rooms);
+        //if this doesn't work or gets exceptin then it needs to return an error
+
+        String sql = "UPDATE cs6400_sp17_team073.shelter SET description_string = :description_string, " +
+                "hours=:hours, conditions_for_use = :conditions_for_use, available_bunks = :available_bunks, available_rooms = :available_rooms " +
+                "WHERE shelter_id=:id";
+
+
+
+        jdbc.update(sql,params);
+
+        return true;
+    }
 
 }

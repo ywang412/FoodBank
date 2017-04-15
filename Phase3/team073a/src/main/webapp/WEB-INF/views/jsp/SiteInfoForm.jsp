@@ -10,6 +10,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,9 +67,9 @@
 
             </tr>
 
-
-
-
+            <td><a href="<c:url value='/foodpantryform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to FoodPantry</a></td>
+            <td><a href="<c:url value='/soupkitchenform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to Soup Kitchen</a></td>
+            <td><a href="<c:url value='/shelterform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to Shelter</a></td>
 
             <tr>
                 <td colspan="2" align="center"><input type="submit" value="Return to User Dashboard"></td>
