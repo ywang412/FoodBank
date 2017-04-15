@@ -24,6 +24,12 @@ public class SiteInfoService {
     private ShelterDAO shelterDAO;
     private UserDAO UserDAO;
     private ProvideDAO ProvideDAO;
+    private RoomBunkCountDAO roomBunkCountDAO;
+
+    @Autowired
+    public void setRoomBunkCountDAO(RoomBunkCountDAO roomBunkCountDAO) {
+        this.roomBunkCountDAO = roomBunkCountDAO;
+    }
 
     @Autowired
     public void setSiteInfoDAO(SiteInfoDAO siteInfoDAO) {
@@ -61,12 +67,17 @@ public class SiteInfoService {
         this.ProvideDAO = ProvideDAO;
     }
 
+
+
+
     public SiteInfo getSiteInfoDAO(int id) {
         return siteInfoDAO.getSiteInfo(id);
     }
+
     public FoodBank getFoodBankDAO(int id) {
         return foodBankDAO.getFoodBank(id);
     }
+
     public FoodPantry getFoodPantryDAO(int id) {
         return foodPantryDAO.getFoodPantry(id);
     }
@@ -111,15 +122,28 @@ public class SiteInfoService {
     public int shelterCount() {  return shelterDAO.getShelterCount();}
     public List GetShelterTable() {  return shelterDAO.GetShelterTable();}
 
+    public List<SiteInfo> getAllSiteInfoDAO() {return siteInfoDAO.getAllSiteInfo();
+    }
+
+    public RoomBunkCount getBunkCountMalebySite(int id){return roomBunkCountDAO.getAvailableBunk_Male(id);
+    }
+
+    public RoomBunkCount getBunkCountFemalebySite(int id){return roomBunkCountDAO.getAvailableBunk_Female(id);
+    }
+    public RoomBunkCount getBunkCountMixedbySite(int id){return roomBunkCountDAO.getAvailableBunk_Mixed(id);
+    }
+    public RoomBunkCount getRoomCountbySite(int id){return roomBunkCountDAO.getAvailableRoom(id);
+    }
+
 
     public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use) {
 
         return foodPantryDAO.updateFoodPantry(id, description_string, hours, conditions_for_use);
     }
 
-    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats ) {
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit ) {
 
-        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats);
+        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats, seats_limit);
     }
 
     public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks, int available_rooms) {
@@ -128,5 +152,8 @@ public class SiteInfoService {
     }
 
 
+    public boolean decrementSoupKitchenSeats(int id)  {return soupKitchenDAO.decrementSoupKitchenSeats(id);}
+
+    public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
 }

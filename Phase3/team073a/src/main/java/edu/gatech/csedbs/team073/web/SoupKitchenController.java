@@ -34,7 +34,35 @@ public class SoupKitchenController {
     }
 
 
-    @RequestMapping(value="/soupkitchenform", method = RequestMethod.GET)
+    @RequestMapping(value="/soupkitchenrelease", method = RequestMethod.POST)
+    public String soupKitchenRelease(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="soup_kitchen_id") Integer soupkitchenId) {
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
+        SoupKitchen skitchen = siteInfoService.getSoupKitchenDAO(soupkitchenId);
+
+        //decrement the available seats
+        Boolean success = siteInfoService.incrementSoupKitchenSeats(soupkitchenId);
+
+        //this will go to a new view
+        // POST/REDIRECT/GET
+        String redirect = "redirect:/soupkitchenform?username=" + username + "&siteId=" + siteId;
+        return redirect;
+    }
+
+
+    @RequestMapping(value="/soupkitchenform", method = RequestMethod.POST)
+    public String soupKitchen(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="soup_kitchen_id") Integer soupkitchenId) {
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
+        SoupKitchen skitchen = siteInfoService.getSoupKitchenDAO(soupkitchenId);
+
+        //decrement the available seats
+        Boolean success = siteInfoService.decrementSoupKitchenSeats(soupkitchenId);
+
+        //this will go to a new view
+        // POST/REDIRECT/GET
+        return "redirect:/ClientSearchForm";
+    }
+
+     @RequestMapping(value="/soupkitchenform", method = RequestMethod.GET)
     public ModelAndView soupKitchen(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId) {
 
         SiteInfo siteInfo;
@@ -122,6 +150,7 @@ public class SoupKitchenController {
                 model.addObject("conditionsForUse", skitchen.getConditionsForUse());
                 model.addObject("hours", skitchen.getHours());
                 model.addObject("available_seats", skitchen.getAvailableSeats());
+                model.addObject("seats_limit", skitchen.getSeatLimit());
 
                 //ungrey out check in client button, edit, and request items
 
@@ -130,6 +159,14 @@ public class SoupKitchenController {
                 model.addObject("username", user.getUserName());
                 model.addObject("siteId", siteId);
                 model.addObject("soup_kitchen_id", skitchenId);
+
+
+
+                if (skitchen.getAvailableSeats() < 1)  {
+
+                    model.addObject("not_available", "true");
+                }
+
             }
             else {
                 model.addObject("descriptionString", "N/A");
@@ -188,7 +225,7 @@ public class SoupKitchenController {
         model.addObject("conditionsForUse", skitchen.getConditionsForUse());
         model.addObject("hours", skitchen.getHours());
         model.addObject("available_seats", skitchen.getAvailableSeats());
-
+        model.addObject("seats_limit", skitchen.getSeatLimit());
 
         //ungrey out check in client button, edit, and request items
 
@@ -208,7 +245,7 @@ public class SoupKitchenController {
     //post then reload with the changes
     @PostMapping(value="/soupkitchenedit")
     public ModelAndView SoupKitchenEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
-                                        @RequestParam(value="available_seats") Integer seats,   @ModelAttribute SoupKitchen soupKitchen) {
+                                        @RequestParam(value="available_seats") Integer seats,  @RequestParam(value="seats_limit") Integer seats_limit, @ModelAttribute SoupKitchen soupKitchen) {
 
         User user;
         ModelAndView model = null;
@@ -217,7 +254,7 @@ public class SoupKitchenController {
         model = new ModelAndView("SoupKitchenEdit");
 
         //push new values to the database
-        siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats);
+        siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
 
         //query the new database entry if it took
         newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
@@ -227,7 +264,7 @@ public class SoupKitchenController {
         model.addObject("conditionsForUse", newsoupkitchen.getConditionsForUse());
         model.addObject("hours", newsoupkitchen.getHours());
         model.addObject("available_seats", newsoupkitchen.getAvailableSeats());
-
+        model.addObject("seats_limit", newsoupkitchen.getSeatLimit());
         //ungrey out check in client button, edit, and request items
 
         model.addObject("disabled", "false");

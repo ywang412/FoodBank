@@ -17,7 +17,7 @@
 
     <h2>Count is: ${count}</h2>
 
-    <table>
+    <table border="1">
         <c:forEach items="${lists}" var="soupkitchen">
             <tr>
                 <td>${soupkitchen.soupKitchenId}</td>
