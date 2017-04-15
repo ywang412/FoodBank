@@ -8,6 +8,7 @@ public class Room {
 
     private int roomNumber;
     private int shelterId;
+    private int clientId;
 
     public Room() {
     }
@@ -26,5 +27,14 @@ public class Room {
 
     public void setShelterId(int shelterId) {
         this.shelterId = shelterId;
+    }
+
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
     }
 }

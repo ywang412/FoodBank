@@ -86,7 +86,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.soup_kitchen";
+        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Soup_kitchen";
 
         Integer skcount = jdbc.queryForObject(sql,params,Integer.class);
 
@@ -117,7 +117,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.soup_kitchen";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Soup_kitchen";
 
         List<SoupKitchen> skitchens = jdbcTemplate.query(sql, new SkitchenMapper());
 
@@ -139,7 +139,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         params.addValue("seats_limit", seats_limit);
         //if this doesn't work or gets exceptin then it needs to return an error
 
-        String sql = "UPDATE cs6400_sp17_team073.soup_kitchen SET description_string = :description_string, " +
+        String sql = "UPDATE cs6400_sp17_team073.Soup_kitchen SET description_string = :description_string, " +
                 "hours=:hours, conditions_for_use = :conditions_for_use, available_seats = :available_seats , seats_limit = :seats_limit" +
                 " WHERE soup_kitchen_id=:id";
 
@@ -166,7 +166,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
         params.addValue("available_seats", available_seats);
         //now update that number but subtracted by 1
-        String sql2 = "UPDATE cs6400_sp17_team073.soup_kitchen SET " +
+        String sql2 = "UPDATE cs6400_sp17_team073.Soup_kitchen SET " +
                 "available_seats = :available_seats " +
                 "WHERE soup_kitchen_id=:id";
 
@@ -202,7 +202,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
         params.addValue("available_seats", available_seats);
         //now update that number but subtracted by 1
-        String sql2 = "UPDATE cs6400_sp17_team073.soup_kitchen SET " +
+        String sql2 = "UPDATE cs6400_sp17_team073.Soup_kitchen SET " +
                 "available_seats = :available_seats " +
                 "WHERE soup_kitchen_id=:id";
 

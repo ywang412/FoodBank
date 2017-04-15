@@ -89,7 +89,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.food_pantry";
+        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Food_pantry";
 
         Integer fcount = jdbc.queryForObject(sql,params,Integer.class);
 
@@ -120,7 +120,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.food_pantry";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Food_pantry";
 
         List <FoodPantry> fpantries = jdbcTemplate.query(sql, new PantryMapper());
 
@@ -140,7 +140,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         params.addValue("conditions_for_use", conditions_for_use);
         //if this doesn't work or gets exceptin then it needs to return an error
 
-        String sql = "UPDATE cs6400_sp17_team073.food_pantry SET description_string = :description_string, " +
+        String sql = "UPDATE cs6400_sp17_team073.Food_pantry SET description_string = :description_string, " +
                 "hours=:hours, conditions_for_use = :conditions_for_use " +
                 "WHERE food_pantry_id=:id";
 

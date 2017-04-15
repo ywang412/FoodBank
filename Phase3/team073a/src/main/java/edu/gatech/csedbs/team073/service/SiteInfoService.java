@@ -26,6 +26,9 @@ public class SiteInfoService {
     private ProvideDAO ProvideDAO;
     private RoomBunkCountDAO roomBunkCountDAO;
 
+    private RoomDAO roomDAO;
+    private BunkDAO bunkDAO;
+
     @Autowired
     public void setRoomBunkCountDAO(RoomBunkCountDAO roomBunkCountDAO) {
         this.roomBunkCountDAO = roomBunkCountDAO;
@@ -67,6 +70,15 @@ public class SiteInfoService {
         this.ProvideDAO = ProvideDAO;
     }
 
+    @Autowired
+    public void setRoomDAO(RoomDAO RoomDAO) {
+        this.roomDAO = RoomDAO;
+    }
+
+    @Autowired
+    public void setBunkDAO(BunkDAO BunkDAO) {
+        this.bunkDAO = BunkDAO;
+    }
 
 
 
@@ -155,5 +167,30 @@ public class SiteInfoService {
     public boolean decrementSoupKitchenSeats(int id)  {return soupKitchenDAO.decrementSoupKitchenSeats(id);}
 
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
+
+
+    public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
+
+        return bunkDAO.getBunkCountByShelterIdAndTypeAndOccupancy(shelterId,type,occupied);
+    }
+
+    public int   getRoomCountByShelterIdAndOccupancy(int shelterId, boolean occupied) {
+
+        return roomDAO.getRoomCountByShelterIdAndOccupancy(shelterId,occupied);
+    }
+
+    public Integer claimNextAvailableBunk(int shelterId, int bunkType) {
+
+        return bunkDAO.claimNextAvailableBunk(shelterId,bunkType);
+    }
+
+    public Integer releaseBunk(int shelterId, int bunkType) {
+
+        return bunkDAO.releaseBunk(shelterId,bunkType);
+    }
+
+    public Integer findNextAvailableRoom(int shelterId) {
+        return roomDAO.findNextAvailableRoom(shelterId);
+    }
 
 }

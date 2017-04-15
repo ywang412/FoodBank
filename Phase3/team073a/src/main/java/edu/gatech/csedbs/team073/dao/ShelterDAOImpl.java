@@ -91,7 +91,7 @@ public class ShelterDAOImpl implements ShelterDAO {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.shelter";
+        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Shelter";
 
         Integer sheltercount = jdbc.queryForObject(sql,params,Integer.class);
 
@@ -123,7 +123,7 @@ public class ShelterDAOImpl implements ShelterDAO {
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.shelter";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Shelter";
 
         List<Shelter> shelters = jdbcTemplate.query(sql, new ShelterMapper());
 
@@ -143,7 +143,7 @@ public class ShelterDAOImpl implements ShelterDAO {
         params.addValue("available_rooms", available_rooms);
         //if this doesn't work or gets exceptin then it needs to return an error
 
-        String sql = "UPDATE cs6400_sp17_team073.shelter SET description_string = :description_string, " +
+        String sql = "UPDATE cs6400_sp17_team073.Shelter SET description_string = :description_string, " +
                 "hours=:hours, conditions_for_use = :conditions_for_use, available_bunks = :available_bunks, available_rooms = :available_rooms " +
                 "WHERE shelter_id=:id";
 
