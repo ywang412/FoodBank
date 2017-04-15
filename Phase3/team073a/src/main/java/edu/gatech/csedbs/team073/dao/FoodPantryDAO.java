@@ -10,7 +10,6 @@ import java.util.List;
  */
 public interface FoodPantryDAO {
 
-
     public FoodPantry getFoodPantry(int id);
 
     public FoodPantry getFoodPantrybysiteID(int id);
