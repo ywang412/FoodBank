@@ -1,6 +1,7 @@
 package edu.gatech.csedbs.team073.dao;
 
 import edu.gatech.csedbs.team073.model.FoodPantry;
+import edu.gatech.csedbs.team073.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -111,6 +112,15 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         }
     }
 
+    public List  GetRequestTable() {
+        //here we want to to a SELECT * FROM food_pantry  table
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        //here we want to get total from food pantry table
+        String sql = "SELECT * FROM cs6400_sp17_team073.Request NATURAL JOIN cs6400_sp17_team073.Request_status_enum";
+
+        List <Request> requests = jdbcTemplate.query(sql, new RequestMapper());
+        return requests;
+    }
     //return all food pantry objects in an array
     public List  GetFoodPantryTable() {
 
@@ -150,6 +160,20 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         return true;
     }
+    public class RequestMapper implements RowMapper<Request> {
+        public Request mapRow(ResultSet row, int rowNum) throws SQLException {
+            Request r = new Request();
+            r.username=row.getString("username");
+            r.item_name=row.getString("item_name");
+            r.request_date=row.getString("request_date");
+            r.request_status=row.getString("request_status_name");
+            r.units_requested=row.getInt("units_requested");
+            r.units_fulfilled=row.getInt("units_fulfilled");
+
+            return r;
+        }
+    }
+
 
 
 }

@@ -168,6 +168,7 @@ public class SiteInfoService {
 
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
+    public List GetRequestTable() {  return foodPantryDAO.GetRequestTable();}
 
     public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
 

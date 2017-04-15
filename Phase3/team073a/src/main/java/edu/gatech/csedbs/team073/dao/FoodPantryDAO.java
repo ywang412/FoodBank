@@ -18,6 +18,7 @@ public interface FoodPantryDAO {
 
     public List GetFoodPantryTable();
 
+    public List GetRequestTable();
 
     public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use);
 }
