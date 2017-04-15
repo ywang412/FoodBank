@@ -2,6 +2,7 @@ package edu.gatech.csedbs.team073.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.sql.DataSource;
 
@@ -56,6 +57,28 @@ public class SiteInfoDAOImpl implements SiteInfoDAO {
     }
 
 
+    public List<SiteInfo> getAllSiteInfo() {
+
+
+            return jdbc.query("select * from Site", new RowMapper<SiteInfo>() {
+
+                public SiteInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+                    SiteInfo siteInfo = new SiteInfo();
+
+                    siteInfo.setCity(rs.getString("site_id"));
+                    siteInfo.setContactNumber(rs.getString("contact_number"));
+                    siteInfo.setFullName(rs.getString("full_name"));
+                    siteInfo.setShortName(rs.getString("short_name"));
+                    siteInfo.setState(rs.getString("state"));
+                    siteInfo.setZip(rs.getInt("zip"));
+                    siteInfo.setStreetAddress(rs.getString("street_address"));
+                    siteInfo.setSiteId(rs.getInt("site_id"));
+
+                    return siteInfo;
+                }
+
+            });
+        }
 
 
 }
