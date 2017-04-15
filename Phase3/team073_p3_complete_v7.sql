@@ -82,7 +82,6 @@ CREATE TABLE Soup_Kitchen (
   hours varchar(50) NOT NULL,
   conditions_for_use varchar(250) NOT NULL,
   available_seats int(16),  
-  total_seats int(16),  
   PRIMARY KEY (soup_kitchen_id)
 );
 
@@ -268,8 +267,8 @@ INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_
 INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry1', '6:00 pm - 10:00 pm','Non-violent');
 INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry2', '6:00 pm - 10:00 pm','Non-violent');
 --  o 2 Soup Kitchens (hours of operation, conditions, seats_avail) use short names: ('soup3', etc.)
-INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats, total_seats) VALUES('soup2', '5:00 pm - 8:00 pm', 'Sober', 10,10);
-INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats, total_seats) VALUES('soup3', '5:00 pm - 8:00 pm', 'Sober', 10,10);
+INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats) VALUES('soup2', '5:00 pm - 8:00 pm', 'Sober', 10);
+INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats) VALUES('soup3', '5:00 pm - 8:00 pm', 'Sober', 10);
 --  o 2 Shelters (hours of operation, conditions) use short names: ('shelter2', 'shelter3', etc.)
 INSERT INTO `cs6400_sp17_team073`.`Shelter` (description_string, hours, conditions_for_use, available_bunks, available_rooms) VALUES('shelter2','9:00 pm - 8:00 am', 'female or under 18', 12, 10);
 INSERT INTO `cs6400_sp17_team073`.`Shelter` (description_string, hours, conditions_for_use, available_bunks, available_rooms) VALUES('shelter3','9:00 pm - 8:00 am', 'female or under 18', 12, 10);
