@@ -99,6 +99,7 @@ CREATE TABLE Shelter (
 CREATE TABLE Room (
   room_number int(16) unsigned NOT NULL AUTO_INCREMENT,
   shelter_id int(16) unsigned NOT NULL,
+  client_id int(16) unsigned,
   PRIMARY KEY (room_number,shelter_id)
 );
 
@@ -192,8 +193,9 @@ ALTER TABLE `Request`
     
 
 ALTER TABLE `Room`
-  ADD CONSTRAINT Room_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE;
-      
+  ADD CONSTRAINT Room_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE,
+  ADD CONSTRAINT Room_ibfk_2 FOREIGN KEY (client_id) REFERENCES `Client` (client_id) ON DELETE CASCADE;
+
 ALTER TABLE `Bunk`
   ADD CONSTRAINT Bunk_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE,
   ADD CONSTRAINT Bunk_ibfk_2 FOREIGN KEY (bunk_type) REFERENCES `Bunk_type_enum` (bunk_type);
