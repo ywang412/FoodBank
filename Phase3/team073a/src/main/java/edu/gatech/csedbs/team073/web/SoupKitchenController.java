@@ -10,9 +10,7 @@ import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -24,6 +22,7 @@ import java.util.ArrayList;
  * Created by Phil on 4/13/2017.
  */
 @Controller
+@SessionAttributes({"serviceObj"})
 public class SoupKitchenController {
     private final Logger logger = LoggerFactory.getLogger(SoupKitchenController.class);
 
@@ -48,6 +47,9 @@ public class SoupKitchenController {
         boolean sitefound = false;
         boolean skitchenfound = false;
 
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
+
+
         siteInfo = null;
         provides = null;
         skitchen = null;
@@ -71,6 +73,9 @@ public class SoupKitchenController {
 
                         if (skitchen != null) {
                             skitchenfound = true;
+                            serviceInfo.setSoup_kitchen(true);
+                            serviceInfo.setServiceId(skitchenId);
+                            serviceInfo.setDescription(skitchen.getDescriptionString());
                         }
                     }
 
@@ -136,6 +141,9 @@ public class SoupKitchenController {
 
             }
 
+            serviceInfo.setSoup_kitchen(true);
+            model.addObject("serviceObj", serviceInfo);
+
         }
         else {
 
@@ -150,6 +158,8 @@ public class SoupKitchenController {
         }
 
 
+
+
         return model;
 
     }
@@ -160,7 +170,7 @@ public class SoupKitchenController {
     //allows editing of the food pantry informational data
 
     @RequestMapping(value="/soupkitchenedit", method = RequestMethod.GET)
-    public ModelAndView FoodPantryEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="soup_kitchen_id") Integer SoupKitchenId) {
+    public ModelAndView SoupKitchenEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="soup_kitchen_id") Integer SoupKitchenId) {
         SiteInfo siteInfo;
         User user;
         ModelAndView model = null;
@@ -184,9 +194,61 @@ public class SoupKitchenController {
 
         model.addObject("disabled", "false");
 
+        model.addObject("username", username);
+
+        model.addObject("siteId", siteId);
+
+        model.addObject("soupKitchenId", skitchen.getSoupKitchenId());
+
+        model.addObject("soupKitchen", new SoupKitchen());
 
         return model;
     }
+
+    //post then reload with the changes
+    @PostMapping(value="/soupkitchenedit")
+    public ModelAndView SoupKitchenEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                        @RequestParam(value="available_seats") Integer seats,   @ModelAttribute SoupKitchen soupKitchen) {
+
+        User user;
+        ModelAndView model = null;
+        SoupKitchen newsoupkitchen = null;
+
+        model = new ModelAndView("SoupKitchenEdit");
+
+        //push new values to the database
+        siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats);
+
+        //query the new database entry if it took
+        newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
+
+
+        model.addObject("descriptionString", newsoupkitchen.getDescriptionString());
+        model.addObject("conditionsForUse", newsoupkitchen.getConditionsForUse());
+        model.addObject("hours", newsoupkitchen.getHours());
+        model.addObject("available_seats", newsoupkitchen.getAvailableSeats());
+
+        //ungrey out check in client button, edit, and request items
+
+        model.addObject("disabled", "false");
+        model.addObject("soupKitchenId", newsoupkitchen.getSoupKitchenId());
+
+
+        //find the site that goes with this
+
+
+        model.addObject("username", username);
+
+        model.addObject("siteId", siteId);
+
+        return model;
+    }
+
+
+
+
+
+
 
     @RequestMapping(value="/soupkitchenlist", method = RequestMethod.GET)
 

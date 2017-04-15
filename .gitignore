@@ -26,3 +26,10 @@ hs_err_pid*
 Phase3/team073a/.gradle/
 Phase3/team073a/build/
 gradle/
+/Phase3/team073a/.idea/
+lib/
+out/
+/Phase3/team073a/.gradle/3.3/taskArtifacts/fileHashes.bin
+/Phase3/team073a/.gradle/3.3/taskArtifacts/fileSnapshots.bin
+/Phase3/team073a/.gradle/3.3/taskArtifacts/taskArtifacts.bin
+/Phase3/team073a/.gradle/3.3/taskArtifacts/taskArtifacts.lock

@@ -121,20 +121,32 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
         List<SoupKitchen> skitchens = jdbcTemplate.query(sql, new SkitchenMapper());
 
-        /*
-        List<Map> rows = jdbcTemplate.queryForList(sql);
 
-        for (Map row : rows) {
-            FoodPantry fpantry = new FoodPantry();
-            fpantry.setFoodPantryId( (int)(row.get("food_pantry_id"))  ) ;
-            fpantry.setDescriptionString( (String) row.get("description_string")  ) ;
-            fpantry.setHours( (String) row.get("hours")  ) ;
-            fpantry.setConditionsForUse( (String) row.get("conditions_for_use")  ) ;
-            fpantries.add(fpantry);
-        }
-        */
 
         return skitchens;
+    }
+
+
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats) {
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        params.addValue("available_seats", available_seats);
+        //if this doesn't work or gets exceptin then it needs to return an error
+
+        String sql = "UPDATE cs6400_sp17_team073.soup_kitchen SET description_string = :description_string, " +
+                "hours=:hours, conditions_for_use = :conditions_for_use, available_seats = :available_seats " +
+                "WHERE soup_kitchen_id=:id";
+
+
+
+        jdbc.update(sql,params);
+
+        return true;
     }
 
 

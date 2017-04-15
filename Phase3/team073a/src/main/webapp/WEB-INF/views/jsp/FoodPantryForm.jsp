@@ -74,7 +74,7 @@
 			</c:when>
 			<c:otherwise>
 
-				<form method="post" action="/checkinclient" align="center">
+				<form method="get" action="/ClientSearchForm" align="center">
 					<button type="submit" align="center">Check In Client</button>
 					<input type="hidden" name="username" value="${username}">
 					<input type="hidden" name="siteId" value="${siteId}">
@@ -109,6 +109,13 @@
 				</c:otherwise>
 			</c:choose>
 
+	</div>
+	<br>
+	<br>
+	<div align="center">
+				<form method="post" action="/SiteInfo">
+					<button type="submit" align="center">Return To Site</button>
+				</form>
 	</div>
 
 </body>

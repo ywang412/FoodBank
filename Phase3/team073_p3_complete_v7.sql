@@ -113,7 +113,8 @@ CREATE TABLE Client (
   client_id int(16) unsigned NOT NULL AUTO_INCREMENT,
   full_name varchar(250) NOT NULL,  
   description_string varchar(250) NOT NULL,
-  head_of_household boolean,  
+  head_of_household boolean,
+  phone_number char(12),
   PRIMARY KEY (client_id)
 );
 
@@ -129,7 +130,7 @@ CREATE TABLE Log_Entry (
   log_id int(16) unsigned NOT NULL AUTO_INCREMENT,
   log_entry_string varchar(250) NOT NULL,  
   timestamp datetime NOT NULL, 
-  log_usage int(16) unsigned NOT NULL,
+  log_usage varchar(250) NOT NULL,
   client_id int(16) unsigned NOT NULL,  
   PRIMARY KEY (log_id)
 );
@@ -209,7 +210,14 @@ ALTER TABLE `Log_Entry`
 INSERT INTO `cs6400_sp17_team073`.`Item_type_enum` (`item_type_name`) VALUES ('none');
 INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum` (`food_category_name`) VALUES ('none');
 INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('none');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('personal hygiene');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('clothing');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('shelter');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('other');
 INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('none');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('refrigerated');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('drygoods');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('frozen');
 
 INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum` (`food_category_name`) VALUES ('vegetables');
 INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('beans');
@@ -240,24 +248,24 @@ INSERT INTO `cs6400_sp17_team073`.`User` (username, user_email, password, full_n
 
 --  12 Clients ('client1', 'client2', … 'client12') firstname: 'Joe' or ‘Jane’ lastname: 'client#'
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client1', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client2', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client2', 'Not Beardy', TRUE);
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client3', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client4', 'Not Beardy', TRUE);
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client4', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client4', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client5', 'Not Beardy', TRUE);
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client5', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client5', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client6', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client6', 'Not Beardy', TRUE);
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client7', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client8', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client8', 'Not Beardy', TRUE);
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client9', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client10', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client10', 'Not Beardy', TRUE);
 INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client11', 'Beardy', TRUE);
-INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Joe client12', 'Beardy', TRUE);
+INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_of_household) VALUES ('Jane client12', 'Not Beardy', TRUE);
 
 --  9 Services:
 --  o 2 Food Pantries (hours of operation, conditions) use short names: ('pantry1', 'pantry2', etc.)
+INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry1', '6:00 pm - 10:00 pm','Non-violent');
 INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry2', '6:00 pm - 10:00 pm','Non-violent');
-INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry3', '6:00 pm - 10:00 pm','Non-violent');
 --  o 2 Soup Kitchens (hours of operation, conditions, seats_avail) use short names: ('soup3', etc.)
 INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats) VALUES('soup2', '5:00 pm - 8:00 pm', 'Sober', 10);
 INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats) VALUES('soup3', '5:00 pm - 8:00 pm', 'Sober', 10);
@@ -269,41 +277,26 @@ INSERT INTO `cs6400_sp17_team073`.`Food_Bank`(description_string) VALUES('bank1'
 INSERT INTO `cs6400_sp17_team073`.`Food_Bank`(description_string) VALUES('bank2');
 INSERT INTO `cs6400_sp17_team073`.`Food_Bank`(description_string) VALUES('bank3');
 --  o Assign 'pantry2' service to 'site2' (Note: generally service names match site number)
-INSERT INTO `cs6400_sp17_team073`.`Provide`(site_id, food_bank_id, food_pantry_id, soup_kitchen_id, shelter_id) VALUES(1,1, null, null, null);
-INSERT INTO `cs6400_sp17_team073`.`Provide`(site_id, food_bank_id, food_pantry_id, soup_kitchen_id, shelter_id) VALUES(2,2, 1, 1, 1);
-INSERT INTO `cs6400_sp17_team073`.`Provide`(site_id, food_bank_id, food_pantry_id, soup_kitchen_id, shelter_id) VALUES(3,3, 2, 2, 2);
+INSERT INTO `cs6400_sp17_team073`.`Provide`(site_id, food_bank_id, food_pantry_id, soup_kitchen_id, shelter_id) VALUES(1,1, 1, null, null);
+INSERT INTO `cs6400_sp17_team073`.`Provide`(site_id, food_bank_id, food_pantry_id, soup_kitchen_id, shelter_id) VALUES(2,2, 2, 1, 1);
+INSERT INTO `cs6400_sp17_team073`.`Provide`(site_id, food_bank_id, food_pantry_id, soup_kitchen_id, shelter_id) VALUES(3,3, null, 2, 2);
 
---  Shelter Rooms:
---   Each Shelter: 4 bunks each type: men, woman, mixed (12 per shelter)
---  o 1 Male only room with 4 bunks
---  o 1 Female only room with 4 bunks
---  o 1 Mixed room with 4 bunks
---   At least 1 Shelter with both family rooms and bunk rooms
---   At least 1 Shelter with waiting lists
+--  Each Shelter: 2 bunks each type: men, woman, mixed (6 per shelter)
+--  o 1 Male only room with 2 bunks
+--  o 1 Female only room with 2 bunks
+--  o 1 Mixed room with 2 bunks
 
 INSERT INTO `cs6400_sp17_team073`.`Room`(shelter_id) VALUES(1);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,1,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,1,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,1,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,1,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,1,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,1,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,2,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,2,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,2,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(1,2,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,2,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,2,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,2,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(2,2,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,2,FALSE);
-INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,2,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,2,FALSE);
 INSERT INTO `cs6400_sp17_team073`.`Bunk`(bunk_type,shelter_id,occupied) VALUES(3,2,FALSE);
 
@@ -313,17 +306,70 @@ INSERT INTO `cs6400_sp17_team073`.`Waitlist`(position,room_number,shelter_id,cli
 INSERT INTO `cs6400_sp17_team073`.`Waitlist`(position,room_number,shelter_id,client_id) VALUES(3,1,1,3);
 INSERT INTO `cs6400_sp17_team073`.`Waitlist`(position,room_number,shelter_id,client_id) VALUES(4,1,1,4);
 
---  Client Activity:
---   3 Client Log entries – modification to profile, check-in to room, provide a meal, etc.
-INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string, timestamp, log_usage, client_id) VALUES ('profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 1);
---  o Example: client1_log1 = “profile created…” , timestamp, etc.
+--  Example: client1_log1 = “profile created…” , timestamp, etc.
 --  client1_log2 = “meal provided by…” site, timestamp, etc.
-INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string, timestamp, log_usage, client_id) VALUES ('meal provided', DATE_SUB(NOW(), INTERVAL 2 DAY), "pantry", 2);
---  client1_log3 = “profile edited/updated…” , timestamp, etc.
-INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string, timestamp, log_usage, client_id) VALUES ('profile edit', DATE_SUB(NOW(), INTERVAL 3 DAY), "", 3);
---  client4_log1 = “check-in to room”
---  o 'client1' … client6' visit 'pantry2' for 'site2'
---  o 'client4' … ‘client6' visit 'shelter2' for 'site2'
---  o 'client1' … 'client6' visit 'pantry3' for 'site3'
---  o 'client7' … 'client9' visit 'soup3' for 'site3'
---  o 'client10' … 'client12' visit 'shelter3' for 'site3'
+--  client1_log3 = “profile edited/updated…”, timestamp, etc.
+--  …
+--  client12_log3 = “check-in to room” … etc.
+--  o 'client1' … client4' visit 'pantry1' for 'site1' (clients 1-4 are ‘pantry’ clients)
+--  o 'client5' … client8' visit 'soup2' for 'site2' (clients 5-8 are ‘soup’ clients)
+--  o 'client1' … ‘client12' visit 'shelter2' for 'site2' (clients 1-12 are ‘shelter’ clients)
+--  o 'client1' … 'client4' visit 'pantry3' for 'site3'
+--  o 'client5' … 'client8' visit 'soup3' for 'site3'
+--  o 'client1' … 'client12' visit 'shelter3' for 'site3
+
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 1);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 1);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food again', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 1);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 2);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 2);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food again', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 2);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 3);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 3);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food again', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 3);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 4);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 4);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Got Food again', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 4);
+
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 5);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup2', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 5);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup3', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 5);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 6);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup2', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 6);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup3', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 6);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 7);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup2', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 7);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup3', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 7);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 8);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup2', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 8);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit soup3', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 8);
+
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 9);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter1', DATE_SUB(NOW(), INTERVAL 2 DAY), "", 9);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter2', DATE_SUB(NOW(), INTERVAL 3 DAY), "", 9);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 10);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter1', DATE_SUB(NOW(), INTERVAL 2 DAY), "", 10);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter2', DATE_SUB(NOW(), INTERVAL 3 DAY), "", 10);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 11);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter1', DATE_SUB(NOW(), INTERVAL 2 DAY), "", 11);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter2', DATE_SUB(NOW(), INTERVAL 3 DAY), "", 11);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Profile created', DATE_SUB(NOW(), INTERVAL 1 DAY), "", 12);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter1', DATE_SUB(NOW(), INTERVAL 2 DAY), "", 12);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visited shelter2', DATE_SUB(NOW(), INTERVAL 3 DAY), "", 12);
+
+
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 1);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 2);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 3);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 4);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 5);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 6);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 7);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 8);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 9);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 10);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 11);
+INSERT INTO `cs6400_sp17_team073`.`Log_Entry`(log_entry_string,timestamp,log_usage,client_id) VALUES('Visit shelter3', DATE_SUB(NOW(), INTERVAL 1 HOUR), "", 12);
+
+
+--  INSERT INTO `cs6400_sp17_team073`.`Item`(item_name, number_of_units, storage_type, item_type, food_category, supply_category, expiration_date, food_bank_id) VALUES('leafy veggies', 10, 1,2,1,1,DATE_ADD(NOW(), INTERVAL 1 DAY), 1);

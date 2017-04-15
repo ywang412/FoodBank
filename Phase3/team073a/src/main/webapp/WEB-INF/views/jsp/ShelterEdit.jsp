@@ -31,7 +31,7 @@
 
 <div align="center">
     <h1>Edit Shelter Information</h1>
-    <form:form action="editShelter" method="post">
+    <form action="/shelteredit" method="post">
         <table>
             <tr>
                 <td>Editing Site:</td>
@@ -43,7 +43,7 @@
                 <td>  ${descriptionString} </td>
 
                 <td>Change Description To:</td>
-                <td>
+                <td><input type="text" name="descriptionString" />
                 </td>
 
 
@@ -53,7 +53,7 @@
                 <td>  ${conditionsForUse}  </td>
 
                 <td>Change Conditions For Use To:</td>
-                <td>
+                <td><input type="text" name="conditionsForUse" />
                 </td>
 
 
@@ -63,26 +63,65 @@
                 <td>Hours Of Operation:</td>
                 <td>   ${hours}  </td>
                 <td>Change Hours of Operation To:</td>
-                <td>
+                <td><input type="text" name="hours" />
                 </td>
 
 
+
             </tr>
+
             <tr>
-
-                <c:choose>
-                    <c:when test="${disabled}">
-                        <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  disabled="disabled"> </td>
-                    </c:when>
-                    <c:otherwise>
-                        <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
-                    </c:otherwise>
-                </c:choose>
-
+                <td>Available Bunks:</td>
+                <td>   ${available_bunks}  </td>
+                <td>Change Available Bunks To:</td>
+                <td><input type="number" name="available_bunks" />
+                </td>
             </tr>
+
+            <tr>
+                <td>Available Rooms:</td>
+                <td>   ${available_rooms}  </td>
+                <td>Change Available Rooms To:</td>
+                <td><input type="number" name="available_rooms" />
+                </td>
+            </tr>
+
+
         </table>
-    </form:form>
+
+
+        <br>
+        <br>
+        <table>
+            <c:choose>
+                <c:when test="${disabled}">
+                    <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  disabled="disabled"> </td>
+                </c:when>
+                <c:otherwise>
+                    <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
+                    <input type="hidden" name="shelterId" value="${shelterId}">
+                    <input type="hidden" name="username" value="${username}">
+                    <input type="hidden" name="siteId" value="${siteId}">
+                </c:otherwise>
+            </c:choose>
+        </table>
+
+
+
+
+    </form>
 </div>
+
+<br>
+<br>
+<div align="center">
+    <form method="get" action="/shelterform">
+        <button type="submit" align="center">Return</button>
+        <input type="hidden" name="username" value="${username}">
+        <input type="hidden" name="siteId" value="${siteId}">
+    </form>
+</div>
+
 
 </body>
 </html>

@@ -131,6 +131,27 @@ public class ShelterDAOImpl implements ShelterDAO {
     }
 
 
+    public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms) {
 
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        params.addValue("available_bunks", available_bunks);
+        params.addValue("available_rooms", available_rooms);
+        //if this doesn't work or gets exceptin then it needs to return an error
+
+        String sql = "UPDATE cs6400_sp17_team073.shelter SET description_string = :description_string, " +
+                "hours=:hours, conditions_for_use = :conditions_for_use, available_bunks = :available_bunks, available_rooms = :available_rooms " +
+                "WHERE shelter_id=:id";
+
+
+
+        jdbc.update(sql,params);
+
+        return true;
+    }
 
 }

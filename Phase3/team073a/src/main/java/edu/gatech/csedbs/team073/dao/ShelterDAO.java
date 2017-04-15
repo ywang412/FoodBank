@@ -19,4 +19,7 @@ public interface ShelterDAO {
 
     public List GetShelterTable();
 
-}
+    public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms);
+
+
+ }
