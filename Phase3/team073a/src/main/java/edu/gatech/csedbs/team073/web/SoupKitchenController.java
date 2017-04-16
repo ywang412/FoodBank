@@ -213,31 +213,43 @@ public class SoupKitchenController {
         ModelAndView model = null;
         SoupKitchen skitchen;
 
-        skitchen = siteInfoService.getSoupKitchenDAO(SoupKitchenId);
+
         siteInfo = siteInfoService.getSiteInfoDAO(siteId);
         user = siteInfoService.getUserDAO(username);
 
         model = new ModelAndView("SoupKitchenEdit");
 
         model.addObject("shortName", siteInfo.getShortName());
+        model.addObject("username", username);
+        model.addObject("siteId", siteId);
 
-        model.addObject("descriptionString", skitchen.getDescriptionString());
-        model.addObject("conditionsForUse", skitchen.getConditionsForUse());
-        model.addObject("hours", skitchen.getHours());
-        model.addObject("available_seats", skitchen.getAvailableSeats());
-        model.addObject("seats_limit", skitchen.getSeatLimit());
+        //if the food bank is present
+        if (SoupKitchenId > 0) {
+            skitchen = siteInfoService.getSoupKitchenDAO(SoupKitchenId);
+
+            model.addObject("descriptionString", skitchen.getDescriptionString());
+            model.addObject("conditionsForUse", skitchen.getConditionsForUse());
+            model.addObject("hours", skitchen.getHours());
+            model.addObject("available_seats", skitchen.getAvailableSeats());
+            model.addObject("seats_limit", skitchen.getSeatLimit());
+
+
+            model.addObject("soupKitchenId", skitchen.getSoupKitchenId());
+
+            model.addObject("soupKitchen", new SoupKitchen());
+
+            model.addObject("missing", "false");
+        }
+        else {
+
+            model.addObject("missing", "true");
+        }
+
 
         //ungrey out check in client button, edit, and request items
 
         model.addObject("disabled", "false");
 
-        model.addObject("username", username);
-
-        model.addObject("siteId", siteId);
-
-        model.addObject("soupKitchenId", skitchen.getSoupKitchenId());
-
-        model.addObject("soupKitchen", new SoupKitchen());
 
         return model;
     }
@@ -245,16 +257,37 @@ public class SoupKitchenController {
     //post then reload with the changes
     @PostMapping(value="/soupkitchenedit")
     public ModelAndView SoupKitchenEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
-                                        @RequestParam(value="available_seats") Integer seats,  @RequestParam(value="seats_limit") Integer seats_limit, @ModelAttribute SoupKitchen soupKitchen) {
+                                        @RequestParam(value="available_seats") Integer seats,
+                                        @RequestParam(value="seats_limit") Integer seats_limit,
+                                        @ModelAttribute SoupKitchen soupKitchen) {
 
         User user;
         ModelAndView model = null;
         SoupKitchen newsoupkitchen = null;
+        Provide provides= null;
+
+        provides = siteInfoService.getProvideDAO(siteId);
 
         model = new ModelAndView("SoupKitchenEdit");
 
-        //push new values to the database
-        siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
+        //must be an 'add'
+        if  (provides.getSoup_kitchen_id() == 0) {
+
+
+            //push new values to the database
+            //adds a new entry in soup kitchen and then updates the provides
+             siteInfoService.addSoupKitchen(siteId,  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
+
+
+
+        }
+        else {
+            //must be an update
+            //push new values to the database
+            siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
+
+        }
+
 
         //query the new database entry if it took
         newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
@@ -282,7 +315,16 @@ public class SoupKitchenController {
     }
 
 
+    //post then redirect to site
+    @PostMapping(value="/soupkitchenremove")
+    public String SoupKitchenRemove(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                   @ModelAttribute SoupKitchen soupKitchen) {
 
+
+        siteInfoService.removeSoupKitchen(siteId,soupKitchen.getSoupKitchenId() );
+
+        return "redirect:/SiteInfo";
+    }
 
 
 

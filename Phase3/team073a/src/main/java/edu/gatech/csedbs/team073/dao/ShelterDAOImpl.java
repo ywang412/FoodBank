@@ -154,4 +154,56 @@ public class ShelterDAOImpl implements ShelterDAO {
         return true;
     }
 
+
+    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms) {
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        params.addValue("available_bunks", available_bunks);
+        params.addValue("available_rooms", available_rooms);
+
+        String sql = "INSERT INTO  cs6400_sp17_team073.Soup_kitchen (description_string, hours, conditions_for_use, available_seats,seats_limit) " +
+                " VALUES(description_string = :description_string,hours=:hours, conditions_for_use = :conditions_for_use,available_bunks = :available_bunks,available_rooms = :available_rooms)";
+
+        int sh_id = jdbc.update(sql,params);
+
+        //update the provide table
+        params.addValue("site_id", siteid);
+        params.addValue("shelter_id", sh_id);
+
+        String sql2 ="UPDATE cs6400_sp17_team073.Provide SET shelter_id = :shelter_id" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql2,params);
+
+
+        return sh_id;
+
+    }
+
+    public boolean removeShelter(int siteid, int shid){
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+
+        //remove from provide table
+        params.addValue("site_id", siteid);
+        params.addValue("shelter_id", shid);
+
+        String sql ="UPDATE cs6400_sp17_team073.Provide SET shelter_id = 0" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql,params);
+
+
+        //now remove from the soup kitchen table
+        String sql2 = "DELETE FROM cs6400_sp17_team073.Soup_kitchen " +
+                " WHERE shelter_id=:shelter_id";
+
+        jdbc.update(sql2,params);
+
+        return true;
+    }
+
+
 }

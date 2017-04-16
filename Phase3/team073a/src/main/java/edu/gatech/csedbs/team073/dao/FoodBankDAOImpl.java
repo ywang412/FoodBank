@@ -85,4 +85,76 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
     }
 
 
+
+
+
+
+    public boolean updateFoodBank(int id, String description_string){
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("id", id);
+        params.addValue("description_string", description_string);
+
+        //if this doesn't work or gets exceptin then it needs to return an error
+
+        String sql = "UPDATE cs6400_sp17_team073.Food_bank SET description_string = :description_string " +
+                "WHERE food_bank_id=:id";
+
+
+
+        jdbc.update(sql,params);
+
+        return true;
+    }
+
+
+    public int addFoodBank( int siteid, String description_string) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("description_string", description_string);
+
+
+
+        String sql = "INSERT INTO  cs6400_sp17_team073.food_bank (description_string) " +
+                " VALUES(description_string = :description_string)";
+
+        int fbid = jdbc.update(sql,params);
+
+        //update the provide table
+        params.addValue("site_id", siteid);
+        params.addValue("food_bank_id", fbid);
+
+        String sql2 ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = :food_bank_id" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql2,params);
+
+
+        return fbid;
+    }
+
+    public boolean removeFoodBank(int siteid, int fbid) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+
+        //remove from provide table
+        params.addValue("site_id", siteid);
+        params.addValue("food_bank_id", fbid);
+
+        String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = 0" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql,params);
+
+
+        //now remove from the soup kitchen table
+        String sql2 = "DELETE FROM cs6400_sp17_team073.Food_bank " +
+                " WHERE food_bank_id=:food_bank_id";
+
+        jdbc.update(sql2,params);
+
+
+        return true;
+    }
+
+
 }

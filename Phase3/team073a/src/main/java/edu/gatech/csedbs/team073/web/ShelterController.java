@@ -271,7 +271,7 @@ public class ShelterController {
         ModelAndView model = null;
         Shelter shelter;
 
-        shelter = siteInfoService.getShelterDAO(ShelterId);
+
         siteInfo = siteInfoService.getSiteInfoDAO(siteId);
         user = siteInfoService.getUserDAO(username);
 
@@ -279,25 +279,33 @@ public class ShelterController {
 
         model.addObject("shortName", siteInfo.getShortName());
 
-        model.addObject("descriptionString", shelter.getDescriptionString());
-        model.addObject("conditionsForUse", shelter.getConditionsForUse());
-        model.addObject("hours", shelter.getHours());
-
-        //model.addObject("available_rooms", shelter.getAvailableRooms());
-       // model.addObject("available_bunks", shelter.getAvailableBunks());
-
-        //ungrey out check in client button, edit, and request items
-
-        model.addObject("disabled", "false");
-
         model.addObject("username", username);
 
         model.addObject("siteId", siteId);
 
-        model.addObject("shelterId", shelter.getShelterId());
+        //if the shelter is present
+        if (ShelterId > 0) {
+            shelter = siteInfoService.getShelterDAO(ShelterId);
 
-        model.addObject("shelter", new Shelter());
+            model.addObject("descriptionString", shelter.getDescriptionString());
+            model.addObject("conditionsForUse", shelter.getConditionsForUse());
+            model.addObject("hours", shelter.getHours());
 
+            model.addObject("shelterId", shelter.getShelterId());
+
+            model.addObject("shelter", new Shelter());
+
+            model.addObject("missing", "false");
+        }
+        else {
+
+            model.addObject("missing", "true");
+        }
+
+
+        //ungrey out check in client button, edit, and request items
+
+        model.addObject("disabled", "false");
 
 
         return model;
@@ -313,11 +321,36 @@ public class ShelterController {
         User user;
         ModelAndView model = null;
         Shelter newshelter = null;
+        Provide provides = null;
+
+
+
+
+        provides = siteInfoService.getProvideDAO(siteId);
 
         model = new ModelAndView("ShelterEdit");
 
-        //push new values to the database
-        siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+
+        //must be an 'add'
+        if  (provides.getShelter_id() == 0) {
+
+
+            //push new values to the database
+            //adds a new entry in soup kitchen and then updates the provides
+           siteInfoService.addShelter(siteId, shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+
+
+
+        }
+        else {
+            //must be an update
+            //push new values to the database
+            siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+
+        }
+
+
+
 
         //query the new database entry if it took
         newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
@@ -344,6 +377,19 @@ public class ShelterController {
 
         return model;
     }
+
+    //post then redirect to site
+    @PostMapping(value="/shelterremove")
+    public String ShelterRemove(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                   @ModelAttribute Shelter shelter) {
+
+
+        siteInfoService.removeShelter(siteId,shelter.getShelterId() );
+
+        return "redirect:/SiteInfo";
+    }
+
+
 
 
     @RequestMapping(value="/shelterformbunk", method = RequestMethod.POST)
@@ -459,6 +505,7 @@ public class ShelterController {
         //The client log can add which bunk # if we really want to add it in notes
         return "redirect:/ClientSearchForm";
     }
+
 
 
 

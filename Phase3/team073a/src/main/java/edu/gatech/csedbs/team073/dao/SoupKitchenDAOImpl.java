@@ -150,6 +150,59 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         return true;
     }
 
+    public int addSoupKitchen( int siteid, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+        params.addValue("available_seats", available_seats);
+        params.addValue("seats_limit", seats_limit);
+
+        String sql = "INSERT INTO  cs6400_sp17_team073.Soup_kitchen (description_string, hours, conditions_for_use, available_seats,seats_limit) " +
+                " VALUES(description_string = :description_string,hours=:hours, conditions_for_use = :conditions_for_use,available_seats = :available_seats,seats_limit = :seats_limit)";
+
+        int sk_id = jdbc.update(sql,params);
+
+        //update the provide table
+        params.addValue("site_id", siteid);
+        params.addValue("soup_kitchen_id", sk_id);
+
+        String sql2 ="UPDATE cs6400_sp17_team073.Provide SET soup_kitchen_id = :soup_kitchen_id" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql2,params);
+
+
+        return sk_id;
+    }
+
+    public boolean removeSoupKitchen(int siteid, int skid){
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+
+        //remove from provide table
+        params.addValue("site_id", siteid);
+        params.addValue("soup_kitchen_id", skid);
+
+        String sql ="UPDATE cs6400_sp17_team073.Provide SET soup_kitchen_id = 0" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql,params);
+
+
+        //now remove from the soup kitchen table
+        String sql2 = "DELETE FROM cs6400_sp17_team073.Soup_kitchen " +
+                " WHERE soup_kitchen_id=:soup_kitchen_id";
+
+        jdbc.update(sql2,params);
+
+
+        return true;
+    }
+
+
+
+
+
 
     public boolean decrementSoupKitchenSeats(int id) {
 

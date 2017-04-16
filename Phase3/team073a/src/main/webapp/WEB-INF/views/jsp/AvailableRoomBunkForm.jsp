@@ -18,72 +18,50 @@
     <title>AvailableRoomBunk</title>
 </head>
 <body>
-<div align="center">
 
-    <h1>ASACS Available Rooms and Bunks </h1>
 
-    <c:if test="${not empty allRoomBunk}">
+    <div align="center">
+        <h1>ASACS Available Rooms and Bunks </h1>
 
-        <ul>
-            <c:forEach var="roomBunkCount" items="${allRoomBunk}">
-                <li>Site Name: ${roomBunkCount.siteName} /Address: ${roomBunkCount.siteName} /Contact: ${roomBunkCount.contactNumber}  /Hours: ${roomBunkCount.hours}  /Type: ${roomBunkCount.roomBunkTypeString} /Count: ${roomBunkCount.roomBunkCount}</li>
 
+        <table border="1">
+            <tr>
+                <td>Site Name</td>
+                <td>Address</td>
+                <td>Contact </td>
+                <td>Hours</td>
+                <td>Type </td>
+                <td>Count</td>
+
+            </tr>
+            <c:forEach items="${allRoomBunk}" var="roomBunkCount">
+                <tr>
+                    <td>${roomBunkCount.siteName}</td>
+                    <td>${roomBunkCount.address}</td>
+                    <td>${roomBunkCount.contactNumber}</td>
+                    <td>${roomBunkCount.hours}</td>
+                    <td>${roomBunkCount.roomBunkTypeString}</td>
+                    <td>${roomBunkCount.roomBunkCount}</td>
+
+                </tr>
             </c:forEach>
-        </ul>
 
 
-    </c:if>
 
 
-    <%--<form:form action="login" method="post">--%>
-        <%--<table>--%>
+        </table>
 
-            <%--<tr>--%>
-                <%--<th>Site Name</th>--%>
-                <%--<th>Phone number</th>--%>
-                <%--<th>Location</th>--%>
-                <%--<th>Rooms</th>--%>
-                <%--<th>Bunks(Male)</th>--%>
-                <%--<th>Bunks(Female)</th>--%>
-                <%--<th>Bunks(Mixed)</th>--%>
-            <%--</tr>--%>
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Return to Service"></td>
+        </tr>
+
+        <tr>
+            <td colspan="2" align="center"><input type="submit" value="Logout"></td>
+        </tr>
 
 
-            <%--<tr>--%>
-                <%--<th>${foodBank.foodBankId}</th>--%>
-                <%--<th>${foodBank.descriptionString}</th>--%>
-            <%--</tr>--%>
-            <%--<tr>--%>
-                <%--<th>${foodPantry.foodPantryId}</th>--%>
-                <%--<th>${foodPantry.descriptionString}</th>--%>
-                <%--<th>${foodPantry.hours}</th>--%>
-                <%--<th>${foodPantry.conditionsForUse}</th>--%>
-            <%--</tr>--%>
-            <%--<tr>--%>
-                <%--<th>${soupKitchen.soupKitchenId}</th>--%>
-                <%--<th>${soupKitchen.descriptionString}</th>--%>
-                <%--<th>${soupKitchen.hours}</th>--%>
-                <%--<th>${soupKitchen.conditionsForUse}</th>--%>
-            <%--</tr>--%>
-            <%--<tr>--%>
-                <%--<th>${shelter.shelterId}</th>--%>
-                <%--<th>${shelter.descriptionString}</th>--%>
-                <%--<th>${shelter.hours}</th>--%>
-                <%--<th>${shelter.conditionsForUse}</th>--%>
-
-            <%--</tr>--%>
-
-            <%--<td><a href="<c:url value='/foodpantryform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to FoodPantry</a></td>--%>
 
 
-            <%--<tr>--%>
-                <%--<td colspan="2" align="center"><input type="submit" value="Return to User Dashboard"></td>--%>
-            <%--</tr>--%>
-            <%--<tr>--%>
-                <%--<td colspan="2" align="center"><input type="submit" value="Logout"></td>--%>
-            <%--</tr>--%>
-        <%--</table>--%>
-    <%--</form:form>--%>
-</div>
+    </div>
 </body>
 </html>
