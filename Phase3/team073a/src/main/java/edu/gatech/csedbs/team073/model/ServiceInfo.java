@@ -11,12 +11,15 @@ public class ServiceInfo {
     private boolean shelter;
     private boolean food_pantry;
     private boolean soup_kitchen;
+    private boolean food_bank;
 
     private String description;
 
     private int room_number; // if this is 0 then client got a bunk otherwise client needs to be assigned to a room number
     private boolean release_room;
     private boolean release_bunk;
+
+    private boolean add_to_waitlist;
 
     public ServiceInfo(int siteId) {
         this.siteId = siteId;
@@ -99,6 +102,22 @@ public class ServiceInfo {
 
     public void setRelease_bunk(boolean release_bunk) {
         this.release_bunk = release_bunk;
+    }
+
+    public boolean isFood_bank() {
+        return food_bank;
+    }
+
+    public void setFood_bank(boolean food_bank) {
+        this.food_bank = food_bank;
+    }
+
+    public boolean isAdd_to_waitlist() {
+        return add_to_waitlist;
+    }
+
+    public void setAdd_to_waitlist(boolean add_to_waitlist) {
+        this.add_to_waitlist = add_to_waitlist;
     }
 }
 

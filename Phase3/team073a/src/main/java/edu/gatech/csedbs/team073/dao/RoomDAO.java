@@ -12,4 +12,7 @@ public interface RoomDAO {
     public int   getRoomCountByShelterIdAndOccupancy(int shelterId, boolean occupied);
 
     public Integer findNextAvailableRoom(int shelterId);
+
+    public Integer claimNextAvailableRoom(int shelterId);
+    public Integer releaseRoom(int shelterId);
 }
