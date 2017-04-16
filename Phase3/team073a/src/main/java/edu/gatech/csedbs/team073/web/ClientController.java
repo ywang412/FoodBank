@@ -4,7 +4,10 @@
 package edu.gatech.csedbs.team073.web;
 
 
+import java.sql.Timestamp;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -25,6 +28,8 @@ import edu.gatech.csedbs.team073.dao.ClientDAO;
 import edu.gatech.csedbs.team073.dao.LogEntryDAO;
 import edu.gatech.csedbs.team073.model.Client;
 import edu.gatech.csedbs.team073.model.LogEntry;
+import edu.gatech.csedbs.team073.model.SearchClient;
+import edu.gatech.csedbs.team073.model.ServiceInfo;
 
 
 /**
@@ -32,7 +37,7 @@ import edu.gatech.csedbs.team073.model.LogEntry;
  *
  */
 @Controller
-@SessionAttributes({"client","serviceName"})
+@SessionAttributes({"client","serviceName","serviceObj"})
 public class ClientController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ClientController.class);
@@ -45,20 +50,29 @@ public class ClientController {
 	
 	@RequestMapping(value="/ClientSearchForm", method = RequestMethod.GET)
 	public ModelAndView clientSearch(ModelAndView model) {
-		String searchString = "";
-		model.addObject("searchString", searchString);
+		SearchClient searchClient = new SearchClient();
+		model.addObject("searchClient", searchClient);
 		model.setViewName("ClientSearchForm");
 		
 		return model;
 	}
 	
 	@RequestMapping(value="/ClientSearchSubmit", method = RequestMethod.POST, params={ "clientSearch" })
-	public String clientSearchSubmit(@RequestParam("searchClient") String searchClient, Model model) {
+	//public String clientSearchSubmit(@RequestParam("searchClient") String searchClient, BindingResult result, Model model) {
+	public String clientSearchSubmit(@ModelAttribute("searchClient") SearchClient searchClient, BindingResult result, Model model) {
 		
-		if (StringUtils.isNotBlank(searchClient)) {
-			List<Client> results = clientDAO.searchClientsByName(searchClient);
-			model.addAttribute("searchResults", results);
+		if (StringUtils.isNotBlank(searchClient.getSearchParms())) {
+			try {
+				List<Client> results = clientDAO.searchClientsByName(searchClient.getSearchParms());
+				model.addAttribute("searchResults", results);
+			} catch (Exception e) {
+				
+				model.addAttribute("searchClient", searchClient);
+				result.rejectValue(null,"error.toomanyresults", e.getMessage());
+			}
 			
+		} else {
+			result.rejectValue(null,"error.required", "Search parameter is required");
 		}
 		
 		
@@ -134,13 +148,20 @@ public class ClientController {
 	}
 	
 	@RequestMapping(value="/ClientViewSubmit", method = RequestMethod.POST, params={ "addLog" })	
-	public ModelAndView clientViewToAddLogSubmit(@ModelAttribute Client client, @RequestParam String addLog, BindingResult result) {
+	public ModelAndView clientViewToAddLogSubmit(@ModelAttribute Client client, @RequestParam String addLog, BindingResult result,HttpServletRequest request) {
 				
 		ModelAndView model = new ModelAndView("LogAddForm");
 		model.addObject("client", client);
 		LogEntry logEntry = new LogEntry();
 		logEntry.setClientId(client.getClientId());
-		logEntry.setLogEntry("From ClientViewSubmit 1");
+		logEntry.setLogDate(new Timestamp(System.currentTimeMillis()));
+		
+		if (null != request.getSession(false).getAttribute("serviceObj")) {
+			ServiceInfo serviceInfo = (ServiceInfo)request.getSession(false).getAttribute("serviceObj");
+			logEntry.setLogUsage(serviceInfo.getDescription());
+			logEntry.setLogEntry("From ClientViewSubmit 1");
+		}
+		
 		model.addObject("logEntry", logEntry);
 		return model;
 	}

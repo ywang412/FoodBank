@@ -19,20 +19,20 @@
     
       <h2>Search Client</h2>
 
-      <form action="ClientSearchSubmit" method="post">
+      <form:form action="ClientSearchSubmit" method="post" modelAttribute="searchClient">
 			
-      
+      		<form:errors />
 			<div>
-				<label for="searchClient">
+				<form:label path="searchParms" for="searchClient">
 				<span>Search Client</span>              
-				</label>
-				<input type="text" name="searchClient" />
+				</form:label>
+				<form:input type="text" path="searchParms" name="searchClient" required="required" />
 			</div>
 		  <!-- type="submit" name="clientAdd" action="goToAdd" -->
 			<div>
 				<button type="submit" name="clientSearch" action="clientSearch">Search</button>
 			</div>
-		</form>
+		</form:form>
 				<spring:url value="/ClientAddForm" var="clientAddUrl" />
 				<button  onclick="location.href='${clientAddUrl}'">Add New Client</button>
 		

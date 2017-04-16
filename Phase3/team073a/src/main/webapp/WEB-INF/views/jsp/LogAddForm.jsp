@@ -21,7 +21,7 @@
             <label for="service">
               <span>Service:</span>              
             </label>
-            ${serviceName} for Client ${client.fullName}
+            ${serviceObj.description} for Client ${client.fullName}
         </div> 
 
       <form:form action="LogAddSubmit" modelAttribute="logEntry" method="post">

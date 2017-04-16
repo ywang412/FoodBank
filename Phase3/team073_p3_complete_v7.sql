@@ -201,7 +201,7 @@ ALTER TABLE `Request`
     
 
 ALTER TABLE `Room`
-  ADD CONSTRAINT Room_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE,
+  ADD CONSTRAINT Room_ibfk_1 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE CASCADE;
 
 
 ALTER TABLE `Bunk`

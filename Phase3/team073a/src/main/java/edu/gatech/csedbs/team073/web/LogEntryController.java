@@ -28,6 +28,7 @@ import edu.gatech.csedbs.team073.dao.ClientDAO;
 import edu.gatech.csedbs.team073.dao.LogEntryDAO;
 import edu.gatech.csedbs.team073.model.Client;
 import edu.gatech.csedbs.team073.model.LogEntry;
+import edu.gatech.csedbs.team073.model.ServiceInfo;
 
 
 /**
@@ -35,7 +36,7 @@ import edu.gatech.csedbs.team073.model.LogEntry;
  *
  */
 @Controller
-@SessionAttributes({"client","serviceName"})
+@SessionAttributes({"client","serviceName","serviceObj"})
 public class LogEntryController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LogEntryController.class);
@@ -56,9 +57,9 @@ public class LogEntryController {
 		LogEntry logEntry = new LogEntry();
 		logEntry.setLogDate(new Timestamp(System.currentTimeMillis()));
 		
-		if (null != request.getSession(false).getAttribute("serviceName")) {
-			String serviceName = (String)request.getSession(false).getAttribute("serviceName");
-			logEntry.setLogUsage(serviceName);
+		if (null != request.getSession(false).getAttribute("serviceObj")) {
+			ServiceInfo serviceInfo = (ServiceInfo)request.getSession(false).getAttribute("serviceObj");
+			logEntry.setLogUsage(serviceInfo.getDescription());
 		}
 		
 		logEntry.setLogEntry("From LogAddForm 1");
