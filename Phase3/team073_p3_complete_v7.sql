@@ -185,7 +185,11 @@ ALTER TABLE `Provide`
   ADD CONSTRAINT Provide_ibfk_2 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id) ON DELETE SET NULL,
   ADD CONSTRAINT Provide_ibfk_3 FOREIGN KEY (food_pantry_id) REFERENCES `Food_Pantry` (food_pantry_id) ON DELETE SET NULL, 
   ADD CONSTRAINT Provide_ibfk_4 FOREIGN KEY (soup_kitchen_id) REFERENCES `Soup_Kitchen` (soup_kitchen_id) ON DELETE SET NULL,
-  ADD CONSTRAINT Provide_ibfk_5 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE SET NULL;
+  ADD CONSTRAINT Provide_ibfk_5 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE SET NULL,
+  ADD CONSTRAINT Provide_ibfk_6 UNIQUE ( food_bank_id),
+  ADD CONSTRAINT Provide_ibfk_7 UNIQUE ( soup_kitchen_id ),
+  ADD CONSTRAINT Provide_ibfk_8 UNIQUE ( shelter_id),
+  ADD CONSTRAINT Provide_ibfk_9 UNIQUE (food_pantry_id);
 
 ALTER TABLE `Item`
   ADD CONSTRAINT Item_ibfk_1 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id),
@@ -282,7 +286,7 @@ INSERT INTO `cs6400_sp17_team073`.`Client` (full_name, description_string, head_
 --  9 Services:
 --  o 2 Food Pantries (hours of operation, conditions) use short names: ('pantry1', 'pantry2', etc.)
 INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry1', '6:00 pm - 10:00 pm','Non-violent');
-INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry2', '6:00 pm - 10:00 pm','Non-violent');
+INSERT INTO `cs6400_sp17_team073`.`Food_Pantry` (description_string, hours, conditions_for_use) VALUES ('pantry3', '6:00 pm - 10:00 pm','Non-violent');
 --  o 2 Soup Kitchens (hours of operation, conditions, seats_avail) use short names: ('soup3', etc.)
 INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats,seats_limit) VALUES('soup2', '5:00 pm - 8:00 pm', 'Sober', 10,10);
 INSERT INTO `cs6400_sp17_team073`.`Soup_Kitchen` (description_string, hours, conditions_for_use, available_seats,seats_limit) VALUES('soup3', '5:00 pm - 8:00 pm', 'Sober', 10,10);

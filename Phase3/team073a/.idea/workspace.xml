@@ -34,57 +34,19 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="AvailableRoomBunkForm.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/AvailableRoomBunkForm.jsp">
+      <file leaf-file-name="WaitlistDAOImpl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/WaitlistDAOImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="43" column="39" lean-forward="false" selection-start-line="43" selection-start-column="39" selection-end-line="43" selection-end-column="39" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="AvailableRoomBunkController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/AvailableRoomBunkController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="45">
-              <caret line="30" column="47" lean-forward="false" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RoomBunkCount.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/RoomBunkCount.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="26" />
-              <folding>
-                <element signature="e#463#464#0" expanded="true" />
-                <element signature="e#504#505#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="WaitlistController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WaitlistController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="40" column="53" lean-forward="false" selection-start-line="40" selection-start-column="53" selection-end-line="40" selection-end-column="53" />
+            <state relative-caret-position="872">
+              <caret line="90" column="23" lean-forward="false" selection-start-line="90" selection-start-column="23" selection-end-line="90" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#3015#3882#0" expanded="true" />
+                <element signature="e#3881#3882#0" expanded="true" />
+                <marker date="1492318755635" expanded="true" signature="1263:1271" ph="select Site.... Site" />
+                <marker date="1492318755635" expanded="true" signature="1263:1518" ph="select *, Sh... Shelter" />
+                <marker date="1492318755635" expanded="true" signature="2731:2984" ph="select *, Sh... Shelter" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ClientWaitlistForm.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/ClientWaitlistForm.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="17" column="17" lean-forward="false" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -92,8 +54,50 @@
       <file leaf-file-name="SiteInfoController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/SiteInfoController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-180">
-              <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShelterForm.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/ShelterForm.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="118">
+              <caret line="308" column="22" lean-forward="false" selection-start-line="308" selection-start-column="22" selection-end-line="308" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WaitlistController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WaitlistController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="375">
+              <caret line="41" column="36" lean-forward="false" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShelterController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/ShelterController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="195">
+              <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="WaitlistForm.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/WaitlistForm.jsp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="49" column="63" lean-forward="false" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="63" />
               <folding />
             </state>
           </provider>
@@ -102,8 +106,8 @@
       <file leaf-file-name="SiteInfoForm.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/SiteInfoForm.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-900">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="105">
+              <caret line="123" column="21" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="123" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -115,18 +119,16 @@
             <state relative-caret-position="-1821">
               <caret line="47" column="36" lean-forward="true" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
               <folding>
-                <marker date="1492367649253" expanded="true" signature="7194:8796" ph="{...}" />
-                <marker date="1492367649253" expanded="true" signature="7529:7639" ph="//..." />
-                <marker date="1492367649253" expanded="true" signature="7822:7887" ph="//..." />
-                <marker date="1492367649253" expanded="true" signature="8915:9575" ph="{...}" />
-                <marker date="1492367649253" expanded="true" signature="9859:9986" ph="{...}" />
-                <marker date="1492367649253" expanded="true" signature="10306:10470" ph="{...}" />
+                <marker date="1492376669925" expanded="true" signature="10154:10323" ph="{...}" />
+                <marker date="1492376669925" expanded="true" signature="10442:11102" ph="{...}" />
+                <marker date="1492376669925" expanded="true" signature="11386:11513" ph="{...}" />
+                <marker date="1492376669925" expanded="true" signature="11833:11997" ph="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FoodPantryEdit.jsp" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FoodPantryEdit.jsp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/FoodPantryEdit.jsp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-1447">
@@ -136,11 +138,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginController.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/LoginController.java">
+      <file leaf-file-name="spring-core-config.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-core-config.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="136" column="0" lean-forward="false" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+            <state relative-caret-position="195">
+              <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -164,6 +166,11 @@
       <find>result</find>
       <find>Stringu</find>
       <find>roomBunkCount</find>
+      <find>serviceo</find>
+      <find>serviceid</find>
+      <find>waitl</find>
+      <find>shelterfo</find>
+      <find>username</find>
     </findStrings>
     <replaceStrings>
       <replace>waitlist</replace>
@@ -602,8 +609,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/BunkDAO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/Shelter.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/SoupKitchen.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/Room.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/FoodPantry.java" />
@@ -642,17 +647,19 @@
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/RoomBunkCountDAOImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/RoomBunkCount.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/AvailableRoomBunkController.java" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-core-config.xml" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/SiteInfoDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/Waitlist.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/FoodPantryList.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/WaitlistForm.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/service/SiteInfoService.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/WaitlistDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/WaitlistDAOImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WaitlistController.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/ClientWaitlistForm.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/AvailableRoomBunkForm.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/FoodPantryEdit.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-core-config.xml" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/ShelterForm.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/WaitlistForm.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WaitlistController.java" />
       </list>
     </option>
   </component>
@@ -1624,12 +1631,12 @@
       <workItem from="1492206371985" duration="11318000" />
       <workItem from="1492273443959" duration="7235000" />
       <workItem from="1492296660776" duration="7112000" />
-      <workItem from="1492315633694" duration="6624000" />
+      <workItem from="1492315633694" duration="10713000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="120599000" />
+    <option name="totallyTimeSpent" value="124688000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-1" y="25" width="1922" height="926" extended-state="6" />
@@ -1712,20 +1719,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/service/Team073StartupService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="8" column="13" lean-forward="false" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WelcomeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="16" column="13" lean-forward="false" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/AvailableRoomBunk.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/SoupKitchenController.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1896,14 +1889,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-core-config.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="45" lean-forward="false" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/User.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
@@ -1956,9 +1941,9 @@
         <state relative-caret-position="-1461">
           <caret line="28" column="14" lean-forward="true" selection-start-line="28" selection-start-column="14" selection-end-line="28" selection-end-column="14" />
           <folding>
-            <marker date="1492359157711" expanded="true" signature="1130:1424" ph="SELECT Shelt... Site" />
-            <marker date="1492359157711" expanded="true" signature="2415:2703" ph="SELECT Shelt... Site" />
-            <marker date="1492359157711" expanded="true" signature="3734:3775" ph="SELECT COUNT... shelter" />
+            <marker date="1492377912601" expanded="true" signature="1130:1424" ph="SELECT Shelt... Site" />
+            <marker date="1492377912601" expanded="true" signature="2415:2703" ph="SELECT Shelt... Site" />
+            <marker date="1492377912601" expanded="true" signature="3734:3775" ph="SELECT COUNT... shelter" />
           </folding>
         </state>
       </provider>
@@ -2013,13 +1998,13 @@
         <state relative-caret-position="-1956">
           <caret line="42" column="0" lean-forward="false" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding>
-            <marker date="1492367649249" expanded="true" signature="1369:1657" ph="select Food_... Site" />
-            <marker date="1492367649249" expanded="true" signature="2527:2801" ph="select Food_... Site" />
-            <marker date="1492367649249" expanded="true" signature="3711:3763" ph="SELECT COUNT... Food_pantry" />
-            <marker date="1492367649249" expanded="true" signature="4686:5023" ph="SELECT * FRO... Item" />
-            <marker date="1492367649249" expanded="true" signature="5376:5470" ph="SELECT * FRO... Request" />
-            <marker date="1492367649249" expanded="true" signature="5964:6009" ph="SELECT * FRO... Food_pantry" />
-            <marker date="1492367649249" expanded="true" signature="6631:6837" ph="UPDATE cs640... " />
+            <marker date="1492376669877" expanded="true" signature="1369:1657" ph="select Food_... Site" />
+            <marker date="1492376669877" expanded="true" signature="2527:2801" ph="select Food_... Site" />
+            <marker date="1492376669877" expanded="true" signature="3711:3763" ph="SELECT COUNT... Food_pantry" />
+            <marker date="1492376669877" expanded="true" signature="4686:5023" ph="SELECT * FRO... Item" />
+            <marker date="1492376669877" expanded="true" signature="5376:5470" ph="SELECT * FRO... Request" />
+            <marker date="1492376669877" expanded="true" signature="5964:6009" ph="SELECT * FRO... Food_pantry" />
+            <marker date="1492376669877" expanded="true" signature="6631:6837" ph="UPDATE cs640... " />
           </folding>
         </state>
       </provider>
@@ -2056,7 +2041,7 @@
         <state relative-caret-position="120">
           <caret line="19" column="13" lean-forward="false" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
           <folding>
-            <marker date="1492359157747" expanded="true" signature="1181:1332" ph="SELECT Soup_... Site" />
+            <marker date="1492376669925" expanded="true" signature="1181:1332" ph="SELECT Soup_... Site" />
           </folding>
         </state>
       </provider>
@@ -2110,33 +2095,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/WaitlistForm.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="540">
-          <caret line="36" column="45" lean-forward="false" selection-start-line="36" selection-start-column="45" selection-end-line="36" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/WaitlistDAO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="17" lean-forward="false" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/WaitlistDAOImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="90" column="23" lean-forward="false" selection-start-line="90" selection-start-column="23" selection-end-line="90" selection-end-column="23" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <marker date="1492318755635" expanded="true" signature="1263:1271" ph="select Site.... Site" />
-            <marker date="1492318755635" expanded="true" signature="1263:1518" ph="select *, Sh... Shelter" />
-            <marker date="1492318755635" expanded="true" signature="2731:2984" ph="select *, Sh... Shelter" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2149,23 +2113,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WaitlistController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="40" column="53" lean-forward="false" selection-start-line="40" selection-start-column="53" selection-end-line="40" selection-end-column="53" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/model/RoomBunkCount.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="26" lean-forward="false" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="26" />
           <folding>
-            <element signature="e#463#464#0" expanded="true" />
-            <element signature="e#504#505#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="false" />
+            <element signature="e#504#505#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -2202,33 +2156,15 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/SiteInfoController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-180">
-          <caret line="34" column="13" lean-forward="false" selection-start-line="34" selection-start-column="13" selection-end-line="34" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/SiteInfoForm.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-900">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/FoodPantryController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1821">
           <caret line="47" column="36" lean-forward="true" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
           <folding>
-            <marker date="1492367649253" expanded="true" signature="7194:8796" ph="{...}" />
-            <marker date="1492367649253" expanded="true" signature="7529:7639" ph="//..." />
-            <marker date="1492367649253" expanded="true" signature="7822:7887" ph="//..." />
-            <marker date="1492367649253" expanded="true" signature="8915:9575" ph="{...}" />
-            <marker date="1492367649253" expanded="true" signature="9859:9986" ph="{...}" />
-            <marker date="1492367649253" expanded="true" signature="10306:10470" ph="{...}" />
+            <marker date="1492376669925" expanded="true" signature="10154:10323" ph="{...}" />
+            <marker date="1492376669925" expanded="true" signature="10442:11102" ph="{...}" />
+            <marker date="1492376669925" expanded="true" signature="11386:11513" ph="{...}" />
+            <marker date="1492376669925" expanded="true" signature="11833:11997" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -2238,6 +2174,79 @@
         <state relative-caret-position="-1447">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/spring-core-config.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="44" lean-forward="false" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/dao/WaitlistDAOImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="872">
+          <caret line="90" column="23" lean-forward="false" selection-start-line="90" selection-start-column="23" selection-end-line="90" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3015#3882#0" expanded="true" />
+            <element signature="e#3881#3882#0" expanded="true" />
+            <marker date="1492318755635" expanded="true" signature="1263:1271" ph="select Site.... Site" />
+            <marker date="1492318755635" expanded="true" signature="1263:1518" ph="select *, Sh... Shelter" />
+            <marker date="1492318755635" expanded="true" signature="2731:2984" ph="select *, Sh... Shelter" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/ShelterForm.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="118">
+          <caret line="308" column="22" lean-forward="false" selection-start-line="308" selection-start-column="22" selection-end-line="308" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/SiteInfoForm.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="123" column="21" lean-forward="true" selection-start-line="119" selection-start-column="0" selection-end-line="123" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/ShelterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/SiteInfoController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/jsp/WaitlistForm.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="49" column="63" lean-forward="false" selection-start-line="49" selection-start-column="55" selection-end-line="49" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/edu/gatech/csedbs/team073/web/WaitlistController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="375">
+          <caret line="41" column="36" lean-forward="false" selection-start-line="41" selection-start-column="36" selection-end-line="41" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

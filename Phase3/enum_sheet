@@ -1,0 +1,31 @@
+
+INSERT INTO `cs6400_sp17_team073`.`Item_type_enum` (`item_type_name`) VALUES ('none');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum` (`food_category_name`) VALUES ('none');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('none');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('personal hygiene');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('clothing');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('shelter');
+INSERT INTO `cs6400_sp17_team073`.`Item_supply_category_enum` (`supply_category_name`) VALUES ('other');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('none');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('refrigerated');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('drygoods');
+INSERT INTO `cs6400_sp17_team073`.`Item_storage_type_enum` (`storage_type_name`) VALUES ('frozen');
+
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum` (`food_category_name`) VALUES ('vegetables');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('beans');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('nuts');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('grains');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('meat');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('seafood');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('dairy');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('condiments');
+INSERT INTO `cs6400_sp17_team073`.`Item_food_category_enum`  (`food_category_name`) VALUES ('drinks');
+
+INSERT INTO `cs6400_sp17_team073`.`Bunk_type_enum`  (`bunk_type_name`) VALUES ('male');
+INSERT INTO `cs6400_sp17_team073`.`Bunk_type_enum`  (`bunk_type_name`) VALUES ('female');
+INSERT INTO `cs6400_sp17_team073`.`Bunk_type_enum`  (`bunk_type_name`) VALUES ('mixed');
+
+INSERT INTO `cs6400_sp17_team073`.`Request_status_enum` (`request_status_name`) VALUES ('filled');
+INSERT INTO `cs6400_sp17_team073`.`Request_status_enum` (`request_status_name`) VALUES ('pending');
+INSERT INTO `cs6400_sp17_team073`.`Request_status_enum` (`request_status_name`) VALUES ('rejected');
+

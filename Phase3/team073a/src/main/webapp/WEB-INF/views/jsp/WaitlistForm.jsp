@@ -45,9 +45,11 @@
 
     </table>
 
-    <tr>
-        <td colspan="2" align="center"><input type="submit" value="Return to Service"></td>
-    </tr>
+    <td>
+
+        <a href="<c:url value='/shelterform?username=${userName}&siteId=${siteId}' />" >Return to Service</a>
+
+    </td>
 
     <tr>
         <td colspan="2" align="center"><input type="submit" value="Logout"></td>
