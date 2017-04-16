@@ -33,6 +33,9 @@ public class Item {
 	public String foodBank;
 	public String getFoodBank(){return foodBank;}
 	public void setFoodBank(String s){foodBank=s;}
+	public int onSite;
+	public int getOnSite(){return onSite;}
+	public void setOnSite(int c){onSite=c;}
 
 	public Item() {
 	}

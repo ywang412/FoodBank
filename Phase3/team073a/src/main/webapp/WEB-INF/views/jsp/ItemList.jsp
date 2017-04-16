@@ -27,6 +27,7 @@
                 <td>${item.supplyCategory}</td>
                 <td>${item.expirationDate}</td>
                 <td>${item.foodBank}</td>
+                <td><c:if test="${item.onSite == '0'}">Request</c:if><c:if test="${item.onSite>0}">Already on site</c:if></td>
             </tr>
         </c:forEach>
 

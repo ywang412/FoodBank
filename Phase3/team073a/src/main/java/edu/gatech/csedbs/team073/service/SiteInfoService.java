@@ -232,7 +232,7 @@ public class SiteInfoService {
 
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
-    public List GetRequestTable() {  return foodPantryDAO.GetRequestTable();}
+    public List GetRequestTable(String user) {  return foodPantryDAO.GetRequestTable(user);}
 
     public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
 
@@ -270,6 +270,7 @@ public class SiteInfoService {
 
 
     public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
+    public List GetItemTableWith(String username) {  return foodPantryDAO.GetItemTableWith(username);}
 
     public List GetItemsInFoodBank(int foodBankdId) {return foodBankDAO.GetItemsInFoodBank(foodBankdId );}
 

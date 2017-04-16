@@ -252,7 +252,7 @@ public class RequestController {
 
     @RequestMapping(value="/requestList", method = RequestMethod.GET)
 
-    public ModelAndView RequestList() {
+    public ModelAndView RequestList(@RequestParam(value="username") String username) {
 
 
         List<Request> requests;
@@ -261,14 +261,7 @@ public class RequestController {
 
         model = new ModelAndView("RequestList");
 
-
-
-
-
-
-
-        requests = siteInfoService.GetRequestTable();
-
+        requests = siteInfoService.GetRequestTable(username);
 
         model.addObject("lists", requests);
 
