@@ -23,4 +23,9 @@ public interface FoodPantryDAO {
     public List GetItemTable();
 
     public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use);
+
+    public int addFoodPantry( int siteid, String description_string, String hours, String conditions_for_use);
+
+    public boolean removeFoodPantry(int siteid, int fpid);
+
 }

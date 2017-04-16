@@ -32,7 +32,7 @@
 <body>
 
 <div align="center">
-    <h1>Edit Food Pantry Information</h1>
+    <h1>Add / Edit Food Pantry Information</h1>
     <form action="/foodpantryedit"   method="post">
 
         <table>
@@ -83,6 +83,11 @@
             <c:when test="${disabled}">
                 <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  disabled="disabled"> </td>
             </c:when>
+            <c:when test="${missing}">
+                <td colspan="2" align="center"><input type="submit" name = "add" value="Add"  > </td>
+                <input type="hidden" name="username" value="${username}">
+                <input type="hidden" name="siteId" value="${siteId}">
+            </c:when>
             <c:otherwise>
                 <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
                 <input type="hidden" name="foodPantryId" value="${foodPantryId}">
@@ -93,15 +98,61 @@
         </table>
     </form>
 </div>
+<br>
 
-<br>
-<br>
 <div align="center">
-    <form method="get" action="/foodpantryform">
-        <button type="submit" align="center">Return</button>
-        <input type="hidden" name="username" value="${username}">
-        <input type="hidden" name="siteId" value="${siteId}">
+
+    <form method="post" action="/foodpantryremove">
+        <c:choose>
+
+
+            <c:when test="${disabled}">
+
+            </c:when>
+            <c:when test ="${missing}">
+
+            </c:when>
+            <c:otherwise>
+
+                <button type="submit" align="center">Remove</button>
+                <input type="hidden" name="foodPantryId" value="${foodPantryId}">
+                <input type="hidden" name="username" value="${username}">
+                <input type="hidden" name="siteId" value="${siteId}">
+
+            </c:otherwise>
+
+        </c:choose>
     </form>
 </div>
+
+<br>
+
+
+<div align="center">
+    <form method="get" action="/foodpantryform">
+        <c:choose>
+            <c:when test="${disabled}">
+
+            </c:when>
+            <c:when test ="${missing}">
+
+            </c:when>
+            <c:otherwise>
+                <button type="submit" align="center">Return To Food Pantry</button>
+                <input type="hidden" name="username" value="${username}">
+                <input type="hidden" name="siteId" value="${siteId}">
+            </c:otherwise>
+        </c:choose>
+    </form>
+</div>
+
+
+<br>
+<div align="center">
+    <form method="post" action="/SiteInfo">
+        <button type="submit" align="center">Return To Site</button>
+    </form>
+</div>
+
 </body>
 </html>

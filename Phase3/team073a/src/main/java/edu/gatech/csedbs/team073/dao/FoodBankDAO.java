@@ -15,4 +15,10 @@ public interface FoodBankDAO {
     public FoodBank getFoodBank(int id);
 
     public List GetItemsInFoodBank(int id);
+
+    public boolean updateFoodBank(int id, String description_string);
+
+    public int addFoodBank( int siteid, String description_string);
+
+    public boolean removeFoodBank(int siteid, int fbid);
 }

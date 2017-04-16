@@ -153,15 +153,73 @@ public class SiteInfoService {
         return foodPantryDAO.updateFoodPantry(id, description_string, hours, conditions_for_use);
     }
 
+
+    public int addFoodPantry( int siteid, String description_string, String hours, String conditions_for_use ) {
+
+        return foodPantryDAO.addFoodPantry(siteid, description_string, hours, conditions_for_use);
+    }
+
+    public boolean removeFoodPantry(int siteid, int fpid) {
+
+        return foodPantryDAO.removeFoodPantry(siteid, fpid );
+    }
+
+
+
     public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit ) {
 
         return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats, seats_limit);
     }
 
+
+    public int addSoupKitchen(int siteid, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit ) {
+
+        return soupKitchenDAO.addSoupKitchen(siteid, description_string, hours, conditions_for_use,available_seats, seats_limit);
+    }
+
+    public boolean removeSoupKitchen(int siteid, int skid) {
+
+        return soupKitchenDAO.removeSoupKitchen(siteid, skid );
+    }
+
+
+
+
     public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks, int available_rooms) {
 
         return shelterDAO.updateShelter(id, description_string, hours, conditions_for_use, available_bunks,available_rooms);
     }
+
+
+    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms){
+
+        return shelterDAO.addShelter(siteid, description_string, hours, conditions_for_use, available_bunks,available_rooms);
+    }
+
+    public boolean removeShelter(int siteid, int shid) {
+
+        return shelterDAO.removeShelter(siteid, shid );
+    }
+
+
+
+
+    public boolean updateFoodBank(int id, String description_string) {
+
+        return foodBankDAO.updateFoodBank(id, description_string);
+    }
+
+
+    public int addFoodBank( int siteid, String description_string ) {
+
+        return foodBankDAO.addFoodBank(siteid, description_string);
+    }
+
+    public boolean removeFoodBank(int siteid, int fbid) {
+
+        return foodBankDAO.removeFoodBank(siteid, fbid );
+    }
+
 
 
     public boolean decrementSoupKitchenSeats(int id)  {return soupKitchenDAO.decrementSoupKitchenSeats(id);}
@@ -201,6 +259,9 @@ public class SiteInfoService {
     public Integer releaseRoom(int shelterId) {
         return roomDAO.releaseRoom(shelterId);
     }
+
+
+
 
     public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
 

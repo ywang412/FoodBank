@@ -185,7 +185,7 @@ public class FoodPantryController {
         ModelAndView model = null;
         FoodPantry foodPantry;
 
-        foodPantry = siteInfoService.getFoodPantryDAO(foodPantryId);
+
         siteInfo = siteInfoService.getSiteInfoDAO(siteId);
         user = siteInfoService.getUserDAO(username);
 
@@ -193,9 +193,28 @@ public class FoodPantryController {
 
         model.addObject("shortName", siteInfo.getShortName());
 
-        model.addObject("descriptionString", foodPantry.getDescriptionString());
-        model.addObject("conditionsForUse", foodPantry.getConditionsForUse());
-        model.addObject("hours", foodPantry.getHours());
+        //if the food bank is present
+        if (foodPantryId > 0) {
+
+            foodPantry = siteInfoService.getFoodPantryDAO(foodPantryId);
+
+
+            model.addObject("descriptionString", foodPantry.getDescriptionString());
+            model.addObject("conditionsForUse", foodPantry.getConditionsForUse());
+            model.addObject("hours", foodPantry.getHours());
+
+
+            model.addObject("foodPantryId", foodPantry.getFoodPantryId());
+
+            model.addObject("foodPantry", new FoodPantry());
+
+            model.addObject("missing", "false");
+        }
+        else {
+
+            model.addObject("missing", "true");
+        }
+
 
         //ungrey out check in client button, edit, and request items
 
@@ -205,9 +224,7 @@ public class FoodPantryController {
 
         model.addObject("siteId", siteId);
 
-        model.addObject("foodPantryId", foodPantry.getFoodPantryId());
 
-        model.addObject("foodPantry", new FoodPantry());
 
         return model;
     }
@@ -220,11 +237,32 @@ public class FoodPantryController {
         User user;
         ModelAndView model = null;
         FoodPantry newfoodpantry = null;
+        Provide provides= null;
+
+        provides = siteInfoService.getProvideDAO(siteId);
 
         model = new ModelAndView("FoodPantryEdit");
 
-        //push new values to the database
-        siteInfoService.updateFoodPantry(foodPantry.getFoodPantryId(),  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse() );
+
+        //must be an 'add'
+        if  (provides.getFood_pantry_id() == 0) {
+
+
+            //push new values to the database
+            //adds a new entry in soup kitchen and then updates the provides
+            siteInfoService.addFoodPantry(siteId,  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse());
+
+
+
+        }
+        else {
+            //must be an update
+            //push new values to the database
+            siteInfoService.updateFoodPantry(foodPantry.getFoodPantryId(),  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse() );
+
+        }
+
+
 
         //query the new database entry if it took
         newfoodpantry = siteInfoService.getFoodPantryDAO(foodPantry.getFoodPantryId());
@@ -286,20 +324,16 @@ public class FoodPantryController {
     }
 
 
-    private List<String> getList() {
+    //post then redirect to site
+    @PostMapping(value="/foodpantryremove")
+    public String FoodPantryRemove(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                   @ModelAttribute FoodPantry foodPantry) {
 
-        List<String> list = new ArrayList<String>();
-        list.add("List A");
-        list.add("List B");
-        list.add("List C");
-        list.add("List D");
-        list.add("List 1");
-        list.add("List 2");
-        list.add("List 3");
+         siteInfoService.removeFoodPantry(siteId,foodPantry.getFoodPantryId() );
 
-        return list;
-
+        return "redirect:/SiteInfo";
     }
+
 
  /*
     @RequestMapping(value="/table")

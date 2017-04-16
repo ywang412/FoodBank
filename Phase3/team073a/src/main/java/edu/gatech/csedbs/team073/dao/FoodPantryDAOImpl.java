@@ -170,6 +170,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         return true;
     }
+
     public class ItemMapper implements RowMapper<Item> {
         public Item mapRow(ResultSet row, int rowNum) throws SQLException {
             Item i = new Item();
@@ -199,6 +200,53 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         }
     }
 
+    public int addFoodPantry( int siteid, String description_string, String hours, String conditions_for_use) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
 
+        params.addValue("description_string", description_string);
+        params.addValue("hours", hours);
+        params.addValue("conditions_for_use", conditions_for_use);
+
+
+        String sql = "INSERT INTO  cs6400_sp17_team073.Food_pantry (description_string, hours, conditions_for_use) " +
+                " VALUES(description_string = :description_string,hours=:hours, conditions_for_use = :conditions_for_use)";
+
+        int fp_id = jdbc.update(sql,params);
+
+        //update the provide table
+        params.addValue("site_id", siteid);
+        params.addValue("food_pantry_id", fp_id);
+
+        String sql2 ="UPDATE cs6400_sp17_team073.Provide SET food_pantry_id = :food_pantry_id" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql2,params);
+
+
+        return fp_id;
+    }
+
+
+    public boolean removeFoodPantry(int siteid, int fpid){
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+
+        //remove from provide table
+        params.addValue("site_id", siteid);
+        params.addValue("food_pantry_id", fpid);
+
+        String sql ="UPDATE cs6400_sp17_team073.Provide SET food_pantry_id = 0" +
+                " WHERE site_id=:site_id";
+        jdbc.update(sql,params);
+
+
+        //now remove from the soup kitchen table
+        String sql2 = "DELETE FROM cs6400_sp17_team073.Food_pantry " +
+                " WHERE food_pantry_id=:food_pantry_id";
+
+        jdbc.update(sql2,params);
+
+
+        return true;
+    }
 
 }

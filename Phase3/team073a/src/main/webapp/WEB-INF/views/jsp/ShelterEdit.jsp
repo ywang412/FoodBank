@@ -83,6 +83,13 @@
                 <c:when test="${disabled}">
                     <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  disabled="disabled"> </td>
                 </c:when>
+                <c:when test="${missing}">
+                    <td colspan="2" align="center"><input type="submit" name = "add" value="Add"  > </td>
+                    <input type="hidden" name="username" value="${username}">
+                    <input type="hidden" name="siteId" value="${siteId}">
+                    <input type="hidden" name="available_rooms" value="0">
+                    <input type="hidden" name="available_bunks" value="0">
+                </c:when>
                 <c:otherwise>
                     <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
                     <input type="hidden" name="shelterId" value="${shelterId}">
@@ -97,16 +104,62 @@
 
     </form>
 </div>
+<br>
 
-<br>
-<br>
 <div align="center">
-    <form method="get" action="/shelterform">
-        <button type="submit" align="center">Return</button>
-        <input type="hidden" name="username" value="${username}">
-        <input type="hidden" name="siteId" value="${siteId}">
+
+    <form method="post" action="/shelterremove">
+        <c:choose>
+
+
+            <c:when test="${disabled}">
+
+            </c:when>
+            <c:when test ="${missing}">
+
+            </c:when>
+            <c:otherwise>
+
+                <button type="submit" align="center">Remove</button>
+                <input type="hidden" name="shelterId" value="${shelterId}">
+                <input type="hidden" name="username" value="${username}">
+                <input type="hidden" name="siteId" value="${siteId}">
+
+            </c:otherwise>
+
+        </c:choose>
     </form>
 </div>
+
+<br>
+
+
+<div align="center">
+    <form method="get" action="/shelterform">
+        <c:choose>
+            <c:when test="${disabled}">
+
+            </c:when>
+            <c:when test ="${missing}">
+
+            </c:when>
+            <c:otherwise>
+                <button type="submit" align="center">Return To Shelter</button>
+                <input type="hidden" name="username" value="${username}">
+                <input type="hidden" name="siteId" value="${siteId}">
+            </c:otherwise>
+        </c:choose>
+    </form>
+</div>
+
+
+<br>
+<div align="center">
+    <form method="post" action="/SiteInfo">
+        <button type="submit" align="center">Return To Site</button>
+    </form>
+</div>
+
 
 
 </body>

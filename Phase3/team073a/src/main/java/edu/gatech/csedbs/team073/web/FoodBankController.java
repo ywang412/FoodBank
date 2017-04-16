@@ -6,10 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -160,4 +157,121 @@ public class FoodBankController {
         return model;
     }
 
+
+
+
+    @GetMapping(value="/foodbankedit")
+    public ModelAndView FoodBankEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId, @RequestParam(value="food_bank_id") Integer foodBankId) {
+        SiteInfo siteInfo;
+        User user;
+        ModelAndView model = null;
+        FoodBank foodBank;
+        Provide provides;
+
+        siteInfo = siteInfoService.getSiteInfoDAO(siteId);
+        user = siteInfoService.getUserDAO(username);
+
+
+        model = new ModelAndView("FoodBankEdit");
+        model.addObject("shortName", siteInfo.getShortName());
+        model.addObject("username", username);
+        model.addObject("siteId", siteId);
+
+        //if the food bank is present
+        if (foodBankId > 0) {
+            foodBank = siteInfoService.getFoodBankDAO(foodBankId);
+
+            model.addObject("descriptionString", foodBank.getDescriptionString());
+
+            model.addObject("foodBankId", foodBankId);
+
+            model.addObject("foodBank", new FoodBank());
+
+            model.addObject("missing", "false");
+        }
+        else {
+
+            model.addObject("missing", "true");
+        }
+
+
+
+            //ungrey out check in client button, edit, and request items
+
+            model.addObject("disabled", "false");
+
+
+
+
+        return model;
+    }
+
+
+
+    //post then reload with the changes
+    @PostMapping(value="/foodbankedit")
+    public ModelAndView FoodBankEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                       @ModelAttribute FoodBank foodBank) {
+
+        User user;
+        ModelAndView model = null;
+        FoodBank newfoodbank = null;
+        Provide provides= null;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+        model = new ModelAndView("FoodBankEdit");
+
+
+        //must be an 'add'
+        if  (provides.getFood_bank_id()== 0) {
+
+            //push new values to the database
+            //adds a new entry in soup kitchen and then updates the provides
+          siteInfoService.addFoodBank(siteId,  foodBank.getDescriptionString());
+
+        }
+        else {
+            //must be an update
+            //push new values to the database
+            siteInfoService.updateFoodBank(foodBank.getFoodBankId(),  foodBank.getDescriptionString() );
+        }
+
+
+
+
+
+        //query the new database entry if it took
+        newfoodbank = siteInfoService.getFoodBankDAO(foodBank.getFoodBankId());
+
+
+        model.addObject("descriptionString", newfoodbank.getDescriptionString());
+
+
+        //ungrey out check in client button, edit, and request items
+
+        model.addObject("disabled", "false");
+
+        model.addObject("foodBankId", newfoodbank.getFoodBankId());
+
+        //find the site that goes with this
+
+
+        model.addObject("username", username);
+
+        model.addObject("siteId", siteId);
+
+        return model;
+    }
+
+
+
+    //post then redirect to site
+    @PostMapping(value="/foodbankremove")
+    public String FoodBankRemove(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
+                                       @ModelAttribute FoodBank foodBank) {
+
+
+        siteInfoService.removeFoodBank(siteId,foodBank.getFoodBankId() );
+        return "redirect:/SiteInfo";
+    }
 }
