@@ -17,6 +17,14 @@
 <body>
 <div align="center">
     <h1>ASACS Soup Kitchen Information</h1>
+
+    <c:choose>
+        <c:when test="${disabled}">
+            <br>
+            <b style="color:red;">  NO SOUP KITCHEN AT THIS SITE! </b>
+        </c:when>
+    </c:choose>
+
     <form:form action="soupkitchenedit" method="get" >
         <table>
             <tr>

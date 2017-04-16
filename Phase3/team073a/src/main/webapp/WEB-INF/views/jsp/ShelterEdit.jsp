@@ -70,23 +70,67 @@
 
             </tr>
 
-            <tr>
-                <td>Total Bunks:</td>
-                <td>   ${available_bunks}  </td>
-                <td>Change Total Bunks To:</td>
-                <td><input type="text" name="available_bunks" />
-                </td>
-            </tr>
+            <c:choose>
+
+                <c:when test="${missing}">
+                    <tr>
+                        <td>Total Male Bunks:</td>
+                        <td><input type="text" name="male_bunks" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total Female Bunks:</td>
+                        <td><input type="text" name="female_bunks" />
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>Total Mixed Bunks:</td>
+                        <td><input type="text" name="mixed_bunks" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total Rooms:</td>
+                        <td><input type="text" name="total_rooms" />
+                        </td>
+                    </tr>
+                </c:when>
+                <c:otherwise>
 
 
 
-            <tr>
-                <td>Total Rooms:</td>
-                <td>   ${available_rooms}  </td>
-                <td>Change Total Rooms To:</td>
-                <td><input type="text" name="available_rooms" />
-                </td>
-            </tr>
+                    <tr>
+                        <td><b>NOT Editable Information:</b></td>
+
+
+                    </tr>
+                    <tr>
+                        <td>Total Male Bunks:</td>
+                        <td> ${male_bunks}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total Female Bunks:</td>
+                        <td> ${female_bunks}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Total Mixed Bunks:</td>
+                        <td> ${mixed_bunks}
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Total Rooms:</td>
+                        <td> ${total_rooms}
+                        </td>
+                    </tr>
+                </c:otherwise>
+            </c:choose>
+
+
+
+
+
 
         </table>
 
@@ -109,6 +153,10 @@
                     <input type="hidden" name="shelterId" value="${shelterId}">
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
+                    <input type="hidden" name="male_bunks" value="${male_bunks}">
+                    <input type="hidden" name="female_bunks" value="${female_bunks}">
+                    <input type="hidden" name="mixed_bunks" value="${mixed_bunks}">
+                    <input type="hidden" name="total_rooms" value="${total_rooms}">
                 </c:otherwise>
             </c:choose>
         </table>

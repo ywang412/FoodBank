@@ -177,6 +177,8 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         //        " WHERE site_id=:site_id";
         //jdbc.update(sql,params);
 
+        //remove all requests for a given item if it is
+
 
         //update all food bank items to remove the foriegn key
         String sql3 ="DELETE FROM cs6400_sp17_team073.Item " +

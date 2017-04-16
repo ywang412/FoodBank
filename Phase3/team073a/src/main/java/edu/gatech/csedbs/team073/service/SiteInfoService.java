@@ -197,10 +197,11 @@ public class SiteInfoService {
     }
 
 
-    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms){
+    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms,int male_bunks,int female_bunks,int mixed_bunks){
 
-        return shelterDAO.addShelter(siteid, description_string, hours, conditions_for_use, available_bunks,available_rooms);
+        return shelterDAO.addShelter(siteid, description_string, hours, conditions_for_use, available_bunks,available_rooms, male_bunks, female_bunks, mixed_bunks);
     }
+
 
     public boolean removeShelter(int siteid, int shid) {
 

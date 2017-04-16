@@ -14,7 +14,16 @@
 </head>
 <body>
 <div align="center">
-    <h1>Shelter</h1>
+    <h1>ASACS Shelter Information</h1>
+
+    <c:choose>
+
+        <c:when test="${disabled}">
+            <br>
+            <b style="color:red;">  NO SHELTER AT THIS SITE! </b>
+        </c:when>
+    </c:choose>
+
     <form:form action="shelteredit" method="get" >
         <table>
             <tr>
@@ -99,9 +108,13 @@
 
                     <td>
                         <c:choose>
+                            <c:when test="${no_male_bunks_in_site}">
+
+                            </c:when>
                             <c:when test="${not_available_bunk_male}">
                                 <b align="center">All Male Bunks Occupied.</b>
                             </c:when>
+
                             <c:otherwise>
 
                                 <form method="post" action="/shelterformbunk" align="center">
@@ -118,9 +131,13 @@
 
                     <td>
                         <c:choose>
+                            <c:when test="${no_female_bunks_in_site}">
+
+                            </c:when>
                             <c:when test="${not_available_bunk_female}">
                                 <b align="center">All Female Bunks Occupied.</b>
                             </c:when>
+
                             <c:otherwise>
 
                                 <form method="post" action="/shelterformbunk" align="center">
@@ -137,9 +154,13 @@
 
                     <td>
                         <c:choose>
+                            <c:when test="${no_mixed_bunks_in_site}">
+
+                            </c:when>
                             <c:when test="${not_available_bunk_mixed}">
                                 <b align="center">All Mixed Bunks Occupied.</b>
                             </c:when>
+
                             <c:otherwise>
 
                                 <form method="post" action="/shelterformbunk" align="center">
@@ -178,10 +199,14 @@
                 <tr>
                     <td>
                         <c:choose>
+                            <c:when test="${no_male_bunks_in_site}">
+                                <b align="center">No Male Bunks In Site</b>
+                            </c:when>
                             <c:when test="${not_release_bunk_male}">
                                 <b align="center">All Male Bunks Unoccupied.</b>
 
                             </c:when>
+
                             <c:otherwise>
                                 <form method="post" action="/shelterbunkrelease" align="center">
                                     <button type="submit" align="center">Release Male Bunk</button>
@@ -195,10 +220,14 @@
                     </td>
                     <td>
                         <c:choose>
+                            <c:when test="${no_female_bunks_in_site}">
+                                <b align="center">No Female Bunks In Site</b>
+                            </c:when>
                             <c:when test="${not_release_bunk_female}">
                                 <b align="center">All Female Bunks Unoccupied.</b>
 
                             </c:when>
+
                             <c:otherwise>
                                 <form method="post" action="/shelterbunkrelease" align="center">
                                     <button type="submit" align="center">Release Female Bunk</button>
@@ -213,10 +242,14 @@
                     <td>
 
                         <c:choose>
+                            <c:when test="${no_mixed_bunks_in_site}">
+                                <b align="center">No Mixed Bunks In Site</b>
+                            </c:when>
                             <c:when test="${not_release_bunk_mixed}">
                                 <b align="center">All Mixed Bunks Unoccupied.</b>
 
                             </c:when>
+
                             <c:otherwise>
                                 <form method="post" action="/shelterbunkrelease" align="center">
                                     <button type="submit" align="center">Release Mixed Bunk</button>
@@ -247,6 +280,9 @@
         <tr>
             <td>
                 <c:choose>
+                    <c:when test="${no_rooms_in_site}">
+
+                    </c:when>
                     <c:when test="${disabled}">
                         <b align="center">Not Applicable</b>
                     </c:when>
@@ -279,6 +315,9 @@
 
             <td>
                 <c:choose>
+                    <c:when test="${no_rooms_in_site}">
+                        <b align="center">This Site Has No Rooms</b>
+                    </c:when>
                     <c:when test="${disabled}">
                         <b align="center">Not Applicable</b>
                     </c:when>

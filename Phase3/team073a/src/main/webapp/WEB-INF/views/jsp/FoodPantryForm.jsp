@@ -10,7 +10,15 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Food Pantry</h1>
+		<h1>ASACS Food Pantry Information</h1>
+
+		<c:choose>
+			<c:when test="${disabled}">
+				<br>
+				<b style="color:red;">  NO FOOD PANTRY AT THIS SITE! </b>
+			</c:when>
+		</c:choose>
+
 		<form:form action="foodpantryedit" method="get" >
 		<table>
 			<tr>

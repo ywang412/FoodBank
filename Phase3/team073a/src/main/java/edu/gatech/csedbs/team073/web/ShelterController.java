@@ -199,6 +199,23 @@ public class ShelterController {
                 model.addObject("siteId", siteId);
                 model.addObject("shelterId", shelterId);
 
+                if ((OccupiedMaleBunks == 0) && (UnoccupiedMaleBunks == 0)) {
+                    model.addObject("no_male_bunks_in_site", "true");
+                }
+
+                if ((OccupiedFemaleBunks == 0) && (UnoccupiedFemaleBunks == 0)) {
+                    model.addObject("no_female_bunks_in_site", "true");
+                }
+
+                if ((OccupiedMixedBunks == 0) && (UnoccupiedMixedBunks == 0)) {
+                    model.addObject("no_mixed_bunks_in_site", "true");
+                }
+
+                if ((OccupiedRooms == 0) && (UnoccupiedRooms == 0)) {
+                    model.addObject("no_rooms_in_site", "true");
+                }
+
+
                 //disable or enable buttons based on whether the count is 0 or not
                 if (OccupiedMaleBunks == 0) {
                     model.addObject("not_release_bunk_male", "true");
@@ -226,6 +243,8 @@ public class ShelterController {
                 if (UnoccupiedRooms == 0) {
                     model.addObject("not_available_room", "true");
                 }
+
+
 
             }
             else {
@@ -302,6 +321,42 @@ public class ShelterController {
             model.addObject("shelter", new Shelter());
 
             model.addObject("missing", "false");
+
+            //get # of unoccupied male bunks for shelter
+            int UnoccupiedMaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(ShelterId,1,false);
+
+            //get # of unoccupied female bunks for shelter
+            int UnoccupiedFemaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(ShelterId,2,false);
+
+            //get # of unoccupied mixed bunks for shelter
+            int UnoccupiedMixedBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(ShelterId,3,false);
+
+
+
+            //get # of  occupied male bunks for shelter
+            int OccupiedMaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(ShelterId,1,true);
+
+            //get # of  occupied female bunks for shelter
+            int OccupiedFemaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(ShelterId,2,true);
+
+            //get # of  occupied mixed bunks for shelter
+            int OccupiedMixedBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(ShelterId,3,true);
+
+
+
+            //get # of  unoccupied rooms for shelter
+            int UnoccupiedRooms =  siteInfoService.getRoomCountByShelterIdAndOccupancy(ShelterId,false);
+
+
+            //get # of  occupied rooms for shelter
+            int OccupiedRooms  =  siteInfoService.getRoomCountByShelterIdAndOccupancy(ShelterId,true);
+
+
+            model.addObject("male_bunks", (OccupiedMaleBunks + UnoccupiedMaleBunks));
+            model.addObject("female_bunks", (OccupiedFemaleBunks + UnoccupiedFemaleBunks));
+            model.addObject("mixed_bunks", (OccupiedMixedBunks + UnoccupiedMixedBunks));
+
+            model.addObject("total_rooms", (UnoccupiedRooms + OccupiedRooms));
         }
         else {
 
@@ -338,9 +393,13 @@ public class ShelterController {
 
     //post then reload with the changes
     @PostMapping(value="/shelteredit")
-    public ModelAndView ShelterEdit(@RequestParam(value="username") String username, @RequestParam(value="siteId") Integer siteId,
-                                        @RequestParam(value="available_bunks") Integer bunks,
-                                    @RequestParam(value="available_rooms") Integer rooms,   @ModelAttribute Shelter shelter) {
+    public ModelAndView ShelterEdit(@RequestParam(value="username") String username,
+                                    @RequestParam(value="siteId") Integer siteId,
+                                    @RequestParam(value="male_bunks") Integer male_bunks,
+                                    @RequestParam(value="female_bunks") Integer female_bunks,
+                                    @RequestParam(value="mixed_bunks") Integer mixed_bunks,
+                                    @RequestParam(value="total_rooms") Integer total_rooms,
+                                    @ModelAttribute Shelter shelter) {
 
         User user;
         ModelAndView model = null;
@@ -358,9 +417,14 @@ public class ShelterController {
         if  (provides.getShelter_id() == 0) {
 
 
+
+
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-            int  newid = siteInfoService.addShelter(siteId, shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+            int  newid = siteInfoService.addShelter(siteId, shelter.getDescriptionString(),
+                    shelter.getHours(),shelter.getConditionsForUse(),(male_bunks + female_bunks + mixed_bunks),
+                    total_rooms,
+                    male_bunks,female_bunks,mixed_bunks);
 
 
             //query the new database entry if it took
@@ -369,7 +433,7 @@ public class ShelterController {
         else {
             //must be an update
             //push new values to the database
-            siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+            siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(), shelter.getAvailableBunks(),shelter.getAvailableRooms());
 
             //query the new database entry if it took
             newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
@@ -421,6 +485,45 @@ public class ShelterController {
         model.addObject("username", username);
 
         model.addObject("siteId", siteId);
+
+        //get # of unoccupied male bunks for shelter
+        int UnoccupiedMaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(newshelter.getShelterId(),1,false);
+
+        //get # of unoccupied female bunks for shelter
+        int UnoccupiedFemaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(newshelter.getShelterId(),2,false);
+
+        //get # of unoccupied mixed bunks for shelter
+        int UnoccupiedMixedBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(newshelter.getShelterId(),3,false);
+
+
+
+        //get # of  occupied male bunks for shelter
+        int OccupiedMaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(newshelter.getShelterId(),1,true);
+
+        //get # of  occupied female bunks for shelter
+        int OccupiedFemaleBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(newshelter.getShelterId(),2,true);
+
+        //get # of  occupied mixed bunks for shelter
+        int OccupiedMixedBunks =  siteInfoService.getBunkCountByShelterIdAndTypeAndOccupancy(newshelter.getShelterId(),3,true);
+
+
+
+        //get # of  unoccupied rooms for shelter
+        int UnoccupiedRooms =  siteInfoService.getRoomCountByShelterIdAndOccupancy(newshelter.getShelterId(),false);
+
+
+        //get # of  occupied rooms for shelter
+        int OccupiedRooms  =  siteInfoService.getRoomCountByShelterIdAndOccupancy(newshelter.getShelterId(),true);
+
+
+        model.addObject("male_bunks", (OccupiedMaleBunks + UnoccupiedMaleBunks));
+        model.addObject("female_bunks", (OccupiedFemaleBunks + UnoccupiedFemaleBunks));
+        model.addObject("mixed_bunks", (OccupiedMixedBunks + UnoccupiedMixedBunks));
+
+        model.addObject("total_rooms", (UnoccupiedRooms + OccupiedRooms));
+
+
+
 
         return model;
     }

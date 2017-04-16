@@ -23,6 +23,13 @@
 <div align="center">
     <h1>ASACS Food Bank Information</h1>
 
+    <c:choose>
+        <c:when test="${disabled}">
+            <br>
+            <b style="color:red;">  NO FOOD BANK AT THIS SITE! </b>
+        </c:when>
+    </c:choose>
+
     <table>
         <tr>
             <td>Site Name:</td>
