@@ -217,7 +217,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         //query for the new ID
         String sql3 = "SELECT  cs6400_sp17_team073.Food_pantry.food_pantry_id FROM cs6400_sp17_team073.Food_pantry" +
-                "WHERE description_string = :description_string AND " +
+                " WHERE description_string = :description_string AND " +
                 "hours=:hours AND conditions_for_use = :conditions_for_use  ORDER BY Food_pantry.food_pantry_id ASC LIMIT 1";
 
         Integer fp_id =  jdbc.queryForObject(sql3 ,params,Integer.class);

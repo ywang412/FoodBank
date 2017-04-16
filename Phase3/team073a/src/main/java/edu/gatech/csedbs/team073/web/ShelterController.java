@@ -342,23 +342,26 @@ public class ShelterController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-           siteInfoService.addShelter(siteId, shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+            int  newid = siteInfoService.addShelter(siteId, shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
 
 
-
+            //query the new database entry if it took
+            newshelter = siteInfoService.getShelterDAO(newid);
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
 
+            //query the new database entry if it took
+            newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
+
         }
 
 
+        model.addObject("shelter", newshelter);
 
 
-        //query the new database entry if it took
-        newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
 
 
         model.addObject("descriptionString", newshelter.getDescriptionString());

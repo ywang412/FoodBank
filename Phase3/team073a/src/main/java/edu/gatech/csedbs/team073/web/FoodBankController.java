@@ -231,21 +231,23 @@ public class FoodBankController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-          siteInfoService.addFoodBank(siteId,  foodBank.getDescriptionString());
-
+            int  newid = siteInfoService.addFoodBank(siteId,  foodBank.getDescriptionString());
+            //query the new database entry if it took
+            newfoodbank = siteInfoService.getFoodBankDAO(newid);
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateFoodBank(foodBank.getFoodBankId(),  foodBank.getDescriptionString() );
+
+            newfoodbank = siteInfoService.getFoodBankDAO(foodBank.getFoodBankId());
         }
 
 
 
 
 
-        //query the new database entry if it took
-        newfoodbank = siteInfoService.getFoodBankDAO(foodBank.getFoodBankId());
+        model.addObject("foodBank", newfoodbank);
 
 
         model.addObject("descriptionString", newfoodbank.getDescriptionString());

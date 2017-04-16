@@ -280,21 +280,22 @@ public class SoupKitchenController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-             siteInfoService.addSoupKitchen(siteId,  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
+            int  newid =  siteInfoService.addSoupKitchen(siteId,  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
 
-
+            //query the new database entry if it took
+            newsoupkitchen = siteInfoService.getSoupKitchenDAO(newid);
 
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
-
+            //query the new database entry if it took
+            newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
         }
 
+        model.addObject("soupKitchen", newsoupkitchen);
 
-        //query the new database entry if it took
-        newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
 
 
         model.addObject("descriptionString", newsoupkitchen.getDescriptionString());

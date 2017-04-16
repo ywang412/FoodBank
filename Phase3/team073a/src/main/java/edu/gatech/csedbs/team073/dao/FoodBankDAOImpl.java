@@ -139,10 +139,18 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
 
 
 
-        String sql = "INSERT INTO  cs6400_sp17_team073.food_bank (description_string) " +
-                " VALUES(description_string = :description_string)";
+        String sql = "INSERT INTO  cs6400_sp17_team073.Food_bank (description_string) " +
+                " VALUES(:description_string)";
 
-        int fbid = jdbc.update(sql,params);
+         jdbc.update(sql,params);
+
+
+        //query for the new ID
+        String sql3 = "SELECT  cs6400_sp17_team073.Food_bank.food_bank_id FROM cs6400_sp17_team073.Food_bank" +
+                " WHERE description_string = :description_string " +
+                " ORDER BY Food_bank.food_bank_id ASC LIMIT 1";
+
+        Integer fbid =  jdbc.queryForObject(sql3 ,params,Integer.class);
 
         //update the provide table
         params.addValue("site_id", siteid);
@@ -164,9 +172,9 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         params.addValue("site_id", siteid);
         params.addValue("food_bank_id", fbid);
 
-        String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = 0" +
+        String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = NULL" +
                 " WHERE site_id=:site_id";
-        jdbc.update(sql,params);
+        //jdbc.update(sql,params);
 
 
         //now remove from the soup kitchen table

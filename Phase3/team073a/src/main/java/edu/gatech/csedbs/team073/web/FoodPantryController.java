@@ -254,22 +254,23 @@ public class FoodPantryController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-            siteInfoService.addFoodPantry(siteId,  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse());
+            int  newid =siteInfoService.addFoodPantry(siteId,  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse());
 
 
-
+            //query the new database entry if it took
+            newfoodpantry = siteInfoService.getFoodPantryDAO(newid);
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateFoodPantry(foodPantry.getFoodPantryId(),  foodPantry.getDescriptionString(),foodPantry.getHours(),foodPantry.getConditionsForUse() );
-
+            //query the new database entry if it took
+            newfoodpantry = siteInfoService.getFoodPantryDAO(foodPantry.getFoodPantryId());
         }
 
 
 
-        //query the new database entry if it took
-        newfoodpantry = siteInfoService.getFoodPantryDAO(foodPantry.getFoodPantryId());
+        model.addObject("foodPantry", newfoodpantry);
 
 
         model.addObject("descriptionString", newfoodpantry.getDescriptionString());
