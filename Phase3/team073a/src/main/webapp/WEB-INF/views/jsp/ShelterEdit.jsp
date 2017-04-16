@@ -70,21 +70,7 @@
 
             </tr>
 
-            <tr>
-                <td>Available Bunks:</td>
-                <td>   ${available_bunks}  </td>
-                <td>Change Available Bunks To:</td>
-                <td><input type="number" name="available_bunks" />
-                </td>
-            </tr>
 
-            <tr>
-                <td>Available Rooms:</td>
-                <td>   ${available_rooms}  </td>
-                <td>Change Available Rooms To:</td>
-                <td><input type="number" name="available_rooms" />
-                </td>
-            </tr>
 
 
         </table>

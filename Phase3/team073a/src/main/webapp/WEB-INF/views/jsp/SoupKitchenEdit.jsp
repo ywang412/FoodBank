@@ -81,8 +81,8 @@
             </tr>
             <tr>
                 <td>Total Seats:</td>
-                <td>   ${total_seats}  </td>
-                <td>Change Available Seats To:</td>
+                <td>   ${seats_limit}  </td>
+                <td>Change Total Seats To:</td>
                 <td><input type="number" name="seats_limit" />
                 </td>
 

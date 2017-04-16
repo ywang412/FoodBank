@@ -66,8 +66,9 @@
                 <th>${shelter.conditionsForUse}</th>
 
             </tr>
+            <td><a href="<c:url value='/foodbankform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to Food Bank</a></td>
 
-            <td><a href="<c:url value='/foodpantryform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to FoodPantry</a></td>
+            <td><a href="<c:url value='/foodpantryform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to Food Pantry</a></td>
             <td><a href="<c:url value='/soupkitchenform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to Soup Kitchen</a></td>
             <td><a href="<c:url value='/shelterform?username=${user.userName}&siteId=${siteInfo.siteId}' />" >Go to Shelter</a></td>
 

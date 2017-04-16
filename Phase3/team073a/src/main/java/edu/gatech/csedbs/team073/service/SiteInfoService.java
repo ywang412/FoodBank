@@ -195,4 +195,8 @@ public class SiteInfoService {
     }
 
     public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
+
+    public List GetItemsInFoodBank(int foodBankdId) {return foodBankDAO.GetItemsInFoodBank(foodBankdId );}
+
+
 }

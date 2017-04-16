@@ -11,6 +11,7 @@ public class ServiceInfo {
     private boolean shelter;
     private boolean food_pantry;
     private boolean soup_kitchen;
+    private boolean food_bank;
 
     private String description;
 
@@ -99,6 +100,14 @@ public class ServiceInfo {
 
     public void setRelease_bunk(boolean release_bunk) {
         this.release_bunk = release_bunk;
+    }
+
+    public boolean isFood_bank() {
+        return food_bank;
+    }
+
+    public void setFood_bank(boolean food_bank) {
+        this.food_bank = food_bank;
     }
 }
 

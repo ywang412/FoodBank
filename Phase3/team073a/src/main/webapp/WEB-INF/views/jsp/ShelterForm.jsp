@@ -44,15 +44,25 @@
             </tr>
 
             <tr>
-                <td>Available Bunks:</td>
-                <td>   ${available_bunks}  </td>
+                <td>Unoccupied Bunks:  Total  :  Male / Female / Mixed</td>
             </tr>
-
             <tr>
-                <td>Available Rooms:</td>
-                <td>   ${available_rooms}  </td>
+                <td>                  ${unoccupied_bunks} :  ${unoccupied_bunks_male} / ${unoccupied_bunks_female}  / ${unoccupied_bunks_mixed}</td>
             </tr>
-
+            <tr>
+                <td>Occupied Bunks:   Total  :  Male / Female / Mixed         </td>
+            </tr>
+            <tr>
+                <td>                ${occupied_bunks} : ${occupied_bunks_male} / ${occupied_bunks_female}  / ${occupied_bunks_mixed} </td>
+            </tr>
+            <tr>
+                <td>Unoccupied Rooms:</td>
+                <td>   ${unoccupied_rooms}  </td>
+            </tr>
+            <tr>
+                <td>Occupied Rooms:</td>
+                <td>   ${occupied_rooms}  </td>
+            </tr>
             <tr align="center">
 
                 <c:choose>
@@ -77,53 +87,223 @@
 </div>
 
 <div align="center">
-    <h1>Check In Client </h1>
-
-
-    <br>
+    <h3>Check In Client Into Bunk</h3>
 
     <c:choose>
         <c:when test="${disabled}">
             <b align="center">Not Applicable</b>
         </c:when>
         <c:otherwise>
+            <table>
+                <tr>
 
-            <form method="get" action="/ClientSearchForm" align="center">
-                <button type="submit" align="center">Check In Client</button>
-                <input type="hidden" name="username" value="${username}">
-                <input type="hidden" name="siteId" value="${siteId}">
-                <input type="hidden" name="shelter_id" value="${shelterId}">
+                    <td>
+                        <c:choose>
+                            <c:when test="${not_available_bunk_male}">
+                                <b align="center">All Male Bunks Occupied.</b>
+                            </c:when>
+                            <c:otherwise>
 
-            </form>
+                                <form method="post" action="/shelterformbunk" align="center">
+                                    <button type="submit" align="center">Check Into Male Bunk</button>
+                                    <input type="hidden" name="username" value="${username}">
+                                    <input type="hidden" name="siteId" value="${siteId}">
+                                    <input type="hidden" name="shelter_id" value="${shelterId}">
+                                    <input type="hidden" name="bunk_type" value="1">
+
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+
+                    <td>
+                        <c:choose>
+                            <c:when test="${not_available_bunk_female}">
+                                <b align="center">All Female Bunks Occupied.</b>
+                            </c:when>
+                            <c:otherwise>
+
+                                <form method="post" action="/shelterformbunk" align="center">
+                                    <button type="submit" align="center">Check Into Female Bunk</button>
+                                    <input type="hidden" name="username" value="${username}">
+                                    <input type="hidden" name="siteId" value="${siteId}">
+                                    <input type="hidden" name="shelter_id" value="${shelterId}">
+                                    <input type="hidden" name="bunk_type" value="2">
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+
+
+                    <td>
+                        <c:choose>
+                            <c:when test="${not_available_bunk_mixed}">
+                                <b align="center">All Mixed Bunks Occupied.</b>
+                            </c:when>
+                            <c:otherwise>
+
+                                <form method="post" action="/shelterformbunk" align="center">
+                                    <button type="submit" align="center">Check Into Mixed Bunk</button>
+                                    <input type="hidden" name="username" value="${username}">
+                                    <input type="hidden" name="siteId" value="${siteId}">
+                                    <input type="hidden" name="shelter_id" value="${shelterId}">
+                                    <input type="hidden" name="bunk_type" value="3">
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+
+            </table>
+
         </c:otherwise>
     </c:choose>
+</div>
 
+<div align="center">
+    <br>
+    <h3>Release Client From Bunk</h3>
+    <c:choose>
+        <c:when test="${disabled}">
+            <b align="center">Not Applicable</b>
+        </c:when>
+        <c:when test="${not_release_bunk}">
+            <b align="center">All Bunks Unoccupied.</b>
 
+        </c:when>
+
+        <c:otherwise>
+
+            <table>
+                <tr>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not_release_bunk_male}">
+                                <b align="center">All Male Bunks Unoccupied.</b>
+
+                            </c:when>
+                            <c:otherwise>
+                                <form method="post" action="/shelterbunkrelease" align="center">
+                                    <button type="submit" align="center">Release Male Bunk</button>
+                                    <input type="hidden" name="username" value="${username}">
+                                    <input type="hidden" name="siteId" value="${siteId}">
+                                    <input type="hidden" name="shelter_id" value="${shelterId}">
+                                    <input type="hidden" name="bunk_type" value="1">
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${not_release_bunk_female}">
+                                <b align="center">All Female Bunks Unoccupied.</b>
+
+                            </c:when>
+                            <c:otherwise>
+                                <form method="post" action="/shelterbunkrelease" align="center">
+                                    <button type="submit" align="center">Release Female Bunk</button>
+                                    <input type="hidden" name="username" value="${username}">
+                                    <input type="hidden" name="siteId" value="${siteId}">
+                                    <input type="hidden" name="shelter_id" value="${shelterId}">
+                                    <input type="hidden" name="bunk_type" value="2">
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                    <td>
+
+                        <c:choose>
+                            <c:when test="${not_release_bunk_mixed}">
+                                <b align="center">All Mixed Bunks Unoccupied.</b>
+
+                            </c:when>
+                            <c:otherwise>
+                                <form method="post" action="/shelterbunkrelease" align="center">
+                                    <button type="submit" align="center">Release Mixed Bunk</button>
+                                    <input type="hidden" name="username" value="${username}">
+                                    <input type="hidden" name="siteId" value="${siteId}">
+                                    <input type="hidden" name="shelter_id" value="${shelterId}">
+                                    <input type="hidden" name="bunk_type" value="3">
+                                </form>
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </c:otherwise>
+    </c:choose>
 
 </div>
 
 <div align="center">
-    <h1>Request Items </h1>
+    <h3>Check In Client Into Room</h3>
 
 
-    <c:choose>
-        <c:when test="${disabled}">
-            <b align="center">Not Applicable</b>
 
-        </c:when>
-        <c:otherwise>
+    <table>
+        <tr>
+            <td>
+                <c:choose>
+                    <c:when test="${disabled}">
+                        <b align="center">Not Applicable</b>
+                    </c:when>
 
-            <form method="post" action="/requestitems">
-                <button type="submit" align="center">Request Items</button>
-                <input type="hidden" name="username" value="${username}">
-                <input type="hidden" name="siteId" value="${siteId}">
-                <input type="hidden" name="shelter_id" value="${shelterId}">
+                    <c:when test="${not_available_room}">
+                        <b align="center">All Rooms Occupied.</b>
 
-            </form>
-        </c:otherwise>
-    </c:choose>
+                        <form method="get" action="/waitlist">
+                            <button type="submit" align="center">Get Client On Waitlist</button>
+                            <input type="hidden" name="username" value="${username}">
+                            <input type="hidden" name="siteId" value="${siteId}">
+                            <input type="hidden" name="shelter_id" value="${shelterId}">
 
+                        </form>
+
+                    </c:when>
+
+                    <c:otherwise>
+
+                        <form method="post" action="/shelterclaimroom" align="center">
+                            <button type="submit" align="center">Check Into Room</button>
+                            <input type="hidden" name="username" value="${username}">
+                            <input type="hidden" name="siteId" value="${siteId}">
+                            <input type="hidden" name="shelter_id" value="${shelterId}">
+
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+
+            <td>
+                <c:choose>
+                    <c:when test="${disabled}">
+                        <b align="center">Not Applicable</b>
+                    </c:when>
+                    <c:when test="${not_release_room}">
+                        <b align="center">All Rooms Unoccupied.</b>
+
+                    </c:when>
+
+                    <c:otherwise>
+
+                        <form method="post" action="/shelterreleaseRoom" align="center">
+                            <button type="submit" align="center">Release Room</button>
+                            <input type="hidden" name="username" value="${username}">
+                            <input type="hidden" name="siteId" value="${siteId}">
+                            <input type="hidden" name="shelter_id" value="${shelterId}">
+                        </form>
+                    </c:otherwise>
+                </c:choose>
+            </td>
+        </tr>
+
+    </table>
 </div>
+
+
 
 <br>
 <br>
