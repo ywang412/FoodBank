@@ -202,7 +202,7 @@ ALTER TABLE `Item`
 ALTER TABLE `Request`
   ADD CONSTRAINT Request_ibfk_1 FOREIGN KEY (username) REFERENCES `User` (username),
   ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (request_status) REFERENCES `Request_status_enum` (request_status),
-  ADD CONSTRAINT Request_ibfk_3 FOREIGN KEY (item_name) REFERENCES `Item` (item_name) ON DELETE CASCADE;
+  ADD CONSTRAINT Request_ibfk_3 FOREIGN KEY (item_name) REFERENCES `Item` (item_name);
     
 
 ALTER TABLE `Room`

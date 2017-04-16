@@ -1,14 +1,14 @@
 package edu.gatech.csedbs.team073.web;
 
-import edu.gatech.csedbs.team073.model.RoomBunkCount;
-import edu.gatech.csedbs.team073.model.SiteInfo;
-import edu.gatech.csedbs.team073.model.Waitlist;
+import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +17,7 @@ import java.util.List;
  * Created by swengineer on 4/14/17.
  */
 @Controller
+@SessionAttributes({"serviceObj", "user"})
 public class WaitlistController {
 
 
@@ -28,20 +29,28 @@ public class WaitlistController {
     }
 
 
-    @RequestMapping(value = "/Waitlist", method = RequestMethod.GET)
-    public String showWaitlist(Model model) {
+    @RequestMapping(value = "/Waitlist", method = RequestMethod.POST)
+    public String showWaitlist(@ModelAttribute("serviceObj") ServiceInfo serviceInfo, @ModelAttribute("user") User user, Model model) {
 
-        int site_id =1;
 
-        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(site_id);
+        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(serviceInfo.getServiceId());
 
+        int siteId =  serviceInfo.getSiteId();
+        String userName =user.getUserName();
         String shelter_ds = allWaitlist.get(0).getDescription();
 
+        model.addAttribute("userName", userName);
+        model.addAttribute("siteId", siteId);
         model.addAttribute("shelter_ds", shelter_ds);
         model.addAttribute("allWaitlist", allWaitlist);
 
+
         return "WaitlistForm";
+
     }
+
+
+
 
     @RequestMapping(value = "/ClientWaitlist", method = RequestMethod.GET)
     public String showClientWaitlist(Model model) {
