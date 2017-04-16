@@ -24,6 +24,15 @@ public class SiteInfoService {
     private ShelterDAO shelterDAO;
     private UserDAO UserDAO;
     private ProvideDAO ProvideDAO;
+    private RoomBunkCountDAO roomBunkCountDAO;
+
+    private RoomDAO roomDAO;
+    private BunkDAO bunkDAO;
+
+    @Autowired
+    public void setRoomBunkCountDAO(RoomBunkCountDAO roomBunkCountDAO) {
+        this.roomBunkCountDAO = roomBunkCountDAO;
+    }
 
     @Autowired
     public void setSiteInfoDAO(SiteInfoDAO siteInfoDAO) {
@@ -61,12 +70,26 @@ public class SiteInfoService {
         this.ProvideDAO = ProvideDAO;
     }
 
+    @Autowired
+    public void setRoomDAO(RoomDAO RoomDAO) {
+        this.roomDAO = RoomDAO;
+    }
+
+    @Autowired
+    public void setBunkDAO(BunkDAO BunkDAO) {
+        this.bunkDAO = BunkDAO;
+    }
+
+
+
     public SiteInfo getSiteInfoDAO(int id) {
         return siteInfoDAO.getSiteInfo(id);
     }
+
     public FoodBank getFoodBankDAO(int id) {
         return foodBankDAO.getFoodBank(id);
     }
+
     public FoodPantry getFoodPantryDAO(int id) {
         return foodPantryDAO.getFoodPantry(id);
     }
@@ -111,15 +134,28 @@ public class SiteInfoService {
     public int shelterCount() {  return shelterDAO.getShelterCount();}
     public List GetShelterTable() {  return shelterDAO.GetShelterTable();}
 
+    public List<SiteInfo> getAllSiteInfoDAO() {return siteInfoDAO.getAllSiteInfo();
+    }
+
+    public RoomBunkCount getBunkCountMalebySite(int id){return roomBunkCountDAO.getAvailableBunk_Male(id);
+    }
+
+    public RoomBunkCount getBunkCountFemalebySite(int id){return roomBunkCountDAO.getAvailableBunk_Female(id);
+    }
+    public RoomBunkCount getBunkCountMixedbySite(int id){return roomBunkCountDAO.getAvailableBunk_Mixed(id);
+    }
+    public RoomBunkCount getRoomCountbySite(int id){return roomBunkCountDAO.getAvailableRoom(id);
+    }
+
 
     public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use) {
 
         return foodPantryDAO.updateFoodPantry(id, description_string, hours, conditions_for_use);
     }
 
-    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats ) {
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit ) {
 
-        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats);
+        return soupKitchenDAO.updateSoupKitchen(id, description_string, hours, conditions_for_use, available_seats, seats_limit);
     }
 
     public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks, int available_rooms) {
@@ -127,6 +163,48 @@ public class SiteInfoService {
         return shelterDAO.updateShelter(id, description_string, hours, conditions_for_use, available_bunks,available_rooms);
     }
 
+
+    public boolean decrementSoupKitchenSeats(int id)  {return soupKitchenDAO.decrementSoupKitchenSeats(id);}
+
+    public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
+
+    public List GetRequestTable() {  return foodPantryDAO.GetRequestTable();}
+
+    public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
+
+        return bunkDAO.getBunkCountByShelterIdAndTypeAndOccupancy(shelterId,type,occupied);
+    }
+
+    public int   getRoomCountByShelterIdAndOccupancy(int shelterId, boolean occupied) {
+
+        return roomDAO.getRoomCountByShelterIdAndOccupancy(shelterId,occupied);
+    }
+
+    public Integer claimNextAvailableBunk(int shelterId, int bunkType) {
+
+        return bunkDAO.claimNextAvailableBunk(shelterId,bunkType);
+    }
+
+    public Integer releaseBunk(int shelterId, int bunkType) {
+
+        return bunkDAO.releaseBunk(shelterId,bunkType);
+    }
+
+    public Integer findNextAvailableRoom(int shelterId) {
+        return roomDAO.findNextAvailableRoom(shelterId);
+    }
+
+    public Integer claimNextAvailableRoom(int shelterId) {
+        return roomDAO.claimNextAvailableRoom(shelterId);
+    }
+
+    public Integer releaseRoom(int shelterId) {
+        return roomDAO.releaseRoom(shelterId);
+    }
+
+    public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
+
+    public List GetItemsInFoodBank(int foodBankdId) {return foodBankDAO.GetItemsInFoodBank(foodBankdId );}
 
 
 }

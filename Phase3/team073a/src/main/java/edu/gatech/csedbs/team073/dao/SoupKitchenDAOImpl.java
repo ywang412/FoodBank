@@ -35,7 +35,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         params.addValue("id", id);
 
         return jdbc.queryForObject("\n" +
-                        "SELECT Soup_Kitchen.soup_kitchen_id, Soup_Kitchen.description_string, Soup_Kitchen.hours, Soup_Kitchen.conditions_for_use, Soup_Kitchen.available_seats FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Soup_Kitchen on Soup_Kitchen.soup_kitchen_id=Provide.soup_kitchen_id WHERE Soup_Kitchen.soup_kitchen_id=:id", params,
+                        "SELECT Soup_Kitchen.soup_kitchen_id, Soup_Kitchen.description_string, Soup_Kitchen.hours, Soup_Kitchen.conditions_for_use, Soup_Kitchen.available_seats, Soup_Kitchen.seats_limit FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Soup_Kitchen on Soup_Kitchen.soup_kitchen_id=Provide.soup_kitchen_id WHERE Soup_Kitchen.soup_kitchen_id=:id", params,
                 new RowMapper<SoupKitchen>() {
 
                     public SoupKitchen mapRow(ResultSet rs, int rowNum)
@@ -47,7 +47,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
                         soupKitchen.setHours(rs.getString("hours"));
                         soupKitchen.setConditionsForUse(rs.getString("conditions_for_use"));
                         soupKitchen.setAvailableSeats(rs.getInt("available_seats"));
-
+                        soupKitchen.setSeatLimit(rs.getInt("seats_limit"));
                         return soupKitchen;
                     }
 
@@ -86,7 +86,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.soup_kitchen";
+        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Soup_kitchen";
 
         Integer skcount = jdbc.queryForObject(sql,params,Integer.class);
 
@@ -117,7 +117,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.soup_kitchen";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Soup_kitchen";
 
         List<SoupKitchen> skitchens = jdbcTemplate.query(sql, new SkitchenMapper());
 
@@ -127,7 +127,7 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
     }
 
 
-    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats) {
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit) {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
 
@@ -136,15 +136,79 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         params.addValue("hours", hours);
         params.addValue("conditions_for_use", conditions_for_use);
         params.addValue("available_seats", available_seats);
+        params.addValue("seats_limit", seats_limit);
         //if this doesn't work or gets exceptin then it needs to return an error
 
-        String sql = "UPDATE cs6400_sp17_team073.soup_kitchen SET description_string = :description_string, " +
-                "hours=:hours, conditions_for_use = :conditions_for_use, available_seats = :available_seats " +
-                "WHERE soup_kitchen_id=:id";
+        String sql = "UPDATE cs6400_sp17_team073.Soup_kitchen SET description_string = :description_string, " +
+                "hours=:hours, conditions_for_use = :conditions_for_use, available_seats = :available_seats , seats_limit = :seats_limit" +
+                " WHERE soup_kitchen_id=:id";
 
 
 
         jdbc.update(sql,params);
+
+        return true;
+    }
+
+
+    public boolean decrementSoupKitchenSeats(int id) {
+
+        //get current number of seats
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+        //here we want to get total from food pantry table
+        String sql = "SELECT Soup_Kitchen.available_seats FROM cs6400_sp17_team073.Soup_Kitchen WHERE soup_kitchen_id=:id";
+
+
+        Integer available_seats = jdbc.queryForObject(sql,params,Integer.class);
+
+        if (available_seats > 0) --available_seats;
+
+        params.addValue("available_seats", available_seats);
+        //now update that number but subtracted by 1
+        String sql2 = "UPDATE cs6400_sp17_team073.Soup_kitchen SET " +
+                "available_seats = :available_seats " +
+                "WHERE soup_kitchen_id=:id";
+
+
+        //todo deal with error handling here
+        jdbc.update(sql2,params);
+
+        return true;
+    }
+
+
+    //TODO add in a constraint in the database for incrementing and decrementing availables seats
+
+    //constraint to be > 0
+    //contraint to be < = seat limit
+
+    public boolean incrementSoupKitchenSeats(int id) {
+
+        //get current number of seats
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", id);
+        //here we want to get total from food pantry table
+        String sql = "SELECT Soup_Kitchen.available_seats FROM cs6400_sp17_team073.Soup_Kitchen WHERE soup_kitchen_id=:id";
+
+
+        Integer available_seats = jdbc.queryForObject(sql,params,Integer.class);
+
+        String sql3 = "SELECT Soup_Kitchen.seats_limit FROM cs6400_sp17_team073.Soup_Kitchen WHERE soup_kitchen_id=:id";
+
+        Integer seats_limit = jdbc.queryForObject(sql3,params,Integer.class);
+
+        if (available_seats < seats_limit) ++available_seats;
+
+        params.addValue("available_seats", available_seats);
+        //now update that number but subtracted by 1
+        String sql2 = "UPDATE cs6400_sp17_team073.Soup_kitchen SET " +
+                "available_seats = :available_seats " +
+                "WHERE soup_kitchen_id=:id";
+
+
+        //todo deal with error handling here
+        jdbc.update(sql2,params);
 
         return true;
     }

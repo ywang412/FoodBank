@@ -15,6 +15,9 @@ public interface SoupKitchenDAO {
 
     public List GetSoupKitchenTable();
 
-    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats);
+    public boolean updateSoupKitchen(int id, String description_string, String hours, String conditions_for_use, int available_seats, int seats_limit);
+
+    public boolean decrementSoupKitchenSeats(int id);
+    public boolean incrementSoupKitchenSeats(int id);
 }
 

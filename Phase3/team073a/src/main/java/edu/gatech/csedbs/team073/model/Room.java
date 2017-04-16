@@ -8,6 +8,7 @@ public class Room {
 
     private int roomNumber;
     private int shelterId;
+    private boolean occupied;
 
     public Room() {
     }
@@ -26,5 +27,14 @@ public class Room {
 
     public void setShelterId(int shelterId) {
         this.shelterId = shelterId;
+    }
+
+
+    public boolean isOccupied() {
+        return occupied;
+    }
+
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 }

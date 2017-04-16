@@ -5,18 +5,32 @@ package edu.gatech.csedbs.team073.dao;
  */
 
 import java.sql.ResultSet;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataAccessException;
+import org.springframework.dao.*;
 import edu.gatech.csedbs.team073.model.MealCount;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementCreator;
+import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
 import edu.gatech.csedbs.team073.model.Site;
+import edu.gatech.csedbs.team073.model.Item;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.*;
 
 public class ItemDAOImpl implements ItemDAO {
 
@@ -76,6 +90,41 @@ public class ItemDAOImpl implements ItemDAO {
 	//Java needs to implement a pair or allow multiple returns
         return s;
     }
+        /* (non-Javadoc)
+         * @see edu.gatech.csedbs.team073.dao.ClientDAO#addClient(Client inClient)
+         */
+        @Override
+        public int addItem(final Item inItem) {
+		final String sql = "INSERT INTO cs6400_sp17_team073.Item (item_name, number_of_units, storage_type,item_type,food_category,supply_category,expiration_date,food_bank_id) SELECT * FROM ((SELECT ?, ?, storage_type, item_type, food_category,supply_category,DATE_ADD(NOW(), INTERVAL ? DAY),food_bank_id FROM cs6400_sp17_team073.Item_storage_type_enum LEFT OUTER JOIN cs6400_sp17_team073.Item_type_enum on 1=1 LEFT OUTER JOIN cs6400_sp17_team073.Item_food_category_enum on 1=1 LEFT OUTER JOIN cs6400_sp17_team073.Item_supply_category_enum on 1=1 LEFT OUTER JOIN cs6400_sp17_team073.Site on 1=1 INNER JOIN cs6400_sp17_team073.Provide WHERE UPPER(Storage_type_name)=UPPER(?) AND UPPER(Item_type_name)=UPPER(?) AND UPPER(Food_category_name)=UPPER(?) AND UPPER(Supply_category_name)=UPPER(?) AND UPPER(short_name)=UPPER(?) limit 1)) as tmp";
+/*                final String sql = "INSERT INTO cs6400_sp17_team073.Item" +
+                                 "(item_name, number_of_units, storage_type,item_type,food_category,supply_category,expiration_date,food_bank_id) "+
+                                 "SELECT ?, ?, storage_type, item_type, food_category,supply_category,DATE_ADD(NOW(), INTERVAL ? DAY),food_bank_id FROM "+
+                                 "cs6400_sp17_team073.Storage_type_enum OUTER JOIN cs6400_sp17_team073.Item_type_enum OUTER JOIN cs6400_sp17_team073.Food_category_enum OUTER JOIN cs6400_sp17_team073.Supply_category_enum OUTER JOIN cs6400_sp17_team073.Site INNER JOIN cs6400_sp17_team073.Provides WHERE UPPER(Storage_type_name)=UPPER(?) AND UPPER(Item_type_name)=UPPER(?) AND UPPER(Food_category_name)=UPPER(?) AND UPPER(Supply_category_name)=UPPER(?) AND UPPER(short_name)=UPPER(?) limit 1";
+*/
+
+                PreparedStatementCreator psc = new PreparedStatementCreator() {
+
+                        @Override
+                        public PreparedStatement createPreparedStatement(Connection conn) throws SQLException {
+                                PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+                                ps.setString(1, inItem.itemName);
+                                ps.setInt(2, inItem.numberOfUnits);
+                                ps.setInt(3, Integer.parseInt(inItem.expirationDate));
+                                ps.setString(4, inItem.storageType);
+                                ps.setString(5, inItem.itemType);
+                                ps.setString(6, inItem.foodCategory);
+                                ps.setString(7, inItem.supplyCategory);
+                                ps.setString(8, inItem.foodBank);
+                                return ps;
+
+                        }
+
+                };
+                GeneratedKeyHolder holder = new GeneratedKeyHolder();
+                jdbcTemplate.update(psc, holder);
+
+                return 1;
+        }
 
 
 }

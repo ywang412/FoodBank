@@ -1,6 +1,8 @@
 package edu.gatech.csedbs.team073.dao;
 
 import edu.gatech.csedbs.team073.model.FoodPantry;
+import edu.gatech.csedbs.team073.model.Request;
+import edu.gatech.csedbs.team073.model.Item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -89,7 +91,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.food_pantry";
+        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Food_pantry";
 
         Integer fcount = jdbc.queryForObject(sql,params,Integer.class);
 
@@ -111,6 +113,24 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         }
     }
 
+    public List  GetItemTable() {
+        //here we want to to a SELECT * FROM food_pantry  table
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        //here we want to get total from food pantry table
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide NATURAL JOIN cs6400_sp17_team073.Site";
+
+        List <Item> items = jdbcTemplate.query(sql, new ItemMapper());
+        return items;
+    }
+    public List  GetRequestTable() {
+        //here we want to to a SELECT * FROM food_pantry  table
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        //here we want to get total from food pantry table
+        String sql = "SELECT * FROM cs6400_sp17_team073.Request NATURAL JOIN cs6400_sp17_team073.Request_status_enum";
+
+        List <Request> requests = jdbcTemplate.query(sql, new RequestMapper());
+        return requests;
+    }
     //return all food pantry objects in an array
     public List  GetFoodPantryTable() {
 
@@ -120,7 +140,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.food_pantry";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Food_pantry";
 
         List <FoodPantry> fpantries = jdbcTemplate.query(sql, new PantryMapper());
 
@@ -140,7 +160,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         params.addValue("conditions_for_use", conditions_for_use);
         //if this doesn't work or gets exceptin then it needs to return an error
 
-        String sql = "UPDATE cs6400_sp17_team073.food_pantry SET description_string = :description_string, " +
+        String sql = "UPDATE cs6400_sp17_team073.Food_pantry SET description_string = :description_string, " +
                 "hours=:hours, conditions_for_use = :conditions_for_use " +
                 "WHERE food_pantry_id=:id";
 
@@ -150,6 +170,35 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         return true;
     }
+    public class ItemMapper implements RowMapper<Item> {
+        public Item mapRow(ResultSet row, int rowNum) throws SQLException {
+            Item i = new Item();
+            i.itemName=row.getString("item_name");
+            i.numberOfUnits=row.getInt("number_of_units");
+            i.storageType=row.getString("storage_type_name");
+            i.itemType=row.getString("item_type_name");
+            i.foodCategory=row.getString("food_category_name");
+            i.supplyCategory=row.getString("supply_category_name");
+            i.expirationDate=row.getString("expiration_date");
+            i.foodBank=row.getString("short_name");
+
+            return i;
+        }
+    }
+    public class RequestMapper implements RowMapper<Request> {
+        public Request mapRow(ResultSet row, int rowNum) throws SQLException {
+            Request r = new Request();
+            r.username=row.getString("username");
+            r.item_name=row.getString("item_name");
+            r.request_date=row.getString("request_date");
+            r.request_status=row.getString("request_status_name");
+            r.units_requested=row.getInt("units_requested");
+            r.units_fulfilled=row.getInt("units_fulfilled");
+
+            return r;
+        }
+    }
+
 
 
 }

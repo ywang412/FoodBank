@@ -1,6 +1,7 @@
 package edu.gatech.csedbs.team073.dao;
 
 import edu.gatech.csedbs.team073.model.FoodPantry;
+import edu.gatech.csedbs.team073.model.Item;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.List;
  */
 public interface FoodPantryDAO {
 
-
     public FoodPantry getFoodPantry(int id);
 
     public FoodPantry getFoodPantrybysiteID(int id);
@@ -19,6 +19,8 @@ public interface FoodPantryDAO {
 
     public List GetFoodPantryTable();
 
+    public List GetRequestTable();
+    public List GetItemTable();
 
     public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use);
 }

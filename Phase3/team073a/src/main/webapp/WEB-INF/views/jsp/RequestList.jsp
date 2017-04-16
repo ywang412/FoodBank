@@ -9,23 +9,22 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>ASACS Shelter List</title>
+    <title>ASACS Request List</title>
 </head>
 <body>
 <div align="center">
-    <h1>Shelters</h1>
+    <h1>Requests</h1>
 
-    <h2>Count is: ${count}</h2>
 
     <table border="1">
-        <c:forEach items="${lists}" var="shelters">
+        <c:forEach items="${lists}" var="request">
             <tr>
-                <td>${shelters.shelterId}</td>
-                <td>${shelters.descriptionString}</td>
-                <td>${shelters.hours}</td>
-                <td>${shelters.conditionsForUse}</td>
-                <td>${shelters.availableBunks}</td>
-                <td>${shelters.availableRooms}</td>
+                <td>${request.userName}</td>
+                <td>${request.itemName}</td>
+                <td>${request.unitsRequested}</td>
+                <td>${request.unitsFulfilled}</td>
+                <td>${request.requestDate}</td>
+                <td>${request.requestStatus}</td>
             </tr>
         </c:forEach>
 
