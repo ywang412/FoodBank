@@ -44,7 +44,9 @@ public class WaitlistController {
         model.addAttribute("shelter_ds", shelter_ds);
         model.addAttribute("allWaitlist", allWaitlist);
 
+
         return "WaitlistForm";
+
     }
 
 

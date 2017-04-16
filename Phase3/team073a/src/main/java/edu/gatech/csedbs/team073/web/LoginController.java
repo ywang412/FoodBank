@@ -2,6 +2,7 @@ package edu.gatech.csedbs.team073.web;
 
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
@@ -49,6 +50,13 @@ public class LoginController {
 		model.setViewName("LoginForm");
 
 		return model;
+	}
+
+	@RequestMapping(value="/invalidate", method=RequestMethod.POST)
+	public String invalidate(HttpSession session, Model model) {
+		session.invalidate();
+		if(model.containsAttribute("user")) model.asMap().remove("user");
+		return "redirect:/loginForm";
 	}
 
 	@RequestMapping(value="/login", method = RequestMethod.POST)
