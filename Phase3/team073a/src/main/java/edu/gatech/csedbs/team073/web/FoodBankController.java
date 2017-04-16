@@ -177,6 +177,10 @@ public class FoodBankController {
         model.addObject("username", username);
         model.addObject("siteId", siteId);
 
+        if (foodBankId == null) {
+            foodBankId = 0;
+        }
+
         //if the food bank is present
         if (foodBankId > 0) {
             foodBank = siteInfoService.getFoodBankDAO(foodBankId);

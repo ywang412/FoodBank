@@ -193,6 +193,10 @@ public class FoodPantryController {
 
         model.addObject("shortName", siteInfo.getShortName());
 
+        if (foodPantryId == null) {
+            foodPantryId = 0;
+        }
+
         //if the food bank is present
         if (foodPantryId > 0) {
 

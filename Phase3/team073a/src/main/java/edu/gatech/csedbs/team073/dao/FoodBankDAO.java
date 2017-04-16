@@ -12,7 +12,9 @@ import java.util.List;
 
 public interface FoodBankDAO {
 
-    public FoodBank getFoodBank(int id);
+    public FoodBank getFoodBank(int food_bank_id);
+
+    public FoodBank getFoodBankBySiteId(int id);
 
     public List GetItemsInFoodBank(int id);
 

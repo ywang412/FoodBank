@@ -283,6 +283,12 @@ public class ShelterController {
 
         model.addObject("siteId", siteId);
 
+
+        if (ShelterId == null) {
+            ShelterId = 0;
+        }
+
+
         //if the shelter is present
         if (ShelterId > 0) {
             shelter = siteInfoService.getShelterDAO(ShelterId);
@@ -322,7 +328,6 @@ public class ShelterController {
         ModelAndView model = null;
         Shelter newshelter = null;
         Provide provides = null;
-
 
 
 

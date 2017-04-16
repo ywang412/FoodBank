@@ -35,7 +35,30 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         this.jdbcTemplate = new JdbcTemplate(jdbc);
     }
 
-    public FoodBank getFoodBank(int id) {
+
+    public FoodBank getFoodBank(int food_bank_id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("food_bank_id", food_bank_id);
+
+        return jdbc.queryForObject("select Food_Bank.food_bank_id, Food_Bank.description_string FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Bank on Food_Bank.food_bank_id=Provide.food_bank_id WHERE Food_Bank.food_bank_id=:food_bank_id", params,
+                new RowMapper<FoodBank>() {
+
+                    public FoodBank mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+                        FoodBank foodBank = new FoodBank();
+
+                        foodBank.setDescriptionString(rs.getString("description_string"));
+                        foodBank.setFoodBankId(rs.getInt("food_bank_id"));
+
+                        return foodBank;
+                    }
+
+                });
+    }
+
+
+
+    public FoodBank getFoodBankBySiteId(int id) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 

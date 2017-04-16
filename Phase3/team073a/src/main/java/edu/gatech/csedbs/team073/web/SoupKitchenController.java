@@ -223,6 +223,10 @@ public class SoupKitchenController {
         model.addObject("username", username);
         model.addObject("siteId", siteId);
 
+        if (SoupKitchenId == null) {
+            SoupKitchenId = 0;
+        }
+
         //if the food bank is present
         if (SoupKitchenId > 0) {
             skitchen = siteInfoService.getSoupKitchenDAO(SoupKitchenId);
