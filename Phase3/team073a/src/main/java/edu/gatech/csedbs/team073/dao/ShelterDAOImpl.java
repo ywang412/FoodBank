@@ -215,6 +215,11 @@ public class ShelterDAOImpl implements ShelterDAO {
         jdbc.update(sql3,params);
 
 
+        //remove waitlist items
+        String sql4 ="DELETE FROM cs6400_sp17_team073.Waitlist " +
+                " WHERE shelter_id=:shelter_id";
+        jdbc.update(sql4,params);
+
         //now remove from the soup kitchen table
         String sql2 = "DELETE FROM cs6400_sp17_team073.Shelter " +
                 " WHERE shelter_id=:shelter_id";
