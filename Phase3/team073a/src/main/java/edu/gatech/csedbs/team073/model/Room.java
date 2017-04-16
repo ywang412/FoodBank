@@ -8,7 +8,7 @@ public class Room {
 
     private int roomNumber;
     private int shelterId;
-    private int clientId;
+    private boolean occupied;
 
     public Room() {
     }
@@ -30,11 +30,11 @@ public class Room {
     }
 
 
-    public int getClientId() {
-        return clientId;
+    public boolean isOccupied() {
+        return occupied;
     }
 
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public void setOccupied(boolean occupied) {
+        this.occupied = occupied;
     }
 }

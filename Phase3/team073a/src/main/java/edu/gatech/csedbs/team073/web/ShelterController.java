@@ -403,17 +403,20 @@ public class ShelterController {
 
     @RequestMapping(value="/shelterclaimroom", method = RequestMethod.POST)
     public String shelterRoomClaim(@ModelAttribute("serviceObj") ServiceInfo serviceInfo, BindingResult result) {
-        int next_avail_room = 0;
+        int claimed_room = 0;
         SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(serviceInfo.getSiteId());
 
         Shelter shelter = siteInfoService.getShelterDAO( serviceInfo.getServiceId());
 
-        next_avail_room = siteInfoService.findNextAvailableRoom(serviceInfo.getServiceId());
+        //next_avail_room = siteInfoService.findNextAvailableRoom(serviceInfo.getServiceId());
+
+        claimed_room = siteInfoService.claimNextAvailableRoom(serviceInfo.getServiceId());
 
         serviceInfo.setRelease_room(false);
-        serviceInfo.setRoom_number(next_avail_room);
+        serviceInfo.setRoom_number(claimed_room);
 
         //find first available room for this site/shelter
+
 
 
         //this will go to a new view
@@ -426,16 +429,21 @@ public class ShelterController {
 
 
     @RequestMapping(value="/shelterreleaseRoom", method = RequestMethod.POST)
-    public String shelterRoomRelease(@ModelAttribute("serviceObj") ServiceInfo serviceInfo, BindingResult result) {
+    public String shelterRoomRelease(@RequestParam(value="username") String username,
+                                     @RequestParam(value="siteId") Integer siteId,
+                                     @RequestParam(value="shelter_id") Integer shelterId) {
 
-
+        ServiceInfo serviceInfo = new ServiceInfo(siteId);
         serviceInfo.setRelease_room(true);
 
         //this will go to a new view
         // POST/REDIRECT/GET
+        Integer room_number = siteInfoService.releaseRoom(shelterId);
+        serviceInfo.setRoom_number(room_number);
 
         //The client log can add which bunk # if we really want to add it in notes
-        return "redirect:/ClientSearchForm";
+        String redirect = "redirect:/shelterform?username=" + username + "&siteId=" + siteId;
+        return redirect;
     }
 
 

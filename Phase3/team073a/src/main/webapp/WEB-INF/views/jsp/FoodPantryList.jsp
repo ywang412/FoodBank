@@ -12,7 +12,7 @@
 </head>
 <body>
 	<div align="center">
-		<h1>Food Pantries</h1>
+		<h1>ASACS Food Pantry Information</h1>
 
 		<h2>Count is: ${count}</h2>
 

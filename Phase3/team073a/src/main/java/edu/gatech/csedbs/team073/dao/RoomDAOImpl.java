@@ -35,7 +35,7 @@ public class RoomDAOImpl implements RoomDAO {
 
             room.setRoomNumber( (int)(row.getInt("room_number"))  );
             room.setShelterId( (int)(row.getInt("shelter_id"))  );
-            room.setClientId( (int)(row.getInt("client_id"))  );
+            room.setOccupied( (boolean) (row.getBoolean("occupied"))  );
             return room;
         }
     }
@@ -44,7 +44,7 @@ public class RoomDAOImpl implements RoomDAO {
     public Room getRoom(int id) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
-        String sql = "SELECT Room.room_number, Room.shelter_id, Room.client_id FROM cs6400_sp17_team073.Room WHERE Room.shelter_id=:id";
+        String sql = "SELECT Room.room_number, Room.shelter_id, Room.occupied FROM cs6400_sp17_team073.Room WHERE Room.shelter_id=:id";
 
 
         Room room = jdbc.queryForObject(sql,params,new RoomMapper());
@@ -56,11 +56,11 @@ public class RoomDAOImpl implements RoomDAO {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", shelterId);
-        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id =:id AND Room.client_id IS NULL";
+        String sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id =:id AND Room.occupied = FALSE";
 
 
         if (occupied) {
-            sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id =:id AND Room.client_id IS NOT NULL";
+            sql = "SELECT COUNT(*) FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id =:id AND Room.occupied = TRUE";
         }
 
 
@@ -83,11 +83,66 @@ public class RoomDAOImpl implements RoomDAO {
 
         //get the first bunk number that is aviailable for that type
         //this would be using an 'order by'
-        String sql = "SELECT cs6400_sp17_team073.Room.room_number FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id=:id AND Room.client_id IS NULL ORDER BY Room.room_number ASC LIMIT 1";
+        String sql = "SELECT cs6400_sp17_team073.Room.room_number FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id=:id AND Room.occupied = FALSE ORDER BY Room.room_number ASC LIMIT 1";
 
         room_number = jdbc.queryForObject(sql,params,Integer.class);
 
 
+
+        return room_number;
+    }
+
+    public Integer claimNextAvailableRoom(int shelterId) {
+        Integer room_number=0;
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", shelterId);
+
+
+
+        //get the first bunk number that is aviailable for that type
+        //this would be using an 'order by'
+        String sql = "SELECT cs6400_sp17_team073.Room.room_number FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id=:id AND Room.occupied = FALSE ORDER BY Room.room_number ASC LIMIT 1";
+
+        room_number = jdbc.queryForObject(sql,params,Integer.class);
+
+
+        //then update it to be 'occupied'
+        params.addValue("occupied", true);
+        params.addValue("room_number", room_number);
+        String sql2 = "UPDATE cs6400_sp17_team073.Room SET Room.occupied = TRUE " +
+                "WHERE Room.room_number=:room_number";
+
+        //TODO make series of queries atomic - put a IN and subquery so that it all happens in the database
+        jdbc.update(sql2,params);
+
+
+        return room_number;
+    }
+
+
+    public Integer releaseRoom(int shelterId) {
+        Integer room_number=0;
+
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("id", shelterId);
+        params.addValue("occupied", true);
+
+
+        //get the first bunk number that is occupied for that type
+
+        String sql = "SELECT cs6400_sp17_team073.Room.room_number FROM cs6400_sp17_team073.Room WHERE  Room.shelter_id=:id AND Room.occupied = TRUE ORDER BY Room.room_number ASC LIMIT 1 ";
+
+        room_number = jdbc.queryForObject(sql,params,Integer.class);
+
+        //then update it to be 'occupied'
+        params.addValue("occupied", false);
+        params.addValue("room_number", room_number);
+        String sql2 = "UPDATE cs6400_sp17_team073.Room SET Room.occupied = FALSE " +
+                "WHERE  Room.room_number=:room_number";
+
+        //TODO make series of queries atomic - put a IN and subquery so that it all happens in the database
+        jdbc.update(sql2,params);
 
         return room_number;
     }

@@ -194,6 +194,14 @@ public class SiteInfoService {
         return roomDAO.findNextAvailableRoom(shelterId);
     }
 
+    public Integer claimNextAvailableRoom(int shelterId) {
+        return roomDAO.claimNextAvailableRoom(shelterId);
+    }
+
+    public Integer releaseRoom(int shelterId) {
+        return roomDAO.releaseRoom(shelterId);
+    }
+
     public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
 
     public List GetItemsInFoodBank(int foodBankdId) {return foodBankDAO.GetItemsInFoodBank(foodBankdId );}

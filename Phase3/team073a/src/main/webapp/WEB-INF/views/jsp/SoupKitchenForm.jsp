@@ -16,7 +16,7 @@
 </head>
 <body>
 <div align="center">
-    <h1>Soup Kitchen</h1>
+    <h1>ASACS Soup Kitchen Information</h1>
     <form:form action="soupkitchenedit" method="get" >
         <table>
             <tr>
