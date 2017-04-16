@@ -439,6 +439,20 @@ public class ShelterController {
     }
 
 
+    @RequestMapping(value="/shelterWaitlistRoom", method = RequestMethod.POST)
+    public String shelterRoomWaitlist(@ModelAttribute("serviceObj") ServiceInfo serviceInfo, BindingResult result) {
+
+
+        serviceInfo.setRelease_room(false);
+        serviceInfo.setAdd_to_waitlist(true);
+        //this will go to a new view
+        // POST/REDIRECT/GET
+
+        //The client log can add which bunk # if we really want to add it in notes
+        return "redirect:/ClientSearchForm";
+    }
+
+
 
     @RequestMapping(value="/shelterlist", method = RequestMethod.GET)
 

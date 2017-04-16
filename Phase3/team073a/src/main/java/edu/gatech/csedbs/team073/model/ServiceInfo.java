@@ -19,6 +19,8 @@ public class ServiceInfo {
     private boolean release_room;
     private boolean release_bunk;
 
+    private boolean add_to_waitlist;
+
     public ServiceInfo(int siteId) {
         this.siteId = siteId;
         this.serviceId = 0;
@@ -108,6 +110,14 @@ public class ServiceInfo {
 
     public void setFood_bank(boolean food_bank) {
         this.food_bank = food_bank;
+    }
+
+    public boolean isAdd_to_waitlist() {
+        return add_to_waitlist;
+    }
+
+    public void setAdd_to_waitlist(boolean add_to_waitlist) {
+        this.add_to_waitlist = add_to_waitlist;
     }
 }
 

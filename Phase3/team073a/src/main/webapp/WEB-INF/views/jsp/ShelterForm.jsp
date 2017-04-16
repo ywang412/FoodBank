@@ -254,7 +254,7 @@
                     <c:when test="${not_available_room}">
                         <b align="center">All Rooms Occupied.</b>
 
-                        <form method="get" action="/waitlist">
+                        <form method="post" action="/shelterWaitlistRoom">
                             <button type="submit" align="center">Get Client On Waitlist</button>
                             <input type="hidden" name="username" value="${username}">
                             <input type="hidden" name="siteId" value="${siteId}">
