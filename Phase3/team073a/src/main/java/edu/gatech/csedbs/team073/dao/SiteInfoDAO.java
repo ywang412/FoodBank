@@ -13,5 +13,4 @@ public interface SiteInfoDAO {
 
     public List<SiteInfo> getAllSiteInfo();
 
-
 }

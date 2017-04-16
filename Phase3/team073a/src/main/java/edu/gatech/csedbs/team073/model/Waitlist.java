@@ -5,7 +5,11 @@ package edu.gatech.csedbs.team073.model;
  */
 public class Waitlist {
 
-    private int clientID;
+    private String description;
+    private boolean headOfHousehold;
+    private String fullName;
+    private int clientId;
+
     private int roomNumber;
     private int shelterID;
     private int position;
@@ -13,13 +17,38 @@ public class Waitlist {
     public Waitlist() {
     }
 
-    public int getClientID() {
-        return clientID;
+    public String getDescription() {
+        return description;
     }
 
-    public void setClientID(int clientID) {
-        this.clientID = clientID;
+    public void setDescription(String description) {
+        this.description = description;
     }
+
+    public boolean isHeadOfHousehold() {
+        return headOfHousehold;
+    }
+
+    public void setHeadOfHousehold(boolean headOfHousehold) {
+        this.headOfHousehold = headOfHousehold;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public int getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
 
     public int getRoomNumber() {
         return roomNumber;
@@ -45,13 +74,5 @@ public class Waitlist {
         this.position = position;
     }
 
-    @Override
-    public String toString() {
-        return "Waitlist{" +
-                "clientID=" + clientID +
-                ", roomNumber=" + roomNumber +
-                ", shelterID=" + shelterID +
-                ", position=" + position +
-                '}';
-    }
+
 }
