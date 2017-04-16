@@ -303,7 +303,13 @@
     </table>
 </div>
 
-
+<br>
+<br>
+<div align="center">
+    <form method="post" action="/Waitlist">
+        <button type="submit" align="center">View Shelter Waitlist</button>
+    </form>
+</div>
 
 <br>
 <br>

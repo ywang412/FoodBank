@@ -138,10 +138,16 @@
                         <button type="submit" align="center">Return to User Dashboard</button>
                     </form>
                 </td>
-                <td >
-                </td>
-                <td ><input type="submit" value="Logout"></td>
+
             </tr>
+
+            <tr>
+                <form method="post" action="/invalidate">
+                    <td colspan="2" align="center"><input type="submit" value="Logout"></td>
+
+                </form>
+            </tr>
+
         </table>
 
     </div>
