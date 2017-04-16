@@ -220,6 +220,28 @@ public class FoodPantryController {
         }
 
 
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        Provide provides= null;
+        Integer servicescount=0;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
+
+
+
         //ungrey out check in client button, edit, and request items
 
         model.addObject("disabled", "false");
@@ -248,7 +270,7 @@ public class FoodPantryController {
         model = new ModelAndView("FoodPantryEdit");
 
 
-        //must be an 'add'
+        //must be an 'add'item_food_category_enum
         if  (provides.getFood_pantry_id() == 0) {
 
 
@@ -282,6 +304,31 @@ public class FoodPantryController {
         model.addObject("disabled", "false");
 
         model.addObject("foodPantryId", newfoodpantry.getFoodPantryId());
+
+
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        provides= null;
+        Integer servicescount=0;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
+
+
+
+
 
         //find the site that goes with this
 

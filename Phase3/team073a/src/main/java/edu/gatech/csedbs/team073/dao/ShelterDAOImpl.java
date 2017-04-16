@@ -199,9 +199,20 @@ public class ShelterDAOImpl implements ShelterDAO {
         params.addValue("site_id", siteid);
         params.addValue("shelter_id", shid);
 
-        String sql ="UPDATE cs6400_sp17_team073.Provide SET shelter_id = NULL" +
-                " WHERE site_id=:site_id";
+       // String sql ="UPDATE cs6400_sp17_team073.Provide SET shelter_id = NULL" +
+        //        " WHERE site_id=:site_id";
         //jdbc.update(sql,params);
+
+        //remove rooms
+        String sql1 ="DELETE FROM cs6400_sp17_team073.Bunk " +
+                " WHERE shelter_id=:shelter_id";
+        jdbc.update(sql1,params);
+
+
+        //remove rooms
+        String sql3 ="DELETE FROM cs6400_sp17_team073.Room " +
+                " WHERE shelter_id=:shelter_id";
+        jdbc.update(sql3,params);
 
 
         //now remove from the soup kitchen table

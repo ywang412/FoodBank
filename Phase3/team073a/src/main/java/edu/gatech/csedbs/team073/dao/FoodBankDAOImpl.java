@@ -101,7 +101,8 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide NATURAL JOIN cs6400_sp17_team073.Site";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide " +
+                "NATURAL JOIN cs6400_sp17_team073.Site WHERE Item.food_bank_id=:id";
 
         List <Item> items = jdbc.query(sql, params, new ItemMapper());
         return items;
@@ -172,10 +173,15 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         params.addValue("site_id", siteid);
         params.addValue("food_bank_id", fbid);
 
-        String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = NULL" +
-                " WHERE site_id=:site_id";
+       //; String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = NULL" +
+        //        " WHERE site_id=:site_id";
         //jdbc.update(sql,params);
 
+
+        //update all food bank items to remove the foriegn key
+        String sql3 ="DELETE FROM cs6400_sp17_team073.Item " +
+                " WHERE food_bank_id=:food_bank_id";
+        jdbc.update(sql3,params);
 
         //now remove from the soup kitchen table
         String sql2 = "DELETE FROM cs6400_sp17_team073.Food_bank " +

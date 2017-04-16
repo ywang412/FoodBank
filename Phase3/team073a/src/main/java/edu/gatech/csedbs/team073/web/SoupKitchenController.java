@@ -243,6 +243,28 @@ public class SoupKitchenController {
             model.addObject("soupKitchen", new SoupKitchen());
 
             model.addObject("missing", "false");
+
+
+            //check how many services are present
+            //if this is the last one then disable the remove button
+            Provide provides= null;
+            Integer servicescount=0;
+
+            provides = siteInfoService.getProvideDAO(siteId);
+
+
+            if (provides.getFood_bank_id() > 0)  servicescount++;
+            if (provides.getFood_pantry_id() > 0)  servicescount++;
+            if (provides.getShelter_id() > 0)  servicescount++;
+            if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+             if (servicescount > 1) {
+                 model.addObject("lastone", "false");
+             }
+             else {
+                 model.addObject("lastone", "true");
+             }
+
         }
         else {
 
@@ -307,6 +329,28 @@ public class SoupKitchenController {
 
         model.addObject("disabled", "false");
         model.addObject("soupKitchenId", newsoupkitchen.getSoupKitchenId());
+
+
+
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        Integer servicescount=0;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
+
 
 
         //find the site that goes with this
