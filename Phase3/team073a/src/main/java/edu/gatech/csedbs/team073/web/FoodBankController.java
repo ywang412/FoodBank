@@ -177,6 +177,10 @@ public class FoodBankController {
         model.addObject("username", username);
         model.addObject("siteId", siteId);
 
+        if (foodBankId == null) {
+            foodBankId = 0;
+        }
+
         //if the food bank is present
         if (foodBankId > 0) {
             foodBank = siteInfoService.getFoodBankDAO(foodBankId);
@@ -188,6 +192,29 @@ public class FoodBankController {
             model.addObject("foodBank", new FoodBank());
 
             model.addObject("missing", "false");
+
+
+            //check how many services are present
+            //if this is the last one then disable the remove button
+
+            Integer servicescount=0;
+
+            provides = siteInfoService.getProvideDAO(siteId);
+
+
+            if (provides.getFood_bank_id() > 0)  servicescount++;
+            if (provides.getFood_pantry_id() > 0)  servicescount++;
+            if (provides.getShelter_id() > 0)  servicescount++;
+            if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+            if (servicescount > 1) {
+                model.addObject("lastone", "false");
+            }
+            else {
+                model.addObject("lastone", "true");
+            }
+
+
         }
         else {
 
@@ -227,21 +254,23 @@ public class FoodBankController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-          siteInfoService.addFoodBank(siteId,  foodBank.getDescriptionString());
-
+            int  newid = siteInfoService.addFoodBank(siteId,  foodBank.getDescriptionString());
+            //query the new database entry if it took
+            newfoodbank = siteInfoService.getFoodBankDAO(newid);
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateFoodBank(foodBank.getFoodBankId(),  foodBank.getDescriptionString() );
+
+            newfoodbank = siteInfoService.getFoodBankDAO(foodBank.getFoodBankId());
         }
 
 
 
 
 
-        //query the new database entry if it took
-        newfoodbank = siteInfoService.getFoodBankDAO(foodBank.getFoodBankId());
+        model.addObject("foodBank", newfoodbank);
 
 
         model.addObject("descriptionString", newfoodbank.getDescriptionString());
@@ -252,6 +281,28 @@ public class FoodBankController {
         model.addObject("disabled", "false");
 
         model.addObject("foodBankId", newfoodbank.getFoodBankId());
+
+
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        Integer servicescount=0;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
+
+
 
         //find the site that goes with this
 

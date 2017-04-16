@@ -223,6 +223,10 @@ public class SoupKitchenController {
         model.addObject("username", username);
         model.addObject("siteId", siteId);
 
+        if (SoupKitchenId == null) {
+            SoupKitchenId = 0;
+        }
+
         //if the food bank is present
         if (SoupKitchenId > 0) {
             skitchen = siteInfoService.getSoupKitchenDAO(SoupKitchenId);
@@ -239,6 +243,28 @@ public class SoupKitchenController {
             model.addObject("soupKitchen", new SoupKitchen());
 
             model.addObject("missing", "false");
+
+
+            //check how many services are present
+            //if this is the last one then disable the remove button
+            Provide provides= null;
+            Integer servicescount=0;
+
+            provides = siteInfoService.getProvideDAO(siteId);
+
+
+            if (provides.getFood_bank_id() > 0)  servicescount++;
+            if (provides.getFood_pantry_id() > 0)  servicescount++;
+            if (provides.getShelter_id() > 0)  servicescount++;
+            if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+             if (servicescount > 1) {
+                 model.addObject("lastone", "false");
+             }
+             else {
+                 model.addObject("lastone", "true");
+             }
+
         }
         else {
 
@@ -276,21 +302,22 @@ public class SoupKitchenController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-             siteInfoService.addSoupKitchen(siteId,  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
+            int  newid =  siteInfoService.addSoupKitchen(siteId,  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
 
-
+            //query the new database entry if it took
+            newsoupkitchen = siteInfoService.getSoupKitchenDAO(newid);
 
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateSoupKitchen(soupKitchen.getSoupKitchenId(),  soupKitchen.getDescriptionString(),soupKitchen.getHours(),soupKitchen.getConditionsForUse(),seats,seats_limit);
-
+            //query the new database entry if it took
+            newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
         }
 
+        model.addObject("soupKitchen", newsoupkitchen);
 
-        //query the new database entry if it took
-        newsoupkitchen = siteInfoService.getSoupKitchenDAO(soupKitchen.getSoupKitchenId());
 
 
         model.addObject("descriptionString", newsoupkitchen.getDescriptionString());
@@ -302,6 +329,28 @@ public class SoupKitchenController {
 
         model.addObject("disabled", "false");
         model.addObject("soupKitchenId", newsoupkitchen.getSoupKitchenId());
+
+
+
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        Integer servicescount=0;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
+
 
 
         //find the site that goes with this

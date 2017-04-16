@@ -165,10 +165,18 @@ public class ShelterDAOImpl implements ShelterDAO {
         params.addValue("available_bunks", available_bunks);
         params.addValue("available_rooms", available_rooms);
 
-        String sql = "INSERT INTO  cs6400_sp17_team073.Soup_kitchen (description_string, hours, conditions_for_use, available_seats,seats_limit) " +
-                " VALUES(description_string = :description_string,hours=:hours, conditions_for_use = :conditions_for_use,available_bunks = :available_bunks,available_rooms = :available_rooms)";
+        String sql = "INSERT INTO  cs6400_sp17_team073.Shelter (description_string, hours, conditions_for_use, available_bunks,available_rooms) " +
+                " VALUES(:description_string,:hours,:conditions_for_use,:available_bunks,:available_rooms)";
 
-        int sh_id = jdbc.update(sql,params);
+        jdbc.update(sql,params);
+
+
+        //query for the new ID
+        String sql3 = "SELECT  cs6400_sp17_team073.Shelter.shelter_id FROM cs6400_sp17_team073.Shelter " +
+                "WHERE description_string = :description_string AND available_bunks=:available_bunks" +
+                " AND available_rooms=:available_rooms AND hours=:hours AND conditions_for_use = :conditions_for_use  ORDER BY Shelter.shelter_id ASC LIMIT 1";
+
+        Integer sh_id =  jdbc.queryForObject(sql3 ,params,Integer.class);
 
         //update the provide table
         params.addValue("site_id", siteid);
@@ -191,13 +199,24 @@ public class ShelterDAOImpl implements ShelterDAO {
         params.addValue("site_id", siteid);
         params.addValue("shelter_id", shid);
 
-        String sql ="UPDATE cs6400_sp17_team073.Provide SET shelter_id = 0" +
-                " WHERE site_id=:site_id";
-        jdbc.update(sql,params);
+       // String sql ="UPDATE cs6400_sp17_team073.Provide SET shelter_id = NULL" +
+        //        " WHERE site_id=:site_id";
+        //jdbc.update(sql,params);
+
+        //remove rooms
+        String sql1 ="DELETE FROM cs6400_sp17_team073.Bunk " +
+                " WHERE shelter_id=:shelter_id";
+        jdbc.update(sql1,params);
+
+
+        //remove rooms
+        String sql3 ="DELETE FROM cs6400_sp17_team073.Room " +
+                " WHERE shelter_id=:shelter_id";
+        jdbc.update(sql3,params);
 
 
         //now remove from the soup kitchen table
-        String sql2 = "DELETE FROM cs6400_sp17_team073.Soup_kitchen " +
+        String sql2 = "DELETE FROM cs6400_sp17_team073.Shelter " +
                 " WHERE shelter_id=:shelter_id";
 
         jdbc.update(sql2,params);

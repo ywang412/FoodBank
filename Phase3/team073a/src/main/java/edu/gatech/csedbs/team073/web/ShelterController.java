@@ -283,6 +283,12 @@ public class ShelterController {
 
         model.addObject("siteId", siteId);
 
+
+        if (ShelterId == null) {
+            ShelterId = 0;
+        }
+
+
         //if the shelter is present
         if (ShelterId > 0) {
             shelter = siteInfoService.getShelterDAO(ShelterId);
@@ -306,7 +312,25 @@ public class ShelterController {
         //ungrey out check in client button, edit, and request items
 
         model.addObject("disabled", "false");
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        Provide provides= null;
+        Integer servicescount=0;
 
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
 
         return model;
     }
@@ -325,7 +349,6 @@ public class ShelterController {
 
 
 
-
         provides = siteInfoService.getProvideDAO(siteId);
 
         model = new ModelAndView("ShelterEdit");
@@ -337,23 +360,26 @@ public class ShelterController {
 
             //push new values to the database
             //adds a new entry in soup kitchen and then updates the provides
-           siteInfoService.addShelter(siteId, shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
+            int  newid = siteInfoService.addShelter(siteId, shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
 
 
-
+            //query the new database entry if it took
+            newshelter = siteInfoService.getShelterDAO(newid);
         }
         else {
             //must be an update
             //push new values to the database
             siteInfoService.updateShelter(shelter.getShelterId(),  shelter.getDescriptionString(),shelter.getHours(),shelter.getConditionsForUse(),bunks,rooms);
 
+            //query the new database entry if it took
+            newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
+
         }
 
 
+        model.addObject("shelter", newshelter);
 
 
-        //query the new database entry if it took
-        newshelter = siteInfoService.getShelterDAO(shelter.getShelterId());
 
 
         model.addObject("descriptionString", newshelter.getDescriptionString());
@@ -367,6 +393,27 @@ public class ShelterController {
         model.addObject("disabled", "false");
         model.addObject("shelterId", newshelter.getShelterId());
 
+
+
+        //check how many services are present
+        //if this is the last one then disable the remove button
+        provides= null;
+        Integer servicescount=0;
+
+        provides = siteInfoService.getProvideDAO(siteId);
+
+
+        if (provides.getFood_bank_id() > 0)  servicescount++;
+        if (provides.getFood_pantry_id() > 0)  servicescount++;
+        if (provides.getShelter_id() > 0)  servicescount++;
+        if (provides.getSoup_kitchen_id() > 0)  servicescount++;
+
+        if (servicescount > 1) {
+            model.addObject("lastone", "false");
+        }
+        else {
+            model.addObject("lastone", "true");
+        }
 
         //find the site that goes with this
 

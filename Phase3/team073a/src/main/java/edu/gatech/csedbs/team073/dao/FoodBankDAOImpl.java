@@ -35,7 +35,30 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         this.jdbcTemplate = new JdbcTemplate(jdbc);
     }
 
-    public FoodBank getFoodBank(int id) {
+
+    public FoodBank getFoodBank(int food_bank_id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("food_bank_id", food_bank_id);
+
+        return jdbc.queryForObject("select Food_Bank.food_bank_id, Food_Bank.description_string FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Bank on Food_Bank.food_bank_id=Provide.food_bank_id WHERE Food_Bank.food_bank_id=:food_bank_id", params,
+                new RowMapper<FoodBank>() {
+
+                    public FoodBank mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+                        FoodBank foodBank = new FoodBank();
+
+                        foodBank.setDescriptionString(rs.getString("description_string"));
+                        foodBank.setFoodBankId(rs.getInt("food_bank_id"));
+
+                        return foodBank;
+                    }
+
+                });
+    }
+
+
+
+    public FoodBank getFoodBankBySiteId(int id) {
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
 
@@ -78,7 +101,8 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         MapSqlParameterSource params = new MapSqlParameterSource();
         params.addValue("id", id);
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide NATURAL JOIN cs6400_sp17_team073.Site";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide " +
+                "NATURAL JOIN cs6400_sp17_team073.Site WHERE Item.food_bank_id=:id";
 
         List <Item> items = jdbc.query(sql, params, new ItemMapper());
         return items;
@@ -116,10 +140,18 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
 
 
 
-        String sql = "INSERT INTO  cs6400_sp17_team073.food_bank (description_string) " +
-                " VALUES(description_string = :description_string)";
+        String sql = "INSERT INTO  cs6400_sp17_team073.Food_bank (description_string) " +
+                " VALUES(:description_string)";
 
-        int fbid = jdbc.update(sql,params);
+         jdbc.update(sql,params);
+
+
+        //query for the new ID
+        String sql3 = "SELECT  cs6400_sp17_team073.Food_bank.food_bank_id FROM cs6400_sp17_team073.Food_bank" +
+                " WHERE description_string = :description_string " +
+                " ORDER BY Food_bank.food_bank_id ASC LIMIT 1";
+
+        Integer fbid =  jdbc.queryForObject(sql3 ,params,Integer.class);
 
         //update the provide table
         params.addValue("site_id", siteid);
@@ -141,10 +173,15 @@ public  class FoodBankDAOImpl  implements FoodBankDAO{
         params.addValue("site_id", siteid);
         params.addValue("food_bank_id", fbid);
 
-        String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = 0" +
-                " WHERE site_id=:site_id";
-        jdbc.update(sql,params);
+       //; String sql ="UPDATE cs6400_sp17_team073.Provide SET food_bank_id = NULL" +
+        //        " WHERE site_id=:site_id";
+        //jdbc.update(sql,params);
 
+
+        //update all food bank items to remove the foriegn key
+        String sql3 ="DELETE FROM cs6400_sp17_team073.Item " +
+                " WHERE food_bank_id=:food_bank_id";
+        jdbc.update(sql3,params);
 
         //now remove from the soup kitchen table
         String sql2 = "DELETE FROM cs6400_sp17_team073.Food_bank " +

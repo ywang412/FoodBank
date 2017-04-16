@@ -38,11 +38,11 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         this.jdbcTemplate = new JdbcTemplate(jdbc);
     }
 
-    public FoodPantry getFoodPantry(int id) {
+    public FoodPantry getFoodPantry(int food_pantry_id) {
         MapSqlParameterSource params = new MapSqlParameterSource();
-        params.addValue("id", id);
+        params.addValue("food_pantry_id", food_pantry_id);
 
-        return jdbc.queryForObject("select Food_Pantry.food_pantry_id, Food_Pantry.description_string, Food_Pantry.hours, Food_Pantry.conditions_for_use FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Pantry on Food_Pantry.food_pantry_id=Provide.food_pantry_id WHERE Food_Pantry.food_pantry_id=:id", params,
+        return jdbc.queryForObject("select Food_Pantry.food_pantry_id, Food_Pantry.description_string, Food_Pantry.hours, Food_Pantry.conditions_for_use FROM Site LEFT JOIN Provide on Provide.site_id=Site.site_id LEFT JOIN Food_Pantry on Food_Pantry.food_pantry_id=Provide.food_pantry_id WHERE Food_Pantry.food_pantry_id=:food_pantry_id", params,
                 new RowMapper<FoodPantry>() {
 
                     public FoodPantry mapRow(ResultSet rs, int rowNum)
@@ -209,9 +209,19 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
 
         String sql = "INSERT INTO  cs6400_sp17_team073.Food_pantry (description_string, hours, conditions_for_use) " +
-                " VALUES(description_string = :description_string,hours=:hours, conditions_for_use = :conditions_for_use)";
+                " VALUES(:description_string,:hours, :conditions_for_use)";
 
-        int fp_id = jdbc.update(sql,params);
+        //int fp_id = jdbc.update(sql,params);
+        jdbc.update(sql,params);
+
+
+        //query for the new ID
+        String sql3 = "SELECT  cs6400_sp17_team073.Food_pantry.food_pantry_id FROM cs6400_sp17_team073.Food_pantry" +
+                " WHERE description_string = :description_string AND " +
+                "hours=:hours AND conditions_for_use = :conditions_for_use  ORDER BY Food_pantry.food_pantry_id ASC LIMIT 1";
+
+        Integer fp_id =  jdbc.queryForObject(sql3 ,params,Integer.class);
+
 
         //update the provide table
         params.addValue("site_id", siteid);
@@ -236,7 +246,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         String sql ="UPDATE cs6400_sp17_team073.Provide SET food_pantry_id = 0" +
                 " WHERE site_id=:site_id";
-        jdbc.update(sql,params);
+//        jdbc.update(sql,params);
 
 
         //now remove from the soup kitchen table

@@ -76,12 +76,46 @@ public class LoginController {
 
 		} else {
 
+
+			FoodBank foodBank = null;
+			FoodPantry foodPantry= null;
+			SoupKitchen soupKitchen= null;
+			Shelter shelter= null;
+			Provide provides= null;
+
 			SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(authUser.getSiteId());
+
+
+
+
+			//go to the provides - then get the id
+
+			provides = siteInfoService.getProvideDAO(authUser.getSiteId());
+
+			//get by food bank id from provides for this site
+			//
+			if (provides.getFood_bank_id() > 0 ) {
+				foodBank = siteInfoService.getFoodBankDAO(provides.getFood_bank_id());
+			}
+
+			if (provides.getFood_pantry_id() > 0 ) {
+				foodPantry = siteInfoService.getFoodPantryDAO(provides.getFood_pantry_id());
+			}
+
+			if (provides.getSoup_kitchen_id() > 0 ) {
+				soupKitchen = siteInfoService.getSoupKitchenDAO(provides.getSoup_kitchen_id());
+			}
+
+			if (provides.getShelter_id() > 0 ) {
+				shelter = siteInfoService.getShelterDAO(provides.getShelter_id());
+			}
+
+			/*
 			FoodBank foodBank = siteInfoService.getFoodBankDAO(authUser.getSiteId());
 			FoodPantry foodPantry = siteInfoService.getFoodPantryDAObysiteID(authUser.getSiteId());
 			SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAObysiteID(authUser.getSiteId());
 			Shelter shelter = siteInfoService.getShelterDAObysiteID(authUser.getSiteId());
-
+			*/
 
 			model = new ModelAndView("UserDashboard");
 			model.addObject("user", authUser);

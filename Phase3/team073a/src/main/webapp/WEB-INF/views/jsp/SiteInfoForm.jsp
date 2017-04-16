@@ -132,15 +132,14 @@
     <br>
     <div align="center">
         <table>
-            <col width="250px" />
-            <col width="250px" />
             <tr>
                 <td >
                     <form method="post" action="/login">
                         <button type="submit" align="center">Return to User Dashboard</button>
                     </form>
                 </td>
-
+                <td >
+                </td>
                 <td ><input type="submit" value="Logout"></td>
             </tr>
         </table>

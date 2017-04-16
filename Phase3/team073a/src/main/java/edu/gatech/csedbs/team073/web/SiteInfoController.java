@@ -51,10 +51,39 @@ public class SiteInfoController {
     public String showSiteInfo(@ModelAttribute("user") User user, Model model) {
 
         SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(user.getSiteId());
-        FoodBank foodBank = siteInfoService.getFoodBankDAO(user.getSiteId());
+        FoodBank foodBank = null;
+        FoodPantry foodPantry= null;
+        SoupKitchen soupKitchen= null;
+        Shelter shelter= null;
+        Provide provides= null;
+
+        //go to the provides - then get the id
+
+        provides = siteInfoService.getProvideDAO(user.getSiteId());
+
+        //get by food bank id from provides for this site
+        //
+        if (provides.getFood_bank_id() > 0 ) {
+            foodBank = siteInfoService.getFoodBankDAO(provides.getFood_bank_id());
+        }
+
+        if (provides.getFood_pantry_id() > 0 ) {
+            foodPantry = siteInfoService.getFoodPantryDAO(provides.getFood_pantry_id());
+        }
+
+        if (provides.getSoup_kitchen_id() > 0 ) {
+            soupKitchen = siteInfoService.getSoupKitchenDAO(provides.getSoup_kitchen_id());
+        }
+
+        if (provides.getShelter_id() > 0 ) {
+            shelter = siteInfoService.getShelterDAO(provides.getShelter_id());
+        }
+        /*
+        FoodBank foodBank = siteInfoService.getFoodBankDAObysiteID(user.getSiteId());
         FoodPantry foodPantry = siteInfoService.getFoodPantryDAObysiteID(user.getSiteId());
         SoupKitchen soupKitchen = siteInfoService.getSoupKitchenDAObysiteID(user.getSiteId());
         Shelter shelter = siteInfoService.getShelterDAObysiteID(user.getSiteId());
+        */
 
         model.addAttribute("siteInfo", siteInfo);
         model.addAttribute("foodBank", foodBank);

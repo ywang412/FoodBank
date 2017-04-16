@@ -70,8 +70,23 @@
 
             </tr>
 
+            <tr>
+                <td>Total Bunks:</td>
+                <td>   ${available_bunks}  </td>
+                <td>Change Total Bunks To:</td>
+                <td><input type="text" name="available_bunks" />
+                </td>
+            </tr>
 
 
+
+            <tr>
+                <td>Total Rooms:</td>
+                <td>   ${available_rooms}  </td>
+                <td>Change Total Rooms To:</td>
+                <td><input type="text" name="available_rooms" />
+                </td>
+            </tr>
 
         </table>
 
@@ -87,8 +102,7 @@
                     <td colspan="2" align="center"><input type="submit" name = "add" value="Add"  > </td>
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
-                    <input type="hidden" name="available_rooms" value="0">
-                    <input type="hidden" name="available_bunks" value="0">
+
                 </c:when>
                 <c:otherwise>
                     <td colspan="2" align="center"><input type="submit" name = "submit" value="Submit"  > </td>
@@ -117,6 +131,11 @@
             </c:when>
             <c:when test ="${missing}">
 
+            </c:when>
+            <c:when test="${lastone}">
+
+                <button type="submit" align="center" disabled="disabled">Remove</button>
+                <b> Cannot Remove - Last Service At Site!</b>
             </c:when>
             <c:otherwise>
 

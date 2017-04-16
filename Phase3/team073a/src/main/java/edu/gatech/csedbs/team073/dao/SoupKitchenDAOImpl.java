@@ -160,9 +160,20 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         params.addValue("seats_limit", seats_limit);
 
         String sql = "INSERT INTO  cs6400_sp17_team073.Soup_kitchen (description_string, hours, conditions_for_use, available_seats,seats_limit) " +
-                " VALUES(description_string = :description_string,hours=:hours, conditions_for_use = :conditions_for_use,available_seats = :available_seats,seats_limit = :seats_limit)";
+                " VALUES(:description_string,:hours,:conditions_for_use,:available_seats,:seats_limit)";
 
-        int sk_id = jdbc.update(sql,params);
+        //int sk_id = jdbc.update(sql,params);
+        jdbc.update(sql,params);
+
+
+
+        //query for the new ID
+        String sql3 = "SELECT  cs6400_sp17_team073.Soup_kitchen.soup_kitchen_id FROM cs6400_sp17_team073.Soup_kitchen " +
+                "WHERE description_string = :description_string AND  available_seats =:available_seats AND seats_limit=:seats_limit" +
+                " AND hours=:hours AND conditions_for_use = :conditions_for_use  ORDER BY Soup_kitchen.soup_kitchen_id ASC LIMIT 1";
+
+        Integer sk_id =  jdbc.queryForObject(sql3 ,params,Integer.class);
+
 
         //update the provide table
         params.addValue("site_id", siteid);
@@ -184,9 +195,9 @@ public class SoupKitchenDAOImpl implements SoupKitchenDAO{
         params.addValue("site_id", siteid);
         params.addValue("soup_kitchen_id", skid);
 
-        String sql ="UPDATE cs6400_sp17_team073.Provide SET soup_kitchen_id = 0" +
+        String sql ="UPDATE cs6400_sp17_team073.Provide SET soup_kitchen_id = NULL" +
                 " WHERE site_id=:site_id";
-        jdbc.update(sql,params);
+       // jdbc.update(sql,params);
 
 
         //now remove from the soup kitchen table

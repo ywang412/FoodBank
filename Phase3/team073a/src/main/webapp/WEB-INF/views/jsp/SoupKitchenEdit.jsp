@@ -128,6 +128,11 @@
             <c:when test ="${missing}">
 
             </c:when>
+            <c:when test="${lastone}">
+
+                <button type="submit" align="center" disabled="disabled">Remove</button>
+                <b> Cannot Remove - Last Service At Site!</b>
+            </c:when>
             <c:otherwise>
 
                 <button type="submit" align="center">Remove</button>
