@@ -117,7 +117,7 @@
 
                             <c:otherwise>
 
-                                <form method="post" action="/shelterformbunk" align="center">
+                                <form method="post" action="shelterformbunk" align="center">
                                     <button type="submit" align="center">Check Into Male Bunk</button>
                                     <input type="hidden" name="username" value="${username}">
                                     <input type="hidden" name="siteId" value="${siteId}">
@@ -140,7 +140,7 @@
 
                             <c:otherwise>
 
-                                <form method="post" action="/shelterformbunk" align="center">
+                                <form method="post" action="shelterformbunk" align="center">
                                     <button type="submit" align="center">Check Into Female Bunk</button>
                                     <input type="hidden" name="username" value="${username}">
                                     <input type="hidden" name="siteId" value="${siteId}">
@@ -163,7 +163,7 @@
 
                             <c:otherwise>
 
-                                <form method="post" action="/shelterformbunk" align="center">
+                                <form method="post" action="shelterformbunk" align="center">
                                     <button type="submit" align="center">Check Into Mixed Bunk</button>
                                     <input type="hidden" name="username" value="${username}">
                                     <input type="hidden" name="siteId" value="${siteId}">
@@ -208,7 +208,7 @@
                             </c:when>
 
                             <c:otherwise>
-                                <form method="post" action="/shelterbunkrelease" align="center">
+                                <form method="post" action="shelterbunkrelease" align="center">
                                     <button type="submit" align="center">Release Male Bunk</button>
                                     <input type="hidden" name="username" value="${username}">
                                     <input type="hidden" name="siteId" value="${siteId}">
@@ -229,7 +229,7 @@
                             </c:when>
 
                             <c:otherwise>
-                                <form method="post" action="/shelterbunkrelease" align="center">
+                                <form method="post" action="shelterbunkrelease" align="center">
                                     <button type="submit" align="center">Release Female Bunk</button>
                                     <input type="hidden" name="username" value="${username}">
                                     <input type="hidden" name="siteId" value="${siteId}">
@@ -251,7 +251,7 @@
                             </c:when>
 
                             <c:otherwise>
-                                <form method="post" action="/shelterbunkrelease" align="center">
+                                <form method="post" action="shelterbunkrelease" align="center">
                                     <button type="submit" align="center">Release Mixed Bunk</button>
                                     <input type="hidden" name="username" value="${username}">
                                     <input type="hidden" name="siteId" value="${siteId}">
@@ -290,7 +290,7 @@
                     <c:when test="${not_available_room}">
                         <b align="center">All Rooms Occupied.</b>
 
-                        <form method="post" action="/shelterWaitlistRoom">
+                        <form method="post" action="shelterWaitlistRoom">
                             <button type="submit" align="center">Get Client On Waitlist</button>
                             <input type="hidden" name="username" value="${username}">
                             <input type="hidden" name="siteId" value="${siteId}">
@@ -302,7 +302,7 @@
 
                     <c:otherwise>
 
-                        <form method="post" action="/shelterclaimroom" align="center">
+                        <form method="post" action="shelterclaimroom" align="center">
                             <button type="submit" align="center">Check Into Room</button>
                             <input type="hidden" name="username" value="${username}">
                             <input type="hidden" name="siteId" value="${siteId}">
@@ -328,7 +328,7 @@
 
                     <c:otherwise>
 
-                        <form method="post" action="/shelterreleaseRoom" align="center">
+                        <form method="post" action="shelterreleaseRoom" align="center">
                             <button type="submit" align="center">Release Room</button>
                             <input type="hidden" name="username" value="${username}">
                             <input type="hidden" name="siteId" value="${siteId}">
@@ -345,7 +345,7 @@
 <br>
 <br>
 <div align="center">
-    <form method="post" action="/Waitlist">
+    <form method="post" action="Waitlist">
         <button type="submit" align="center">View Shelter Waitlist</button>
     </form>
 </div>
@@ -353,7 +353,7 @@
 <br>
 <br>
 <div align="center">
-    <form method="post" action="/SiteInfo">
+    <form method="post" action="SiteInfo">
         <button type="submit" align="center">Return To Site</button>
     </form>
 </div>

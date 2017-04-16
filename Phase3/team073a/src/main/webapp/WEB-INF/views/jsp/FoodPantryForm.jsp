@@ -82,7 +82,7 @@
 			</c:when>
 			<c:otherwise>
 
-				<form method="get" action="/ClientSearchForm" align="center">
+				<form method="get" action="ClientSearchForm" align="center">
 					<button type="submit" align="center">Check In Client</button>
 					<input type="hidden" name="username" value="${username}">
 					<input type="hidden" name="siteId" value="${siteId}">
@@ -107,7 +107,7 @@
 				</c:when>
 				<c:otherwise>
 
-					<form method="post" action="/requestitems">
+					<form method="post" action="requestitems">
 						<button type="submit" align="center">Request Items</button>
 						<input type="hidden" name="username" value="${username}">
 						<input type="hidden" name="siteId" value="${siteId}">
@@ -121,7 +121,7 @@
 	<br>
 	<br>
 	<div align="center">
-				<form method="post" action="/SiteInfo">
+				<form method="post" action="SiteInfo">
 					<button type="submit" align="center">Return To Site</button>
 				</form>
 	</div>

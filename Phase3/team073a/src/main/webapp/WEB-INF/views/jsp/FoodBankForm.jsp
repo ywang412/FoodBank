@@ -19,7 +19,6 @@
     </style>
 </head>
 <body>
-<body>
 <div align="center">
     <h1>ASACS Food Bank Information</h1>
 
@@ -49,7 +48,7 @@
 
             <td colspan="2">
 
-                <form method="get" action="/ItemSearch">
+                <form method="get" action="ItemSearch">
                     <button type="submit" >Item Search</button>
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
@@ -59,7 +58,7 @@
             </td>
             <td colspan="3">
 
-                <form method="get" action="/AddItem">
+                <form method="get" action="AddItem">
                     <button type="submit" >Add New Item</button>
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
@@ -69,7 +68,7 @@
             </td>
             <td colspan="3">
 
-                <form method="get" action="/ViewRequests">
+                <form method="get" action="ViewRequests">
                     <button type="submit" >View Food Bank Requests</button>
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
@@ -126,7 +125,7 @@
 </div>
 <br>
 <div align="center">
-    <form method="post" action="/SiteInfo">
+    <form method="post" action="SiteInfo">
         <button type="submit" align="center">Return To Site</button>
     </form>
 </div>

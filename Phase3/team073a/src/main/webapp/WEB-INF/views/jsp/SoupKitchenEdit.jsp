@@ -32,7 +32,7 @@
 
 <div align="center">
     <h1>Add / Edit Soup Kitchen Information</h1>
-    <form action="/soupkitchenedit" method="post">
+    <form action="soupkitchenedit" method="post">
         <table>
             <tr>
                 <td>Editing Site:</td>
@@ -118,7 +118,7 @@
 
 <div align="center">
 
-    <form method="post" action="/soupkitchenremove">
+    <form method="post" action="soupkitchenremove">
         <c:choose>
 
 
@@ -150,7 +150,7 @@
 
 
 <div align="center">
-    <form method="get" action="/soupkitchenform">
+    <form method="get" action="soupkitchenform">
         <c:choose>
             <c:when test="${disabled}">
 
@@ -169,7 +169,7 @@
 
 <br>
 <div align="center">
-    <form method="post" action="/SiteInfo">
+    <form method="post" action="SiteInfo">
         <button type="submit" align="center">Return To Site</button>
     </form>
 </div>
