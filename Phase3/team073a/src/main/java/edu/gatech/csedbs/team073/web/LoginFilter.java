@@ -108,7 +108,8 @@ public class LoginFilter implements Filter {
 					chain.doFilter(req, resp);
 					return;
 				} else {
-					if ((user.getSiteId() == 0) &&  StringUtils.containsIgnoreCase(request.getRequestURI(),"login")) {
+					if ((user.getSiteId() == 0) && (StringUtils.containsIgnoreCase(request.getRequestURI(),"login")
+							|| StringUtils.containsIgnoreCase(request.getRequestURI(),"public"))) {
 						chain.doFilter(req, resp);
 						return;
 					}
