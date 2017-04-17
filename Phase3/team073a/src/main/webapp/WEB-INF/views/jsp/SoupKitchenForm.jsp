@@ -145,11 +145,10 @@
 
         <c:otherwise>
 
-            <form method="post" action="AddRequest">
+            <form method="get" action="ItemList">
                 <button type="submit" align="center">Request Items</button>
                 <input type="hidden" name="username" value="${username}">
-                <input type="hidden" name="siteId" value="${siteId}">
-                <input type="hidden" name="soup_kitchen_id" value="${soup_kitchen_id}">
+
 
             </form>
         </c:otherwise>
