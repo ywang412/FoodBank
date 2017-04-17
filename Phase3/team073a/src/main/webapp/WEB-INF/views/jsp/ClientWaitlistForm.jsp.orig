@@ -43,13 +43,7 @@
 
     </table>
 
-    <tr>
-        <form method="get" action="/addClientWaitlist">
-            <td colspan="2" align="center"><input type="submit" value="add client from Waitlist for this shelter/site"></td>
-
-        </form>
-    </tr>
-
+<<<<<<< HEAD
     <tr>
         <form method="get" action="/removeClientWaitlist">
             <td colspan="2" align="center"><input type="submit" value="Remove client from Waitlist for this shelter/site"></td>
@@ -59,6 +53,11 @@
 
 
 
+||||||| merged common ancestors
+
+=======
+    <br>
+>>>>>>> 587aabe7a9469b9190f75a07a2448ed7430e0c40
     <form method="get" action="/ClientSearchForm">
         <td colspan="2" align="center"><input type="submit" value="Return to Client Search"></td>
 

@@ -15,4 +15,6 @@ public interface WaitlistDAO {
     public List<Waitlist> getClientWaitlist(int id);
 
     public boolean removeClientWaitlist(int client_id, int shelter_id);
+
+    public boolean addClientWaitlist(int client_id, int shelter_id);
 }

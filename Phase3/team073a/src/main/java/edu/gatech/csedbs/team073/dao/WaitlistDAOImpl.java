@@ -134,4 +134,38 @@ public class WaitlistDAOImpl  implements WaitlistDAO {
     }
 
 
+
+
+    @Override
+    public boolean addClientWaitlist(int client_id, int shelter_id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("client_id", client_id);
+        params.addValue("shelter_id", shelter_id);
+
+
+        Position pos = jdbc.queryForObject("select count(*) as position from Waitlist where shelter_id =:shelter_id", params,
+                new RowMapper<Position>() {
+
+                    public Position mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+
+                        Position position = new Position();
+                        position.setP(rs.getInt("position"));
+
+                        return position;
+                    }
+
+                });
+
+        params.addValue("clientpos", pos.getP());
+        
+        String sql =" INSERT INTO Waitlist (position, room_number, shelter_id, client_id) VALUES (:clientpos+1 ,1, :shelter_id, :client_id);";
+
+        jdbc.update(sql,params);
+
+        return true;
+    }
+
+
 }
