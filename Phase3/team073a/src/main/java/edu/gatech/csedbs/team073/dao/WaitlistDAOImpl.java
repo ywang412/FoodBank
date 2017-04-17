@@ -1,7 +1,8 @@
 package edu.gatech.csedbs.team073.dao;
 
-import edu.gatech.csedbs.team073.model.SiteInfo;
+import edu.gatech.csedbs.team073.model.Position;
 import edu.gatech.csedbs.team073.model.Waitlist;
+import javafx.geometry.Pos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -94,5 +95,43 @@ public class WaitlistDAOImpl  implements WaitlistDAO {
             return null;
         }
     }
+
+
+    @Override
+    public boolean removeClientWaitlist(int client_id, int shelter_id) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+
+        params.addValue("client_id", client_id);
+        params.addValue("shelter_id", shelter_id);
+
+        Position pos = jdbc.queryForObject("select position from Waitlist where client_id =:client_id and shelter_id =:shelter_id", params,
+                new RowMapper<Position>() {
+
+                    public Position mapRow(ResultSet rs, int rowNum)
+                            throws SQLException {
+
+                        Position position = new Position();
+                        position.setP(rs.getInt("position"));
+
+                        return position;
+                    }
+
+                });
+
+        params.addValue("clientpos", pos.getP());
+
+        if (pos.getP()>0){
+        //now remove from the soup kitchen table
+        String sql2 = "delete from cs6400_sp17_team073.Waitlist WHERE client_id =:client_id and shelter_id =:shelter_id";
+
+        jdbc.update(sql2,params);
+
+        String sql ="Update cs6400_sp17_team073.Waitlist  Set position = position - 1  Where shelter_id = 1 and position >:clientpos";
+
+        jdbc.update(sql,params);}
+
+        return true;
+    }
+
 
 }

@@ -51,22 +51,22 @@ public class WaitlistController {
 
 
 
-
-    @RequestMapping(value = "/ClientWaitlist", method = RequestMethod.GET)
-    public String showClientWaitlist(Model model) {
-
-        int client_id =3;
-
-
-        List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client_id);
-
-        String client_name = clientWaitlist.get(0).getFullName();
-
-        model.addAttribute("client_name", client_name);
-
-        model.addAttribute("clientWaitlist", clientWaitlist);
-
-        return "ClientWaitlistForm";
-    }
+//
+//    @RequestMapping(value = "/ClientWaitlist", method = RequestMethod.GET)
+//    public String showClientWaitlist(Model model) {
+//
+//        int client_id =3;
+//
+//
+//        List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client_id);
+//
+//        String client_name = clientWaitlist.get(0).getFullName();
+//
+//        model.addAttribute("client_name", client_name);
+//
+//        model.addAttribute("clientWaitlist", clientWaitlist);
+//
+//        return "ClientWaitlistForm";
+//    }
 
 }

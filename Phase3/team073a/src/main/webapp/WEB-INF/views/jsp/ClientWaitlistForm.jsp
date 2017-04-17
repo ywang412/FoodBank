@@ -43,6 +43,14 @@
 
     </table>
 
+    <tr>
+        <form method="get" action="/removeClientWaitlist">
+            <td colspan="2" align="center"><input type="submit" value="Remove client from Waitlist for this shelter/site"></td>
+
+        </form>
+    </tr>
+
+
 
     <form method="get" action="/ClientSearchForm">
         <td colspan="2" align="center"><input type="submit" value="Return to Client Search"></td>
