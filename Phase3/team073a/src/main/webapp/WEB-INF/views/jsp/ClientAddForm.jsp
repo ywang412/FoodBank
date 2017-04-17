@@ -9,7 +9,7 @@
   <head>
     <title>ASACS Add Client</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/resources/asacs073.css" />"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="../../resources/asacs073.css" />"/>
   </head>
 
   <body>
@@ -65,7 +65,12 @@
 	  </form:form>
 		 
 	</div>
-    
 
+     <br>
+     <div align="center">
+       <form method="post" action="SiteInfo">
+         <button type="submit" align="center">Return To Site</button>
+       </form>
+     </div>
   </body>
 </html>
