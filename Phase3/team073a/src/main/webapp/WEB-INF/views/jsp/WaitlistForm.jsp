@@ -30,6 +30,9 @@
             <td>Client Name</td>
             <td>client Id</td>
             <td>HeadOfHousehold</td>
+            <td>Delete</td>
+            <td>Move Up</td>
+            <td>Move Down</td>
         </tr>
         <c:forEach items="${allWaitlist}" var="waitlist">
             <tr>
@@ -37,6 +40,32 @@
                 <td>${waitlist.fullName}</td>
                 <td>${waitlist.clientId}</td>
                 <td>${waitlist.headOfHousehold}</td>
+
+
+                    <form method="post" action="shelterwaitlistremoveclient">
+                         <td  align="center">
+                             <input type="submit" value="Del">
+                             <input type="hidden" name="position" value="${waitlist.position}">
+                         </td>
+                     </form>
+
+
+
+                    <form method="post" action="shelterwaitlistmoveup">
+                        <td  align="center">
+                            <input type="submit" value="+">
+                            <input type="hidden" name="position" value="${waitlist.position}">
+                        </td>
+                     </form>
+
+
+                    <form method="post" action="shelterwaitlistmovedown">
+                      <td  align="center">
+                          <input type="submit" value="-">
+                          <input type="hidden" name="position" value="${waitlist.position}">
+                      </td>
+                     </form>
+
             </tr>
         </c:forEach>
 
@@ -45,6 +74,8 @@
 
     </table>
 
+    <br>
+    <br>
     <td>
 
         <a href="<c:url value='/shelterform?username=${userName}&siteId=${siteId}' />" >Return to Shelter</a>
@@ -52,7 +83,7 @@
     </td>
 
 
-
+    <br>
     <tr>
         <form method="post" action="/invalidate">
             <td colspan="2" align="center"><input type="submit" value="Logout"></td>

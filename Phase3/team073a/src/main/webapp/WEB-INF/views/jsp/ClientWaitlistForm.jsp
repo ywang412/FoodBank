@@ -43,12 +43,13 @@
 
     </table>
 
-
+    <br>
     <form method="get" action="/ClientSearchForm">
         <td colspan="2" align="center"><input type="submit" value="Return to Client Search"></td>
 
     </form>
 
+    <br>
     <tr>
         <form method="post" action="/invalidate">
             <td colspan="2" align="center"><input type="submit" value="Logout"></td>

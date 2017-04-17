@@ -5,10 +5,7 @@ import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -69,4 +66,68 @@ public class WaitlistController {
         return "ClientWaitlistForm";
     }
 
+
+    @RequestMapping(value = "/shelterwaitlistremoveclient", method = RequestMethod.POST)
+    public String UpdateWaitlist(@RequestParam(value="position") int position, @ModelAttribute("serviceObj") ServiceInfo serviceInfo, @ModelAttribute("user") User user, Model model) {
+
+
+        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(serviceInfo.getServiceId());
+
+        int siteId =  serviceInfo.getSiteId();
+        String userName =user.getUserName();
+        String shelter_ds = allWaitlist.get(0).getDescription();
+
+
+
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("siteId", siteId);
+        model.addAttribute("shelter_ds", shelter_ds);
+        model.addAttribute("allWaitlist", allWaitlist);
+
+
+        return "WaitlistForm";
+
+    }
+
+
+    @RequestMapping(value = "/shelterwaitlistmoveup", method = RequestMethod.POST)
+    public String WaitlistMoveClientUp(@RequestParam(value="position") int position,@ModelAttribute("serviceObj") ServiceInfo serviceInfo, @ModelAttribute("user") User user, Model model) {
+
+
+        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(serviceInfo.getServiceId());
+
+        int siteId =  serviceInfo.getSiteId();
+        String userName =user.getUserName();
+        String shelter_ds = allWaitlist.get(0).getDescription();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("siteId", siteId);
+        model.addAttribute("shelter_ds", shelter_ds);
+        model.addAttribute("allWaitlist", allWaitlist);
+
+
+        return "WaitlistForm";
+
+    }
+
+    @RequestMapping(value = "/shelterwaitlistmovedown", method = RequestMethod.POST)
+    public String WaitlistMoveClientDown(@RequestParam(value="position") int position,@ModelAttribute("serviceObj") ServiceInfo serviceInfo, @ModelAttribute("user") User user, Model model) {
+
+
+        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(serviceInfo.getServiceId());
+
+        int siteId =  serviceInfo.getSiteId();
+        String userName =user.getUserName();
+        String shelter_ds = allWaitlist.get(0).getDescription();
+
+        model.addAttribute("userName", userName);
+        model.addAttribute("siteId", siteId);
+        model.addAttribute("shelter_ds", shelter_ds);
+        model.addAttribute("allWaitlist", allWaitlist);
+
+
+        return "WaitlistForm";
+
+    }
 }
