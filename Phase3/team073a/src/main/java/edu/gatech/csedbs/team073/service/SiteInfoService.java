@@ -30,6 +30,10 @@ public class SiteInfoService {
     private RoomDAO roomDAO;
     private BunkDAO bunkDAO;
 
+    private ItemFoodCategoryDAO ItemFoodCategoryDAO;
+    private ItemSupplyCategoryDAO ItemSupplyCategoryDAO;
+    private ItemStorageTypeDAO ItemStorageTypeDAO;
+    private ItemTypeDAO ItemTypeDAO;
 
     @Autowired
     public void setWaitlistDAO(WaitlistDAO waitlistDAO) {
@@ -86,6 +90,25 @@ public class SiteInfoService {
         this.bunkDAO = BunkDAO;
     }
 
+    @Autowired
+    public void setItemTypeDAO(ItemTypeDAO ItemTypeDAO) {
+        this.ItemTypeDAO = ItemTypeDAO;
+    }
+
+    @Autowired
+    public void setItemSupplyCatagory(ItemSupplyCategoryDAO ItemSupplyCategoryDAO) {
+        this.ItemSupplyCategoryDAO = ItemSupplyCategoryDAO;
+    }
+
+    @Autowired
+    public void setItemStorageType(ItemStorageTypeDAO ItemStorageTypeDAO) {
+        this.ItemStorageTypeDAO = ItemStorageTypeDAO;
+    }
+
+    @Autowired
+    public void setItemFoodCatagory(ItemFoodCategoryDAO ItemFoodCategoryDAO) {
+        this.ItemFoodCategoryDAO = ItemFoodCategoryDAO;
+    }
 
 
     public SiteInfo getSiteInfoDAO(int id) {
@@ -281,6 +304,25 @@ public class SiteInfoService {
 
     public List<Waitlist> getClientWaitlistDAO(int id) { return waitlistDAO.getClientWaitlist(id);
     }
+
+
+    public List  GetAllFoodCategories()  {
+        return ItemFoodCategoryDAO.GetAllFoodCategories();
+    }
+
+    public List  GetAllSupplyCategories()  {
+        return ItemSupplyCategoryDAO.GetAllSupplyCategories();
+    }
+
+    public List  GetAllStorageTypes()  {
+        return ItemStorageTypeDAO.GetAllStorageTypes();
+    }
+
+    public List  GetAllItemTypes()  {
+        return ItemTypeDAO.GetAllItemTypes();
+    }
+
+
 
     public void addRequest(String username, String itemName, String foodBank, int count){foodPantryDAO.addRequest(username, itemName, foodBank, count);}
     public void approveRequest(String username, String itemName, String unitsRequested,String requestDate, int count){foodPantryDAO.approveRequest(username, itemName, unitsRequested, requestDate, count);}

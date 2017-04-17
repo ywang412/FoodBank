@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import edu.gatech.csedbs.team073.model.*;
+import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.gatech.csedbs.team073.dao.ClientDAO;
 import edu.gatech.csedbs.team073.dao.LogEntryDAO;
-import edu.gatech.csedbs.team073.model.Client;
-import edu.gatech.csedbs.team073.model.LogEntry;
-import edu.gatech.csedbs.team073.model.SearchClient;
-import edu.gatech.csedbs.team073.model.ServiceInfo;
 
 
 /**
@@ -61,33 +59,61 @@ public class ClientController {
 	//public String clientSearchSubmit(@RequestParam("searchClient") String searchClient, BindingResult result, Model model) {
 	public String clientSearchSubmit(@ModelAttribute("searchClient") SearchClient searchClient, BindingResult result, Model model) {
 		
-		if (StringUtils.isNotBlank(searchClient.getSearchParms())) {
-			try {
-				List<Client> results = clientDAO.searchClientsByName(searchClient.getSearchParms());
-				model.addAttribute("searchResults", results);
-			} catch (Exception e) {
-				
-				model.addAttribute("searchClient", searchClient);
-				result.rejectValue(null,"error.toomanyresults", e.getMessage());
-			}
+		ClientSearchValidator searchValidator = new ClientSearchValidator();
+		searchValidator.validate(searchClient, result);
+		
+		if (result.hasErrors()) {
 			
 		} else {
-			result.rejectValue(null,"error.required", "Search parameter is required");
+			if (StringUtils.isNotBlank(searchClient.getSearchParms())) {
+				try {
+					List<Client> results = clientDAO.searchClientsByName(searchClient.getSearchParms());
+					model.addAttribute("searchResults", results);
+					
+					if (results.isEmpty()) {
+						result.rejectValue(null,"error.noresults", "No results found" );
+					}
+					
+				} catch (Exception e) {
+					
+					model.addAttribute("searchClient", searchClient);
+					result.rejectValue(null,"error.toomanyresults", e.getMessage());
+				}
+			}
+			
+			if (StringUtils.isNotBlank(searchClient.getSearchDescription())) {
+				try {
+					List<Client> results = clientDAO.searchClientsByDescription(searchClient.getSearchDescription());
+					model.addAttribute("searchResults", results);
+					
+					if (results.isEmpty()) {
+						result.rejectValue(null,"error.noresults", "No results found" );
+					}
+					
+				} catch (Exception e) {
+					
+					model.addAttribute("searchClient", searchClient);
+					result.rejectValue(null,"error.toomanyresults", e.getMessage());
+				}
+			}
 		}
 		
-		
+
 		
 		return "ClientSearchForm";
 	}
 	
 	@RequestMapping(value="/ClientSearchSubmit", method = RequestMethod.POST, params={ "goToAdd" })	
-	public String clientGoToAdd(@ModelAttribute Client client, @RequestParam String goToAdd, BindingResult result, Model model) {
-				
+	//public ModelAndView clientGoToAdd(@ModelAttribute Client client, @RequestParam String goToAdd, BindingResult result, Model model) {
+	public ModelAndView clientGoToAdd(@RequestParam String goToAdd, Model model) {			
 		
-		client = new Client();
-		model.addAttribute("client", client);
+		Client client = new Client();
+		//model.addAttribute("client", client);
+		ModelAndView model1 = new ModelAndView("ClientAddForm");
+		model1.addObject("client", client);
 		
-		return "ClientAddForm";
+		//return "ClientAddForm";
+		return model1;
 	}
 	
 	
@@ -158,8 +184,14 @@ public class ClientController {
 		
 		if (null != request.getSession(false).getAttribute("serviceObj")) {
 			ServiceInfo serviceInfo = (ServiceInfo)request.getSession(false).getAttribute("serviceObj");
-			logEntry.setLogUsage(serviceInfo.getDescription());
-			logEntry.setLogEntry("From ClientViewSubmit 1");
+			StringBuffer sb = new StringBuffer("Site: ");
+			sb.append(serviceInfo.getSiteId());
+			sb.append("; Service: ");
+			sb.append(serviceInfo.getServiceId());
+			sb.append("; Description: ");
+			sb.append(serviceInfo.getDescription());
+			logEntry.setLogUsage(sb.toString());
+			logEntry.setLogEntry(serviceInfo.getDescription());
 		}
 		
 		model.addObject("logEntry", logEntry);
@@ -173,7 +205,34 @@ public class ClientController {
 		model.addObject("client", client);	
 		return model;
 	}
-	
+
+	private SiteInfoService siteInfoService;
+
+	@Autowired
+	public void setSiteInfoService(SiteInfoService offersService) {
+		this.siteInfoService = offersService;
+	}
+
+	@RequestMapping(value="/ClientViewSubmit", method = RequestMethod.POST, params={ "viewClientWaitlist" })	
+	public ModelAndView clientViewToClientWaitList(@ModelAttribute Client client, @RequestParam String viewClientWaitlist, BindingResult result) {
+				
+		ModelAndView model = new ModelAndView("ClientWaitlistForm");
+		model.addObject("client", client);
+
+
+		List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client.getClientId());
+
+		String client_name = clientWaitlist.get(0).getFullName();
+
+		model.addObject("client_name", client_name);
+
+		model.addObject("clientWaitlist", clientWaitlist);
+
+		return model;
+	}
+
+
+
 	
 	@RequestMapping(value="/ClientEditForm", method = RequestMethod.GET)
 	//public ModelAndView clientEdit(@RequestParam(value="clientId") String clientId, ModelAndView model) {

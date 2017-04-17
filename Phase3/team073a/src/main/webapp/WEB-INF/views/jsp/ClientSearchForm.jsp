@@ -10,7 +10,7 @@
   <head>
     <title>ASACS Client Search</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="../../css/asacs073.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/resources/asacs073.css" />"/>
   </head>
 
   <body>
@@ -18,23 +18,44 @@
 	 <div>
     
       <h2>Search Client</h2>
+      
+      
 
       <form:form action="ClientSearchSubmit" method="post" modelAttribute="searchClient">
+		
+		<fieldset>
+          
+          <legend> Search client - enter one field  </legend>
 			
-      		<form:errors />
+      		<form:errors class="fieldError" />
 			<div>
-				<form:label path="searchParms" for="searchClient">
-				<span>Search Client</span>              
+				<form:label path="searchParms" for="searchParms">
+				<span>Search Name</span>              
 				</form:label>
-				<form:input type="text" path="searchParms" name="searchClient" required="required" />
+				<form:input type="text" path="searchParms" name="searchParms"  />
+				<form:errors path="searchParms" class="fieldError" />
+			</div>
+			<div>
+				<form:label path="searchDescription" for="searchDescription">
+				<span>Search ID/Description</span>              
+				</form:label>
+				<form:input type="text" path="searchDescription" name="searchDescription"  />
+				<form:errors path="searchDescription" class="fieldError" />
 			</div>
 		  <!-- type="submit" name="clientAdd" action="goToAdd" -->
-			<div>
+			<div class="submit">
 				<button type="submit" name="clientSearch" action="clientSearch">Search</button>
+				<button type="submit" name="goToAdd" action="goToAdd">Add New Client</button>
+								
 			</div>
+			</fieldset>
 		</form:form>
-				<spring:url value="ClientAddForm" var="clientAddUrl" />
+		<!--  
+			<div class="submit">			
+				<spring:url value="/ClientAddForm" var="clientAddUrl" />
 				<button  onclick="location.href='${clientAddUrl}'">Add New Client</button>
+			</div>
+		-->		
 		
 	</div>
     
@@ -49,6 +70,7 @@
             <th>ID/Description</th>
             <th>Phone Number</th>
             <th>Head of Household</th>
+            <th>Select</th>
           </tr>
         </thead>
         <tbody>
@@ -59,7 +81,7 @@
 	            <td>${cl.phoneNumber}</td>
 	            <td>${cl.hoH}</td>
 	            <td>
-	            <spring:url value="ClientViewForm?clientId=${cl.clientId}" var="clientUrl" />
+	            <spring:url value="/ClientViewForm?clientId=${cl.clientId}" var="clientUrl" />
 	            <button onclick="location.href='${clientUrl}'">Select</button>
 	            
 	            </td>            

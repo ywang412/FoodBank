@@ -59,7 +59,7 @@ public class LoginFilter implements Filter {
 		//context.log(request.getRequestedSessionId());
 		
 		if ((!StringUtils.isBlank(request.getRequestedSessionId())) && (!request.isRequestedSessionIdValid())
-		        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"/public/"))
+		        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"public"))
 		        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"login"))) {
 		
 		    if (null != contextPath) {
@@ -93,6 +93,7 @@ public class LoginFilter implements Filter {
 			if ((null == user) && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"login"))
 			        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"changePassword"))
 			        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"contact"))
+			        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"public"))
 			        && (!StringUtils.containsIgnoreCase(request.getRequestURI(),"SystemUnavailable"))) {
 			    nextPage = nextPage + "/loginForm";
 				//context.log(" User not found redirecting to login.jsp " + nextPage + " " + request.getRequestURI());				
@@ -129,6 +130,7 @@ public class LoginFilter implements Filter {
 		    if (!StringUtils.containsIgnoreCase(request.getRequestURI(),"login") && 
 		            !StringUtils.containsIgnoreCase(request.getRequestURI(),"contact") &&
 		            !StringUtils.containsIgnoreCase(request.getRequestURI(),"SessionTimeout") &&
+		            !StringUtils.containsIgnoreCase(request.getRequestURI(),"public") &&
 		            !StringUtils.containsOnly(request.getRequestURI(),contextPath)) {
 		        nextPage = nextPage + "/loginForm";
 		        //context.log("**** " + request.getRequestURI());

@@ -9,7 +9,7 @@
   <head>
     <title>ASACS View Client</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="../../css/asacs073.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/resources/asacs073.css" />"/>
   </head>
 
   <body>
@@ -26,7 +26,7 @@
             <label for="service">
               <span>Service:</span>              
             </label>
-            ${serviceName}
+            ${serviceObj.description}
         </div> 
 
       <form:form action="ClientViewSubmit" modelAttribute="client" method="post">
@@ -50,8 +50,8 @@
             <form:input type="text" path="description" id="description" readonly="readonly"/>
           </div>
           <div>
-            <label>Head of Household:</label>
-            <form:checkbox path="headOfHousehold" id="headOfHousehold" readonly="readonly"/>
+            <label for="headOfHousehold">Head of Household:</label>
+            <form:checkbox path="headOfHousehold" id="headOfHousehold" name="headOfHousehold" checkbox="${client.headOfHousehold}" readonly="readonly"/>
           </div>
 		  <div>
             <label for="phoneNumber">

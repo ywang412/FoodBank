@@ -28,7 +28,7 @@ public class AvailableRoomBunkController {
     }
 
 
-    @RequestMapping(value = "/AvailableRoomBunk", method = RequestMethod.GET)
+    @RequestMapping(value = "/PublicAvailableRoomBunk", method = RequestMethod.GET)
     public String showAvailableRoomBunk(Model model) {
 
         List<SiteInfo> allSiteInfo = siteInfoService.getAllSiteInfoDAO();
@@ -55,7 +55,7 @@ public class AvailableRoomBunkController {
 
         model.addAttribute("allRoomBunk", allRoomBunk);
 
-        return "AvailableRoomBunkForm";
+        return "PublicAvailableRoomBunkForm";
     }
 
 }
