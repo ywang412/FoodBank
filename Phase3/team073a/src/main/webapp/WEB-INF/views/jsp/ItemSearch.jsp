@@ -95,7 +95,7 @@
 
     <h2>List of Items</h2>
 
-    <table>
+    <table border="1">
         <thead>
         <tr>
             <th>Name</th>

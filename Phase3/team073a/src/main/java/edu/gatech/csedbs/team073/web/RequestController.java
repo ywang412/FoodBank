@@ -262,6 +262,8 @@ public class RequestController {
         //query all of the shelters in shelters list
         return model;
     }
+
+
     @RequestMapping(value="/ApproveRequest", method = RequestMethod.GET)
     public ModelAndView ShelterEdit(@RequestParam(value="username") String username, @RequestParam(value="itemName") String itemName,@RequestParam(value="unitsRequested") String unitsRequested, @RequestParam(value="requestDate") String requestDate, @RequestParam(value="count") String count, @RequestParam(value="foodBank") String foodBankID) {
 
