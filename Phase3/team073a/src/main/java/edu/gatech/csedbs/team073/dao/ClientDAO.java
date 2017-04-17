@@ -14,6 +14,7 @@ import edu.gatech.csedbs.team073.model.Client;
 public interface ClientDAO {
 
 	public List<Client> searchClientsByName(String name);
+	public List<Client> searchClientsByDescription(String iddesc);
 	public Client searchClientById(int clientId);
 	public Client addClient(Client inClient);
 	public int modifyClient(Client inClient);

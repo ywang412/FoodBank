@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
 <html>
@@ -8,7 +9,7 @@
   <head>
     <title>ASACS Add Client</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="../../css/asacs073.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/resources/asacs073.css" />"/>
   </head>
 
   <body>
@@ -21,7 +22,7 @@
             <label for="service">
               <span>Service:</span>              
             </label>
-            <input type="text" id="serviceName" readonly />${serviceName}
+            ${serviceObj.description}
         </div> 
 
       <form:form action="ClientAddSubmit" modelAttribute="client" method="post">
@@ -57,7 +58,6 @@
 		  
 		  <div class="submit">
             <button type="submit" name="save">Save</button>
-            <button type="submit" name="viewClientWaitlist">View Client Waitlist</button>     
           </div>
          </fieldset>
 		 
