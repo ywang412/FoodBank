@@ -15,7 +15,7 @@
 <div align="center">
     <h1>Items</h1>
 
-    <form id="command" action="AddRequest" method="get">
+    <form id="command" action="AddRequest" method="post">
     <table border="1">
             <tr>
                 <td>itemName</td>
@@ -39,7 +39,7 @@
                 <td>${item.expirationDate}</td>
                 <td>${item.foodBank}</td>
                 <td><c:if test="${item.onSite == '0'}">
-      <input type="hidden" name="username" value="${username}">
+
       <input type="hidden" name="itemName" value="${item.itemName}">
       <input type="hidden" name="foodBank" value="${item.foodBank}">
       <input type="text" name="count" value="0">
@@ -52,17 +52,18 @@
 
 
 
-            <form method="post" action="/request">
+            <form method="post" action="request">
                 <button type="submit" align="center">Request</button>
+
             </form>
 
 
-                <form method="post" action="/login">
+                <form method="post" action="login">
                     <button type="submit" align="center">Return to User Dashboard</button>
                 </form>
 
+    </form>
 
-
-</div>
+    </div>
 </body>
 </html>

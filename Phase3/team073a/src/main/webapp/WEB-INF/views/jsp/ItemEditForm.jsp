@@ -139,11 +139,13 @@
 
               </form:select>
             </div>
-
+          </div>
 		  
-	  <div class="submit">
+	       <div class="submit">
             <button type="submit" name="save">Save</button>    
           </div>
+
+
          </fieldset>
 		 
 	
@@ -152,7 +154,7 @@
 	</div>
 
      <br>
-     <br>
+
      <br>
      <div align="center">
        <form method="post" action="SiteInfo">

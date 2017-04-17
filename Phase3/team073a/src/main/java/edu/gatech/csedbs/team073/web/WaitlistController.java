@@ -70,12 +70,23 @@ public class WaitlistController {
     @RequestMapping(value = "/shelterwaitlistremoveclient", method = RequestMethod.POST)
     public String UpdateWaitlist(@RequestParam(value="position") int position, @ModelAttribute("serviceObj") ServiceInfo serviceInfo, @ModelAttribute("user") User user, Model model) {
 
+        SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(serviceInfo.getSiteId());
 
-        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(serviceInfo.getServiceId());
+        Shelter shelter = siteInfoService.getShelterDAO( serviceInfo.getServiceId());
+
+
+
+        //int client_id = siteInfoService.;
+        //siteInfoService.removeClientWaitlist(client_id, serviceInfo.getServiceId());
 
         int siteId =  serviceInfo.getSiteId();
         String userName =user.getUserName();
+
+
+
+        List<Waitlist> allWaitlist = siteInfoService.getAllWaitlistDAO(serviceInfo.getServiceId());
         String shelter_ds = allWaitlist.get(0).getDescription();
+
 
 
 
