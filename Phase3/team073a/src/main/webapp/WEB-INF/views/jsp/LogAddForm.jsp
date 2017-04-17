@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 
 <html>
@@ -8,7 +9,7 @@
   <head>
     <title>ASACS Add Log</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" media="all" href="../../css/asacs073.css"/>
+    <link rel="stylesheet" type="text/css" media="all" href="<c:url value="/resources/asacs073.css" />"/>
   </head>
 
   <body>
@@ -36,7 +37,10 @@
             <label for="logDate">
               <span>Log Date:</span>              
             </label>
+            <!--  
             <form:input path="logDate" id="logDate" readonly="readonly" />
+            -->
+            ${logEntry.logDate}
           </div>
 		  <div>
             <label for="usage">

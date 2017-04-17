@@ -10,6 +10,7 @@ package edu.gatech.csedbs.team073.model;
 public class SearchClient {
 	
 	private String searchParms;
+	private String searchDescription;
 
 	/**
 	 * @return the searchParms
@@ -24,6 +25,21 @@ public class SearchClient {
 	public void setSearchParms(String searchParms) {
 		this.searchParms = searchParms;
 	}
+
+	/**
+	 * @return the searchDescription
+	 */
+	public String getSearchDescription() {
+		return searchDescription;
+	}
+
+	/**
+	 * @param searchDescription the searchDescription to set
+	 */
+	public void setSearchDescription(String searchDescription) {
+		this.searchDescription = searchDescription;
+	}
+	
 	
 	
 

@@ -17,6 +17,14 @@
 
 
     <table border="1">
+            <tr>
+                <td>userName</td>
+                <td>itemName</td>
+                <td>unitsRequested</td>
+                <td>unitsFulfilled</td>
+                <td>requestDate</td>
+                <td>requestStatus</td>
+            </tr>
         <c:forEach items="${lists}" var="request">
             <tr>
                 <td>${request.userName}</td>

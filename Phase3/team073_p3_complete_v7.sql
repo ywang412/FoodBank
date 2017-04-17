@@ -637,18 +637,18 @@ INSERT INTO `Request`(username, item_name,request_status,units_requested,units_f
 INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'toilet paper', 2, 2,0,NOW());
 --  Note: 'site3' does not have expired food products by design.
 --  o 4 Closed Requests per Employee User
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('emp3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
 --   Add prior usage data (Same as above in the past anytime past two months)
 --   Requests: Of 3 Volunteer Users above, each will have:
 --  o Pending Requests for Volunteer Users
@@ -723,15 +723,15 @@ INSERT INTO `Request`(username, item_name,request_status,units_requested,units_f
 INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'toilet paper', 2, 2,0,NOW());
 --  Note: 'site3' does not have expired food products by design.
 --  o 4 Closed Requests per Employee User
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
-INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 3, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol1', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol2', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 20 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 21 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 22 DAY));
+INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('vol3', 'Rain coat', 1, 2,0,DATE_SUB(NOW(), INTERVAL 23 DAY));

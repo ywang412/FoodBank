@@ -19,13 +19,16 @@ public interface FoodPantryDAO {
 
     public List GetFoodPantryTable();
 
-    public List GetRequestTable();
+    public List GetRequestTable(String user);
+    public List GetRequestTable(int bank_id);
     public List GetItemTable();
+    public List GetItemTableWith(String username);
 
     public boolean updateFoodPantry(int id, String description_string, String hours, String conditions_for_use);
 
     public int addFoodPantry( int siteid, String description_string, String hours, String conditions_for_use);
 
     public boolean removeFoodPantry(int siteid, int fpid);
+    public void addRequest(String username, String itemName, String foodBank, int count);
 
 }

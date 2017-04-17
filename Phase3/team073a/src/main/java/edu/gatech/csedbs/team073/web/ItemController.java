@@ -1,24 +1,31 @@
 package edu.gatech.csedbs.team073.web;
 
-
-import edu.gatech.csedbs.team073.dao.ItemFoodCategoryDAO;
+import java.sql.*;
 import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import edu.gatech.csedbs.team073.dao.ClientDAO;
 import edu.gatech.csedbs.team073.dao.ItemDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by Taylor on 4/13/2017.
@@ -261,15 +268,14 @@ public class ItemController {
 */
 
 
-
-
     @RequestMapping(value="/ItemList", method = RequestMethod.GET)
-    public ModelAndView ItemList() {
+
+    public ModelAndView ItemList(@RequestParam(value="username") String username) {
 
         List<Item> items;
         ModelAndView model = null;
         model = new ModelAndView("ItemList");
-        items = siteInfoService.GetItemTable();
+        items = siteInfoService.GetItemTableWith(username);
         model.addObject("lists", items);
         //query all of the shelters in shelters list
         return model;

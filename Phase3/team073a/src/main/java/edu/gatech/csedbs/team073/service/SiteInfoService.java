@@ -256,7 +256,8 @@ public class SiteInfoService {
 
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
-    public List GetRequestTable() {  return foodPantryDAO.GetRequestTable();}
+    public List GetRequestTable(String user) {  return foodPantryDAO.GetRequestTable(user);}
+    public List GetRequestTable(int foodBank) {  return foodPantryDAO.GetRequestTable(foodBank);}
 
     public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
 
@@ -294,6 +295,7 @@ public class SiteInfoService {
 
 
     public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
+    public List GetItemTableWith(String username) {  return foodPantryDAO.GetItemTableWith(username);}
 
     public List GetItemsInFoodBank(int foodBankdId) {return foodBankDAO.GetItemsInFoodBank(foodBankdId );}
 
@@ -321,4 +323,6 @@ public class SiteInfoService {
     }
 
 
+
+    public void addRequest(String username, String itemName, String foodBank, int count){foodPantryDAO.addRequest(username, itemName, foodBank, count);}
 }

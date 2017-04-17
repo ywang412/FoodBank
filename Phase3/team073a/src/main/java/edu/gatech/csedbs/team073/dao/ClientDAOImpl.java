@@ -45,21 +45,26 @@ public class ClientDAOImpl implements ClientDAO {
 	 */
 	@Override
 	public List<Client> searchClientsByName(String name) {
-		String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+		//String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
 		
-		if (StringUtils.contains(name, "%")) {
-			sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name LIKE ?";
-			String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Client WHERE full_name LIKE ?";
-			int count = jdbcTemplate.queryForObject(countSql, new String[]{name}, Integer.class);
-			
-			if (count > 4) {
-				throw new RuntimeException(" Count is > 4 for search. Please modify query to return fewer results");
-			}
+		String inName = name;
+		
+		if (StringUtils.isNotBlank(name)) {
+			inName = name + "%";
 		}
+		
+		String	sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name LIKE ?";
+		String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Client WHERE full_name LIKE ?";
+		int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+		
+		if (count > 4) {
+			throw new RuntimeException(" Count is > 4 for search. Please modify query to return fewer results");
+		}
+	
 		
 		  
 		
-		 List<Client> clients = jdbcTemplate.query(sql, new String[]{name}, new ResultSetExtractor<List<Client>>() {
+		 List<Client> clients = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Client>>() {
 
 			@Override
 			public List<Client> extractData(ResultSet rs) throws SQLException, DataAccessException {
@@ -91,6 +96,60 @@ public class ClientDAOImpl implements ClientDAO {
 		
 		
 		return clients;
+	}
+	
+	@Override
+	public List<Client> searchClientsByDescription(String iddesc) {
+		String inDesc = iddesc;
+		
+		if (StringUtils.isNotBlank(iddesc)) {
+			inDesc = "%" + iddesc + "%";
+		}
+		
+		String	sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE description_string LIKE ?";
+		String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Client WHERE description_string LIKE ?";
+		int count = jdbcTemplate.queryForObject(countSql, new String[]{inDesc}, Integer.class);
+		
+		if (count > 4) {
+			throw new RuntimeException(" Count is > 4 for search. Please modify query to return fewer results");
+		}
+	
+		
+		  
+		
+		 List<Client> clients = jdbcTemplate.query(sql, new String[]{inDesc}, new ResultSetExtractor<List<Client>>() {
+
+			@Override
+			public List<Client> extractData(ResultSet rs) throws SQLException, DataAccessException {
+				List<Client> rsClients = new ArrayList<Client>();
+				Client rsClient = null;
+				
+				while (rs.next()) {
+					rsClient = new Client();
+
+					rsClient.setHeadOfHousehold(rs.getBoolean("head_of_household"));
+					rsClient.setClientId(rs.getInt("client_id"));
+					rsClient.setDescription(rs.getString("description_string"));
+					rsClient.setFullName(rs.getString("full_name"));
+					rsClient.setPhoneNumber(rs.getString("phone_number"));
+					
+					rsClients.add(rsClient);
+				
+					
+				}
+				
+				if (rsClient == null) {
+					rsClients = Collections.emptyList();
+				} 
+				return rsClients;
+			}
+
+		});
+		
+		
+		
+		return clients;
+
 	}
 
 	/* (non-Javadoc)
@@ -262,4 +321,6 @@ public class ClientDAOImpl implements ClientDAO {
 		
 		logEntryDAO.addLogEntry(clientId,logEntry,logUsage);
 	}
+
+	
 }

@@ -59,14 +59,14 @@
 
                 </form>
             </tr>
-            <tr>
-                <form method="post" action="/SiteInfo">
-                <td colspan="2" align="center"><input type="submit" value="View Request"></td>
-                </form>
-            </tr>
 
         </table>
-
+    <form:form action="requestList" method="Get">
+      <input type="submit" value="View Requests from user"><input type="hidden" name="username" value="${user.userName}">
+    </form:form>
+    <form:form action="ItemList" method="Get">
+      <input type="submit" value="View/Request Items"><input type="hidden" name="username" value="${user.userName}">
+    </form:form>
 </div>
 </body>
 </html>
