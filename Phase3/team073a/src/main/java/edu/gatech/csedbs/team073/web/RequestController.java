@@ -254,12 +254,37 @@ public class RequestController {
     public ModelAndView RequestList(@RequestParam(value="username") String username,@RequestParam(value="food_bank_id") String foodBankID) {
         List<Request> requests;
         ModelAndView model = null;
-        model = new ModelAndView("RequestList");
+        model = new ModelAndView("BankRequestList");
+        requests = siteInfoService.GetRequestTable(Integer.parseInt(foodBankID));
+        model.addObject("lists", requests);
+        model.addObject("username", username);
+        model.addObject("foodBank", foodBankID);
+        //query all of the shelters in shelters list
+        return model;
+    }
+    @RequestMapping(value="/ApproveRequest", method = RequestMethod.GET)
+    public ModelAndView ShelterEdit(@RequestParam(value="username") String username, @RequestParam(value="itemName") String itemName,@RequestParam(value="unitsRequested") String unitsRequested, @RequestParam(value="requestDate") String requestDate, @RequestParam(value="count") String count, @RequestParam(value="foodBank") String foodBankID) {
+
+        String username_=username.split(",")[0];
+	String[] itemName_=itemName.split(",");
+	String[] unitsRequested_=unitsRequested.split(",");
+	String[] requestDate_=requestDate.split(",");
+        String[] counts=count.split(",");
+        for(int i=0; i<counts.length; i++){
+            if(Integer.parseInt(counts[i])!=0)
+            siteInfoService.approveRequest(username_, itemName_[i], unitsRequested_[i], requestDate_[i], Integer.parseInt(counts[i]));
+        }
+
+        ModelAndView model = null;
+        //siteInfoService.addRequest("emp1", "test", "site1", 1);
+        model = new ModelAndView("BankRequestList");
+        List<Request> requests;
         requests = siteInfoService.GetRequestTable(Integer.parseInt(foodBankID));
         model.addObject("lists", requests);
         model.addObject("username", username);
         //query all of the shelters in shelters list
         return model;
+
     }
     @RequestMapping(value="/requestList", method = RequestMethod.GET)
     public ModelAndView RequestList(@RequestParam(value="username") String username) {

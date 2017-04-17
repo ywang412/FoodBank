@@ -283,4 +283,5 @@ public class SiteInfoService {
     }
 
     public void addRequest(String username, String itemName, String foodBank, int count){foodPantryDAO.addRequest(username, itemName, foodBank, count);}
+    public void approveRequest(String username, String itemName, String unitsRequested,String requestDate, int count){foodPantryDAO.approveRequest(username, itemName, unitsRequested, requestDate, count);}
 }
