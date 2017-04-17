@@ -49,11 +49,17 @@
 
         </c:forEach>
     </table>
-      <input type="submit" value="Request">
-    </form:form>
-                    <form method="post" action="/login">
-                        <button type="submit" align="center">Return to User Dashboard</button>
-                    </form>
+
+
+
+            <form method="post" action="/request">
+                <button type="submit" align="center">Request</button>
+            </form>
+
+
+                <form method="post" action="/login">
+                    <button type="submit" align="center">Return to User Dashboard</button>
+                </form>
 
 
 
