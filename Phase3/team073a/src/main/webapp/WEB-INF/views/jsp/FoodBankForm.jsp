@@ -58,7 +58,7 @@
             </td>
             <td colspan="3">
 
-                <form method="get" action="AddItem">
+                <form method="get" action="ItemEditForm">
                     <button type="submit" >Add New Item</button>
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
