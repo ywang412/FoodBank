@@ -289,5 +289,17 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
           jdbc.update(sql,params);
         //}catch(Exception e){}
     }
+    public void approveRequest(String username, String itemName, String unitsRequested,String requestDate, int count) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("date", requestDate);
+        String sql1="SELECT CASE WHEN number_of_units< units_requested THEN number_of_units ELSE units_requested END as c from Item NATURAL JOIN Provide NATURAL JOIN Site NATURAL JOIN Request JOIN User on User.site_id=Site.site_id WHERE request_date=:date AND item_name='"+itemName+"' AND User.username='"+username+"'";
+        Integer units =  jdbc.queryForObject(sql1 ,params,Integer.class);
+        int c=(units > count)?count:units;
+        String sql2="Update Item SET number_of_units=number_of_units-"+c+" WHERE item_name='"+itemName+"' AND food_bank_id=(SELECT food_bank_id FROM User NATURAL JOIN Site NATURAL JOIN Provide WHERE username='"+username+"')  LIMIT 1";
+          jdbc.update(sql2,params);
+        String sql3="Update Request SET request_status=1, units_fulfilled="+c+" WHERE item_name='"+itemName+"' AND request_date='"+requestDate+"' LIMIT 1";
+          jdbc.update(sql3,params);
+
+    }
 
 }

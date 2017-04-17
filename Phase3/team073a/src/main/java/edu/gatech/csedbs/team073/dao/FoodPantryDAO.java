@@ -30,5 +30,6 @@ public interface FoodPantryDAO {
 
     public boolean removeFoodPantry(int siteid, int fpid);
     public void addRequest(String username, String itemName, String foodBank, int count);
+    public void approveRequest(String username, String itemName, String unitsRequested, String requestDate, int count);
 
 }
