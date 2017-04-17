@@ -63,7 +63,7 @@
 
                 <c:forEach items="${item_storage_type_lists}" var="item_storage_type_enum">
 
-                  <form:option  value="${item_storage_type_enum.storage_type}">${item_storage_type_enum.storage_type_name}</form:option>
+                  <form:option  value="${item_storage_type_enum.storage_type_name}">${item_storage_type_enum.storage_type_name}</form:option>
 
                 </c:forEach>
 
@@ -85,7 +85,7 @@
 
                 <c:forEach items="${item_type_lists}" var="item_type_enum">
 
-                  <form:option  value="${item_type_enum.item_type}">${item_type_enum.item_type_name}</form:option>
+                  <form:option  value="${item_type_enum.item_type_name}">${item_type_enum.item_type_name}</form:option>
 
                 </c:forEach>
 
@@ -107,7 +107,7 @@
 
                 <c:forEach items="${lists}" var="food_item_category_enum">
 
-                  <form:option  value="${food_item_category_enum.food_category}">${food_item_category_enum.food_category_name}</form:option>
+                  <form:option  value="${food_item_category_enum.food_category_name}">${food_item_category_enum.food_category_name}</form:option>
 
                 </c:forEach>
 
@@ -131,7 +131,7 @@
 
                 <c:forEach items="${item_supply_categories}" var="item_supply_category_enum">
 
-                    <form:option  value="${item_supply_category_enum.supply_category}">${item_supply_category_enum.supply_category_name}</form:option>
+                    <form:option  value="${item_supply_category_enum.supply_category_name}">${item_supply_category_enum.supply_category_name}</form:option>
 
                </c:forEach>
 
