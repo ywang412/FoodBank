@@ -29,7 +29,7 @@
             <td>Position</td>
             <td>client Id</td>
             <td>Shelter Name</td>
-            <td>Date Added</td>
+             
         </tr>
         <c:forEach items="${clientWaitlist}" var="waitlist">
             <tr>
@@ -44,9 +44,12 @@
 
     </table>
 
-    <tr>
-        <td colspan="2" align="center"><input type="submit" value="Return to Service"></td>
-    </tr>
+
+    <form method="get" action="/ClientSearchForm">
+        <td colspan="2" align="center"><input type="submit" value="Return to Client Search"></td>
+
+    </form>
+
 
     <tr>
         <td colspan="2" align="center"><input type="submit" value="Logout"></td>

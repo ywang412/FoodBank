@@ -282,42 +282,66 @@ public class ItemController {
     }
 
 
-        @RequestMapping(value="/ItemEditForm", method = RequestMethod.GET)
-        public ModelAndView itemEdit(ModelAndView model) {
-                Item item = (Item)model.getModel().get("item");
-
-                if (null == item) {
-                        item = new Item();
-                }
 
 
-                model.addObject("item", item);
 
-                model.setViewName("ItemEditForm");
-
-                return model;
-        }
-
-        @RequestMapping(value="/ItemEditSubmit", method = RequestMethod.POST)
-        public ModelAndView clientEditSubmit(@ModelAttribute Item item, BindingResult result, final RedirectAttributes redirectAttributes) {
-
-                ModelAndView model = null;
-
-		try{
-                itemDAO.addItem(item);
-
-		}
-		catch(Exception e){}
-		model=new ModelAndView("ItemList");
-                        redirectAttributes.addFlashAttribute("msg","Item added successfully");
-                        model.setViewName("ItemList");
-        List<Item> items;
-        items = siteInfoService.GetItemTable();
-        model.addObject("lists", items);
+    @RequestMapping(value="/ItemEditForm", method = RequestMethod.GET)
+    public ModelAndView itemEdit(ModelAndView model) {
+            Item item = (Item)model.getModel().get("item");
 
 
-                return model;
-        }
+
+            if (null == item) {
+                    item = new Item();
+            }
+
+
+            model.addObject("item", item);
+
+            model.setViewName("ItemEditForm");
+
+            List <ItemFoodCategory> food_item_catagory_enum = siteInfoService.GetAllFoodCategories();
+
+            model.addObject("lists", food_item_catagory_enum);
+
+
+
+            List <ItemType> item_type_enum = siteInfoService.GetAllItemTypes();
+
+            model.addObject("item_type_lists", item_type_enum);
+
+            List <ItemStorageType> item_storage_type_enum = siteInfoService.GetAllStorageTypes();
+
+            model.addObject("item_storage_type_lists", item_storage_type_enum);
+
+            List <ItemSupplyCategory> item_supply_category_enum = siteInfoService.GetAllSupplyCategories();
+
+            model.addObject("item_supply_categories", item_supply_category_enum);
+
+
+            return model;
+    }
+
+    @RequestMapping(value="/ItemEditSubmit", method = RequestMethod.POST)
+    public ModelAndView clientEditSubmit(@ModelAttribute Item item, BindingResult result, final RedirectAttributes redirectAttributes) {
+
+            ModelAndView model = null;
+
+    try{
+            itemDAO.addItem(item);
+
+    }
+    catch(Exception e){}
+    model=new ModelAndView("ItemList");
+                    redirectAttributes.addFlashAttribute("msg","Item added successfully");
+                    model.setViewName("ItemList");
+    List<Item> items;
+    items = siteInfoService.GetItemTable();
+    model.addObject("lists", items);
+
+
+            return model;
+    }
 
 
 }
