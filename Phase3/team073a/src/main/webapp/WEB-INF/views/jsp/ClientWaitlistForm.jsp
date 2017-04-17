@@ -22,7 +22,6 @@
 <div align="center">
     <h1>ASACS Room Wait List for Client </h1>
 
-    <h2>Client Name is: ${client_name}</h2>
 
     <table border="1">
         <tr>
