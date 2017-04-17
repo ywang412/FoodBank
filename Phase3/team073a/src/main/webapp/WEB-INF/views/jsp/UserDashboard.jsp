@@ -12,7 +12,6 @@
     <h1>ASACS User Dashboard </h1>
 
 
-    <form:form action="SiteInfo" method="post">
         <table>
             <tr>
                 <td>Username:</td>
@@ -38,7 +37,10 @@
 
 
             <tr>
+
+                <form:form action="SiteInfo" method="post">
                 <td colspan="1" align="left"><input type="submit" value=${siteInfo.siteId}></td>
+                </form:form>
                 <th>${siteInfo.fullName}</th>
                 <th>${message2}</th>
                 <th>${message3}</th>
@@ -52,13 +54,18 @@
             </tr>
 
             <tr>
-                <td colspan="2" align="center"><input type="submit" value="Logout"></td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center"><input type="submit" value="View Request"></td>
+                <form method="post" action="/invalidate">
+                    <td colspan="2" align="center"><input type="submit" value="Logout"></td>
+
+                </form>
             </tr>
 
         </table>
+    <form:form action="requestList" method="Get">
+      <input type="submit" value="View Requests from user"><input type="hidden" name="username" value="${user.userName}">
+    </form:form>
+    <form:form action="ItemList" method="Get">
+      <input type="submit" value="View/Request Items"><input type="hidden" name="username" value="${user.userName}">
     </form:form>
 </div>
 </body>

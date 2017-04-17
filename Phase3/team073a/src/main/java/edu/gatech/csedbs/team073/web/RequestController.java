@@ -251,31 +251,39 @@ public class RequestController {
 
 
     @RequestMapping(value="/requestList", method = RequestMethod.GET)
-
-    public ModelAndView RequestList() {
-
-
+    public ModelAndView RequestList(@RequestParam(value="username") String username) {
         List<Request> requests;
+        ModelAndView model = null;
+        model = new ModelAndView("RequestList");
+        requests = siteInfoService.GetRequestTable(username);
+        model.addObject("lists", requests);
+        model.addObject("username", username);
+        //query all of the shelters in shelters list
+        return model;
+    }
+
+
+    @RequestMapping(value="/AddRequest", method = RequestMethod.GET)
+    public ModelAndView ShelterEdit(@RequestParam(value="username") String username, @RequestParam(value="itemName") String itemName,@RequestParam(value="foodBank") String foodBank, @RequestParam(value="count") String count) {
+
+        String username_=username.split(",")[0];
+	String[] itemName_=itemName.split(",");
+        String[] foodBank_=foodBank.split(",");
+        String[] counts=count.split(",");
+        for(int i=0; i<counts.length; i++){
+            if(Integer.parseInt(counts[i])!=0)
+            siteInfoService.addRequest(username_, itemName_[i], foodBank_[i], Integer.parseInt(counts[i]));
+        }
 
         ModelAndView model = null;
+        //siteInfoService.addRequest("emp1", "test", "site1", 1);
 
         model = new ModelAndView("RequestList");
-
-
-
-
-
-
-
-        requests = siteInfoService.GetRequestTable();
-
-
+        List<Request> requests;
+        requests = siteInfoService.GetRequestTable(username_);
         model.addObject("lists", requests);
-
+        model.addObject("username", username);
         //query all of the shelters in shelters list
-
-
-
 
         return model;
     }
@@ -284,6 +292,7 @@ public class RequestController {
 
 
 }
+
 
 
 

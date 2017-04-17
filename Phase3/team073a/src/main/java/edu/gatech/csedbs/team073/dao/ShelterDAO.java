@@ -22,7 +22,8 @@ public interface ShelterDAO {
     public boolean updateShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms);
 
 
-    public int addShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms);
+    public int addShelter(int id, String description_string, String hours, String conditions_for_use, int available_bunks,
+                          int available_rooms, int male_bunks,int female_bunks,int mixed_bunks);
 
     public boolean removeShelter(int siteid, int shid);
 }

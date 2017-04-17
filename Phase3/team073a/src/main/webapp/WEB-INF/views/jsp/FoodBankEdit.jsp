@@ -30,7 +30,7 @@
 <div align="center">
     <h1>Add / Edit Food Bank Information</h1>
     <br>
-    <form action="/foodbankedit"   method="post">
+    <form action="foodbankedit"   method="post">
 
         <table>
             <tr>
@@ -78,7 +78,7 @@
 
 <div align="center">
 
-    <form method="post" action="/foodbankremove">
+    <form method="post" action="foodbankremove">
     <c:choose>
 
 
@@ -110,7 +110,7 @@
 
 
 <div align="center">
-    <form method="get" action="/foodbankform">
+    <form method="get" action="foodbankform">
     <c:choose>
         <c:when test="${disabled}">
 
@@ -129,7 +129,7 @@
 
 <br>
 <div align="center">
-    <form method="post" action="/SiteInfo">
+    <form method="post" action="SiteInfo">
         <button type="submit" align="center">Return To Site</button>
     </form>
 </div>

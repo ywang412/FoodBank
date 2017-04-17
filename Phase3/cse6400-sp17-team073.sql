@@ -173,7 +173,7 @@ ALTER TABLE `Provide`
   ADD CONSTRAINT Provide_ibfk_5 FOREIGN KEY (shelter_id) REFERENCES `Shelter` (shelter_id) ON DELETE SET NULL;
 
 ALTER TABLE `Item`
-  ADD CONSTRAINT Item_ibfk_1 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id) ON DELETE SET NULL,
+  ADD CONSTRAINT Item_ibfk_1 FOREIGN KEY (food_bank_id) REFERENCES `Food_Bank` (food_bank_id) ON DELETE CASCADE,
   ADD CONSTRAINT Item_ibfk_2 FOREIGN KEY (storage_type) REFERENCES `Item_storage_type_enum` (storage_type),
   ADD CONSTRAINT Item_ibfk_3 FOREIGN KEY (item_type) REFERENCES `Item_type_enum` (item_type),
   ADD CONSTRAINT Item_ibfk_4 FOREIGN KEY (food_category) REFERENCES `Item_food_category_enum` (food_category),
@@ -181,7 +181,7 @@ ALTER TABLE `Item`
 
 ALTER TABLE `Request`
   ADD CONSTRAINT Request_ibfk_1 FOREIGN KEY (username) REFERENCES `User` (username),
-  ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (item_name) REFERENCES `Item` (item_name);
+  ADD CONSTRAINT Request_ibfk_2 FOREIGN KEY (item_name) REFERENCES `Item` (item_name) ON DELETE CASCADE;
     
 
 ALTER TABLE `Room`

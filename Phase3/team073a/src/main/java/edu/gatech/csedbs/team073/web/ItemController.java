@@ -270,12 +270,12 @@ public class ItemController {
 
     @RequestMapping(value="/ItemList", method = RequestMethod.GET)
 
-    public ModelAndView ItemList() {
+    public ModelAndView ItemList(@RequestParam(value="username") String username) {
 
         List<Item> items;
         ModelAndView model = null;
         model = new ModelAndView("ItemList");
-        items = siteInfoService.GetItemTable();
+        items = siteInfoService.GetItemTableWith(username);
         model.addObject("lists", items);
         //query all of the shelters in shelters list
         return model;

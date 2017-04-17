@@ -197,10 +197,11 @@ public class SiteInfoService {
     }
 
 
-    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms){
+    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms,int male_bunks,int female_bunks,int mixed_bunks){
 
-        return shelterDAO.addShelter(siteid, description_string, hours, conditions_for_use, available_bunks,available_rooms);
+        return shelterDAO.addShelter(siteid, description_string, hours, conditions_for_use, available_bunks,available_rooms, male_bunks, female_bunks, mixed_bunks);
     }
+
 
     public boolean removeShelter(int siteid, int shid) {
 
@@ -232,7 +233,7 @@ public class SiteInfoService {
 
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
-    public List GetRequestTable() {  return foodPantryDAO.GetRequestTable();}
+    public List GetRequestTable(String user) {  return foodPantryDAO.GetRequestTable(user);}
 
     public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
 
@@ -270,6 +271,7 @@ public class SiteInfoService {
 
 
     public List GetItemTable() {  return foodPantryDAO.GetItemTable();}
+    public List GetItemTableWith(String username) {  return foodPantryDAO.GetItemTableWith(username);}
 
     public List GetItemsInFoodBank(int foodBankdId) {return foodBankDAO.GetItemsInFoodBank(foodBankdId );}
 
@@ -278,4 +280,6 @@ public class SiteInfoService {
 
     public List<Waitlist> getClientWaitlistDAO(int id) { return waitlistDAO.getClientWaitlist(id);
     }
+
+    public void addRequest(String username, String itemName, String foodBank, int count){foodPantryDAO.addRequest(username, itemName, foodBank, count);}
 }

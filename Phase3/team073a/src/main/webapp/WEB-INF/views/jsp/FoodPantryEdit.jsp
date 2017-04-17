@@ -102,7 +102,7 @@
 
 <div align="center">
 
-    <form method="post" action="/foodpantryremove">
+    <form method="post" action="foodpantryremove">
         <c:choose>
 
 
@@ -134,7 +134,7 @@
 
 
 <div align="center">
-    <form method="get" action="/foodpantryform">
+    <form method="get" action="foodpantryform">
         <c:choose>
             <c:when test="${disabled}">
 
@@ -154,7 +154,7 @@
 
 <br>
 <div align="center">
-    <form method="post" action="/SiteInfo">
+    <form method="post" action="SiteInfo">
         <button type="submit" align="center">Return To Site</button>
     </form>
 </div>
