@@ -16,7 +16,7 @@ import java.util.List;
  */
 
 @Controller
-@SessionAttributes({"serviceObj"})
+@SessionAttributes({"serviceObj","user"})
 public class RequestController {
 
     private final Logger logger = LoggerFactory.getLogger(ShelterController.class);

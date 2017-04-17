@@ -29,7 +29,7 @@
             <td>Position</td>
             <td>client Id</td>
             <td>Shelter Name</td>
-             
+
         </tr>
         <c:forEach items="${clientWaitlist}" var="waitlist">
             <tr>

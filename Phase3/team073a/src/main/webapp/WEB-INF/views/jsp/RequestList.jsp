@@ -38,6 +38,15 @@
 
     </table>
 
+    <tr>
+        <td >
+            <form method="post" action="/login">
+                <button type="submit" align="center">Return to User Dashboard</button>
+            </form>
+        </td>
+
+    </tr>
+
 
 </div>
 </body>
