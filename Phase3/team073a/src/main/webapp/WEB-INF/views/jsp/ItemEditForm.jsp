@@ -27,6 +27,7 @@
 
       <form:form action="ItemEditSubmit" modelAttribute="item" method="post">
         <input type="hidden" name="username" value="${username}">
+        <input type="hidden" name="foodbank" value="${foodbank}">
     
         <fieldset>
           
@@ -139,14 +140,6 @@
               </form:select>
             </div>
 
-          </div>
-          <div>
-            <label for="foodBank">
-              <span>Food Bank:</span>              
-            </label>
-            <form:input path="foodBank" id="foodBank" required="required"/>
-          </div>
-          <div>
 		  
 	  <div class="submit">
             <button type="submit" name="save">Save</button>    
