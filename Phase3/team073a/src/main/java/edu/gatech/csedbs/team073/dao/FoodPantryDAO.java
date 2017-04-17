@@ -20,6 +20,7 @@ public interface FoodPantryDAO {
     public List GetFoodPantryTable();
 
     public List GetRequestTable(String user);
+    public List GetRequestTable(int bank_id);
     public List GetItemTable();
     public List GetItemTableWith(String username);
 

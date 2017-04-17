@@ -250,6 +250,17 @@ public class RequestController {
 */
 
 
+    @RequestMapping(value="/BankRequestList", method = RequestMethod.GET)
+    public ModelAndView RequestList(@RequestParam(value="username") String username,@RequestParam(value="food_bank_id") String foodBankID) {
+        List<Request> requests;
+        ModelAndView model = null;
+        model = new ModelAndView("RequestList");
+        requests = siteInfoService.GetRequestTable(Integer.parseInt(foodBankID));
+        model.addObject("lists", requests);
+        model.addObject("username", username);
+        //query all of the shelters in shelters list
+        return model;
+    }
     @RequestMapping(value="/requestList", method = RequestMethod.GET)
     public ModelAndView RequestList(@RequestParam(value="username") String username) {
         List<Request> requests;

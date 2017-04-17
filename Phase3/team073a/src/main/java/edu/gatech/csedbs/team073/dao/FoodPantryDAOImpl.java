@@ -132,6 +132,15 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         List <Item> items = jdbcTemplate.query(sql, new ItemMapper());
         return items;
     }
+    public List  GetRequestTable(int food_bank_id) {
+        //here we want to to a SELECT * FROM food_pantry  table
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        //here we want to get total from food pantry table
+        String sql = "SELECT * FROM cs6400_sp17_team073.Request NATURAL JOIN cs6400_sp17_team073.Request_status_enum NATURAL JOIN cs6400_sp17_team073.Item WHERE food_bank_id="+food_bank_id+" AND request_status=2";
+
+        List <Request> requests = jdbcTemplate.query(sql, new RequestMapper());
+        return requests;
+    }
     public List  GetRequestTable(String user) {
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
