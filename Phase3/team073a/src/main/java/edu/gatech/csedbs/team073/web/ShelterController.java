@@ -17,7 +17,7 @@ import java.util.List;
  */
 
 @Controller
-@SessionAttributes({"serviceObj"})
+@SessionAttributes({"serviceObj", "user"})
 public class ShelterController {
 
     private final Logger logger = LoggerFactory.getLogger(ShelterController.class);
@@ -690,10 +690,6 @@ public class ShelterController {
 
         return model;
     }
-
-
-
-
 
 
 }

@@ -250,6 +250,16 @@ public class SiteInfoService {
         return foodBankDAO.removeFoodBank(siteid, fbid );
     }
 
+    public boolean removeClientWaitlist(int client_id, int shelter_id) {
+
+        return waitlistDAO.removeClientWaitlist(client_id, shelter_id );
+    }
+
+    public boolean addClientWaitlist(int client_id, int shelter_id) {
+
+        return waitlistDAO.addClientWaitlist(client_id, shelter_id );
+    }
+
 
 
     public boolean decrementSoupKitchenSeats(int id)  {return soupKitchenDAO.decrementSoupKitchenSeats(id);}

@@ -236,7 +236,72 @@ public class ClientController {
 
 
 
-	
+
+
+
+
+	@RequestMapping(value="/removeClientWaitlist", method = RequestMethod.GET)
+	public ModelAndView removeClientWaitlist(@ModelAttribute("client") Client client, @ModelAttribute("serviceObj") ServiceInfo serviceInfo, BindingResult result) {
+
+ 		SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(serviceInfo.getSiteId());
+
+		Shelter shelter = siteInfoService.getShelterDAO( serviceInfo.getServiceId());
+
+		int client_id = client.getClientId();
+
+		siteInfoService.removeClientWaitlist(client_id, serviceInfo.getServiceId());
+
+		ModelAndView model = new ModelAndView("ClientWaitlistForm");
+		model.addObject("client", client);
+
+
+		List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client.getClientId());
+
+		String client_name = "Not found";
+		if (clientWaitlist.size() !=0) {
+			client_name = clientWaitlist.get(0).getFullName();
+		}
+
+		model.addObject("client_name", client_name);
+
+		model.addObject("clientWaitlist", clientWaitlist);
+
+		return model;
+	}
+
+
+
+
+	@RequestMapping(value="/addClientWaitlist", method = RequestMethod.GET)
+	public ModelAndView addClientWaitlist(@ModelAttribute("client") Client client, @ModelAttribute("serviceObj") ServiceInfo serviceInfo, BindingResult result) {
+
+		SiteInfo siteInfo = siteInfoService.getSiteInfoDAO(serviceInfo.getSiteId());
+
+		Shelter shelter = siteInfoService.getShelterDAO( serviceInfo.getServiceId());
+
+		int client_id = client.getClientId();
+
+		siteInfoService.addClientWaitlist(client_id, serviceInfo.getServiceId());
+
+		ModelAndView model = new ModelAndView("ClientWaitlistForm");
+		model.addObject("client", client);
+
+
+		List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client.getClientId());
+
+		String client_name = "Not found";
+		if (clientWaitlist.size() !=0) {
+			client_name = clientWaitlist.get(0).getFullName();
+		}
+
+		model.addObject("client_name", client_name);
+
+		model.addObject("clientWaitlist", clientWaitlist);
+
+		return model;
+	}
+
+
 	@RequestMapping(value="/ClientEditForm", method = RequestMethod.GET)
 	//public ModelAndView clientEdit(@RequestParam(value="clientId") String clientId, ModelAndView model) {
 	public ModelAndView clientEdit(ModelAndView model) {	
