@@ -20,7 +20,7 @@
 			</tr>
 			<tr>
 				<td>Password:</td>
-				<td><form:password path="password" /></td>
+				<td><form:password path="password" value="gatech123"/></td>
 				<td><form:errors path="password" /></td>
 			</tr>
 			<tr>
@@ -29,8 +29,8 @@
 		</table>
 		
 		</form:form>
-                    <a href="public/MealsRemaining">Meals Remaining</a>
-
+			<a href="PublicMealsRemaining">Meals Remaining Report</a> <br/>
+			<a href="PublicAvailableRoomBunk">Available Rooms and Bunks Report</a>
 	</div>
 </body>
 </html>

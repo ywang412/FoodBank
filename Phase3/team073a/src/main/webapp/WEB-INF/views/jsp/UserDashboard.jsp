@@ -49,24 +49,23 @@
             </tr>
 
 
-            <tr>
-
-            </tr>
-
-            <tr>
-                <form method="post" action="/invalidate">
-                    <td colspan="2" align="center"><input type="submit" value="Logout"></td>
-
-                </form>
-            </tr>
 
         </table>
+    <br>
+    <br>
     <form:form action="requestList" method="Get">
       <input type="submit" value="View Requests from user"><input type="hidden" name="username" value="${user.userName}">
     </form:form>
+    <br>
     <form:form action="ItemList" method="Get">
       <input type="submit" value="View/Request Items"><input type="hidden" name="username" value="${user.userName}">
     </form:form>
+    <br>
+    <form method="post" action="/invalidate">
+        <td colspan="2" align="center"><input type="submit" value="Logout"></td>
+
+    </form>
+
 </div>
 </body>
 </html>

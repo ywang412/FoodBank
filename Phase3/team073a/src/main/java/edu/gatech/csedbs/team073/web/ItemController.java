@@ -286,7 +286,7 @@ public class ItemController {
 
 
     @RequestMapping(value="/ItemEditForm", method = RequestMethod.GET)
-    public ModelAndView itemEdit(ModelAndView model) {
+    public ModelAndView itemEdit(ModelAndView model, @RequestParam(value="username") String username, @RequestParam(value="food_bank_id") String foodbank) {
             Item item = (Item)model.getModel().get("item");
 
 
@@ -317,17 +317,20 @@ public class ItemController {
             List <ItemSupplyCategory> item_supply_category_enum = siteInfoService.GetAllSupplyCategories();
 
             model.addObject("item_supply_categories", item_supply_category_enum);
+            model.addObject("username", username);
+            model.addObject("foodbank", foodbank);
 
 
             return model;
     }
 
     @RequestMapping(value="/ItemEditSubmit", method = RequestMethod.POST)
-    public ModelAndView clientEditSubmit(@ModelAttribute Item item, BindingResult result, final RedirectAttributes redirectAttributes) {
+    public ModelAndView clientEditSubmit(@ModelAttribute Item item, BindingResult result, final RedirectAttributes redirectAttributes,@RequestParam(value="username") String username, @RequestParam(value="foodbank") String foodBank ) {
 
             ModelAndView model = null;
 
     try{
+            item.foodBank=foodBank;
             itemDAO.addItem(item);
 
     }
@@ -336,7 +339,7 @@ public class ItemController {
                     redirectAttributes.addFlashAttribute("msg","Item added successfully");
                     model.setViewName("ItemList");
     List<Item> items;
-    items = siteInfoService.GetItemTable();
+    items = siteInfoService.GetItemTableWith(username);
     model.addObject("lists", items);
 
 

@@ -1,1 +1,2 @@
-team073_p3_complete_v7.sql
+Phase3\team073_p3_complete_v7.sql
+Queries implemented in 6400Spring17Team073/Phase3/team073a/src/main/java/edu/gatech/csedbs/team073/dao/
