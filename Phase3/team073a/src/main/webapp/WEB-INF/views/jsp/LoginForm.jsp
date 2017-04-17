@@ -29,6 +29,8 @@
 		</table>
 		
 		</form:form>
+                    <a href="public/MealsRemaining">Meals Remaining</a>
+
 	</div>
 </body>
 </html>

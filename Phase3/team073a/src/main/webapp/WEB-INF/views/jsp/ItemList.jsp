@@ -17,6 +17,17 @@
 
     <form id="command" action="AddRequest" method="get">
     <table border="1">
+            <tr>
+                <td>itemName</td>
+                <td>numberOfUnits</td>
+                <td>storageType</td>
+                <td>itemType</td>
+                <td>foodCategory</td>
+                <td>supplyCategory</td>
+                <td>expirationDate</td>
+                <td>foodBank</td>
+                <td>Request</td>
+	    </tr>
         <c:forEach items="${lists}" var="item">
             <tr>
                 <td>${item.itemName}</td>
@@ -40,6 +51,10 @@
     </table>
       <input type="submit" value="Request">
     </form:form>
+                    <form method="post" action="/login">
+                        <button type="submit" align="center">Return to User Dashboard</button>
+                    </form>
+
 
 
 </div>

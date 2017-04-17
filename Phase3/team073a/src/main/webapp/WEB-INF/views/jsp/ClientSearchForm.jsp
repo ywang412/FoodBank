@@ -33,7 +33,7 @@
 				<button type="submit" name="clientSearch" action="clientSearch">Search</button>
 			</div>
 		</form:form>
-				<spring:url value="/ClientAddForm" var="clientAddUrl" />
+				<spring:url value="ClientAddForm" var="clientAddUrl" />
 				<button  onclick="location.href='${clientAddUrl}'">Add New Client</button>
 		
 	</div>
@@ -59,7 +59,7 @@
 	            <td>${cl.phoneNumber}</td>
 	            <td>${cl.hoH}</td>
 	            <td>
-	            <spring:url value="/ClientViewForm?clientId=${cl.clientId}" var="clientUrl" />
+	            <spring:url value="ClientViewForm?clientId=${cl.clientId}" var="clientUrl" />
 	            <button onclick="location.href='${clientUrl}'">Select</button>
 	            
 	            </td>            
