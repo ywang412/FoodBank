@@ -50,9 +50,11 @@
 
     </form>
 
-
     <tr>
-        <td colspan="2" align="center"><input type="submit" value="Logout"></td>
+        <form method="post" action="/invalidate">
+            <td colspan="2" align="center"><input type="submit" value="Logout"></td>
+
+        </form>
     </tr>
 
 

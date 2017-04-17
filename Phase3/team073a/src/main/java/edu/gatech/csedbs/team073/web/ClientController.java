@@ -222,7 +222,10 @@ public class ClientController {
 
 		List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client.getClientId());
 
-		String client_name = clientWaitlist.get(0).getFullName();
+		String client_name = "Not found";
+		if (clientWaitlist.size() !=0) {
+			client_name = clientWaitlist.get(0).getFullName();
+		}
 
 		model.addObject("client_name", client_name);
 
