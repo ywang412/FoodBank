@@ -127,7 +127,7 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT *, 0 FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide NATURAL JOIN cs6400_sp17_team073.Site";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item NATURAL JOIN cs6400_sp17_team073.Item_type_enum NATURAL JOIN cs6400_sp17_team073.Item_food_category_enum NATURAL JOIN cs6400_sp17_team073.Item_supply_category_enum NATURAL JOIN cs6400_sp17_team073.Item_storage_type_enum NATURAL JOIN cs6400_sp17_team073.Provide NATURAL JOIN cs6400_sp17_team073.Site";
 
         List <Item> items = jdbcTemplate.query(sql, new ItemMapper());
         return items;
@@ -201,8 +201,8 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
             i.supplyCategory=row.getString("supply_category_name");
             i.expirationDate=row.getString("expiration_date");
             i.foodBank=row.getString("short_name");
-            i.onSite=row.getInt("on_site");
-
+            //i.onSite=row.getInt("on_site");
+            i.onSite=0;
             return i;
         }
     }

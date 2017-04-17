@@ -3,7 +3,9 @@ package edu.gatech.csedbs.team073.web;
 import java.sql.*;
 import edu.gatech.csedbs.team073.model.*;
 import edu.gatech.csedbs.team073.service.SiteInfoService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -345,6 +347,149 @@ public class ItemController {
 
             return model;
     }
+
+
+
+    @RequestMapping(value="/ItemSearch", method = RequestMethod.GET)
+    public ModelAndView clientSearch(ModelAndView model) {
+        SearchItem searchItem = new SearchItem();
+
+
+        model.addObject("searchItem", searchItem);
+        model.setViewName("ItemSearch");
+
+        return model;
+    }
+
+    @RequestMapping(value="/ItemSearchSubmit", method = RequestMethod.POST, params={ "itemSearch" })
+    //public String clientSearchSubmit(@RequestParam("searchClient") String searchClient, BindingResult result, Model model) {
+    public String clientSearchSubmit(@ModelAttribute("searchItem") SearchItem searchItem, BindingResult result, Model model) {
+
+        ItemSearchValidator searchValidator = new ItemSearchValidator();
+        searchValidator.validate(searchItem, result);
+
+        if (result.hasErrors()) {
+
+        } else {
+            if (StringUtils.isNotBlank(searchItem.getSearchParms())) {
+                try {
+                    List<Item> results = itemDAO.searchItemByName(searchItem.getSearchParms());
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+            if (StringUtils.isNotBlank(searchItem.getSearchItemType())) {
+                try {
+                    List<Item> results = itemDAO.searchItemByItemType(searchItem.getSearchItemType());
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+            if (StringUtils.isNotBlank(searchItem.getSearchStorageType())) {
+                try {
+                    List<Item> results = itemDAO.searchItemByStorageType(searchItem.getSearchStorageType());
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+            if (StringUtils.isNotBlank(searchItem.getSearchFoodCategory())) {
+                try {
+                    List<Item> results = itemDAO.searchItemByFoodCategory(searchItem.getSearchFoodCategory());
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+            if (StringUtils.isNotBlank(searchItem.getSearchSupplyCategory())) {
+                try {
+                    List<Item> results = itemDAO.searchItemBySupplyCategory(searchItem.getSearchSupplyCategory());
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+            if (StringUtils.isNotBlank(searchItem.getSearchExpired())) {
+                try {
+                    List<Item> results = itemDAO.searchItemByExpired(searchItem.getSearchExpired());
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+            if (StringUtils.isNotBlank(searchItem.getSearchLocationId())) {
+                try {
+                    List<Item> results = itemDAO.searchItemByLocationId(Integer.parseInt(searchItem.getSearchLocationId()));
+                    model.addAttribute("searchResults", results);
+
+                    if (results.isEmpty()) {
+                        result.rejectValue(null,"error.noresults", "No results found" );
+                    }
+
+                } catch (Exception e) {
+
+                    model.addAttribute("searchItem", searchItem);
+                    result.rejectValue(null,"error.toomanyresults", e.getMessage());
+                }
+            }
+
+        }
+
+
+
+        return "ItemSearch";
+    }
+
 
 
 }

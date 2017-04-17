@@ -17,6 +17,7 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.dao.*;
@@ -25,6 +26,8 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import edu.gatech.csedbs.team073.model.Site;
 import edu.gatech.csedbs.team073.model.Item;
@@ -37,8 +40,10 @@ public class ItemDAOImpl implements ItemDAO {
     private static final Logger logger = LoggerFactory.getLogger(SiteDAOImpl.class);
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate jdbc;
 
     public ItemDAOImpl(DataSource dataSource) {
+        this.jdbc = new NamedParameterJdbcTemplate(dataSource);
         jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
@@ -126,5 +131,454 @@ public class ItemDAOImpl implements ItemDAO {
                 return 1;
         }
 
+
+
+    @Override
+    public List<Item> searchItemByName(String name) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+
+        String inName = name;
+
+        if (StringUtils.isNotBlank(name)) {
+            inName = name + "%";
+        }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE item_name LIKE ?";
+        String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE item_name LIKE ?";
+        int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+        if (count > 300) {
+            throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+        }
+
+
+
+
+        List<Item> items = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
+
+
+
+
+    @Override
+    public List<Item> searchItemByItemType(String itype) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+
+        String inName = itype;
+
+        if (StringUtils.isNotBlank(itype)) {
+            inName = itype + "%";
+        }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE item_type LIKE ?";
+        String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE item_type LIKE ?";
+        int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+        if (count > 300) {
+            throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+        }
+
+
+
+
+        List<Item> items = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
+
+
+
+
+
+    @Override
+    public List<Item> searchItemByStorageType(String sttype) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+
+        String inName = sttype;
+
+        if (StringUtils.isNotBlank(sttype)) {
+            inName = sttype + "%";
+        }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE storage_type LIKE ?";
+        String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE storage_type LIKE ?";
+        int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+        if (count > 300) {
+            throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+        }
+
+
+
+
+        List<Item> items = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
+
+
+
+
+    @Override
+    public List<Item> searchItemByFoodCategory(String fcat) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+
+        String inName = fcat;
+
+        if (StringUtils.isNotBlank(fcat)) {
+            inName = fcat + "%";
+        }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE food_category LIKE ?";
+        String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE food_category LIKE ?";
+        int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+        if (count > 300) {
+            throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+        }
+
+
+
+
+        List<Item> items = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
+
+
+
+
+    @Override
+    public List<Item> searchItemBySupplyCategory(String scat) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+
+        String inName = scat;
+
+        if (StringUtils.isNotBlank(scat)) {
+            inName = scat + "%";
+        }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE supply_category LIKE ?";
+        String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE supply_category LIKE ?";
+        int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+        if (count > 300) {
+            throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+        }
+
+
+
+
+        List<Item> items = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
+
+
+
+
+
+    @Override
+    public List<Item> searchItemByExpired(String exp) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+
+        String inName = exp;
+
+        if (StringUtils.isNotBlank(exp)) {
+            inName = exp + "%";
+        }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE expiration_date LIKE ?";
+        String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE expiration_date LIKE ?";
+        int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+        if (count > 300) {
+            throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+        }
+
+
+
+
+        List<Item> items = jdbcTemplate.query(sql, new String[]{inName}, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
+
+
+
+
+    @Override
+    public List<Item> searchItemByLocationId(int locid) {
+        //String sql = "SELECT * FROM cs6400_sp17_team073.Client WHERE full_name = ?";
+        MapSqlParameterSource params = new MapSqlParameterSource();
+        params.addValue("food_bank_id", locid);
+      //  String inName = exp;
+
+     ///   if (StringUtils.isNotBlank(exp)) {
+      //      inName = exp + "%";
+       // }
+
+        String	sql = "SELECT * FROM cs6400_sp17_team073.Item WHERE Food_Bank.food_bank_id=:food_bank_id";
+       // String countSql = "SELECT count(*) FROM cs6400_sp17_team073.Item WHERE food_bank_id LIKE ?";
+       // int count = jdbcTemplate.queryForObject(countSql, new String[]{inName}, Integer.class);
+
+      //  if (count > 300) {
+      //      throw new RuntimeException(" Count is > 300 for search. Please modify query to return fewer results");
+      //  }
+
+
+
+
+        List<Item> items = jdbc.query(sql, params, new ResultSetExtractor<List<Item>>() {
+
+            @Override
+            public List< Item > extractData(ResultSet rs) throws SQLException, DataAccessException {
+                List<Item> rsItems = new ArrayList<Item>();
+                Item rsItem = null;
+
+                while (rs.next()) {
+                    rsItem = new Item();
+
+                    rsItem.setItemName(rs.getString("item_name"));
+                    rsItem.setNumberOfUnits(rs.getInt("number_of_units"));
+                    rsItem.setStorageType(rs.getString("storage_type"));
+                    rsItem.setItemType(rs.getString("item_type"));
+
+                    rsItem.setFoodCategory(rs.getString("food_category"));
+                    rsItem.setSupplyCategory(rs.getString("supply_category"));
+                    rsItem.setExpirationDate(rs.getString("expiration_date"));
+                    rsItem.setFoodBank(rs.getString("food_bank_id"));
+
+
+                    rsItems.add(rsItem);
+
+
+                }
+
+                if (rsItems == null) {
+                    rsItems = Collections.emptyList();
+                }
+
+                return rsItems;
+            }
+
+        });
+
+
+
+        return items;
+    }
 
 }
