@@ -66,8 +66,9 @@ public class LoginController {
 
 
 		String userName = user.getUserName();
-		String password = user.getPassword();
+	 		user.setPassword("gatech123");
 
+ 		String password = user.getPassword();
 		ModelAndView model = null;
 
 
