@@ -15,7 +15,7 @@
 <div align="center">
     <h1>Items</h1>
 
-
+    <form id="command" action="AddRequest" method="get">
     <table border="1">
         <c:forEach items="${lists}" var="item">
             <tr>
@@ -27,11 +27,19 @@
                 <td>${item.supplyCategory}</td>
                 <td>${item.expirationDate}</td>
                 <td>${item.foodBank}</td>
-                <td><c:if test="${item.onSite == '0'}">Request</c:if><c:if test="${item.onSite>0}">Already on site</c:if></td>
-            </tr>
-        </c:forEach>
+                <td><c:if test="${item.onSite == '0'}">
+      <input type="hidden" name="username" value="emp1">
+      <input type="hidden" name="itemName" value="${item.itemName}">
+      <input type="hidden" name="foodBank" value="${item.foodBank}">
+      <input type="text" name="count" value="0">
 
+</c:if><c:if test="${item.onSite>0}">Already on site</c:if></td>
+            </tr>
+
+        </c:forEach>
     </table>
+      <input type="submit" value="Request">
+    </form:form>
 
 
 </div>

@@ -279,4 +279,6 @@ public class SiteInfoService {
 
     public List<Waitlist> getClientWaitlistDAO(int id) { return waitlistDAO.getClientWaitlist(id);
     }
+
+    public void addRequest(String username, String itemName, String foodBank, int count){foodPantryDAO.addRequest(username, itemName, foodBank, count);}
 }

@@ -61,7 +61,6 @@
             </tr>
 
         </table>
-    </form:form>
     <form:form action="requestList" method="Get">
       <input type="submit" value="View Requests from user"><input type="hidden" name="username" value="${user.userName}">
     </form:form>

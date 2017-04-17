@@ -269,5 +269,16 @@ public class FoodPantryDAOImpl implements FoodPantryDAO{
 
         return true;
     }
+    public void addRequest(String username, String itemName, String foodBank, int count) {
+        MapSqlParameterSource params = new MapSqlParameterSource();
+/*        params.addValue("username", username);
+        params.addValue("itemName", itemName);
+        params.addValue("count", count);
+*/
+        String sql="INSERT INTO `Request`(username, item_name,request_status,units_requested,units_fulfilled,request_date) VALUES ('"+username+"', '"+itemName+"', 2, "+count+",0,NOW())";
+        //try{
+          jdbc.update(sql,params);
+        //}catch(Exception e){}
+    }
 
 }
