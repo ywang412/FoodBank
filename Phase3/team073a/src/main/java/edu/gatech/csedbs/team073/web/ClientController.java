@@ -9,6 +9,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import edu.gatech.csedbs.team073.model.*;
+import edu.gatech.csedbs.team073.service.SiteInfoService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,10 +28,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import edu.gatech.csedbs.team073.dao.ClientDAO;
 import edu.gatech.csedbs.team073.dao.LogEntryDAO;
-import edu.gatech.csedbs.team073.model.Client;
-import edu.gatech.csedbs.team073.model.LogEntry;
-import edu.gatech.csedbs.team073.model.SearchClient;
-import edu.gatech.csedbs.team073.model.ServiceInfo;
 
 
 /**
@@ -207,14 +205,34 @@ public class ClientController {
 		model.addObject("client", client);	
 		return model;
 	}
-	
+
+	private SiteInfoService siteInfoService;
+
+	@Autowired
+	public void setSiteInfoService(SiteInfoService offersService) {
+		this.siteInfoService = offersService;
+	}
+
 	@RequestMapping(value="/ClientViewSubmit", method = RequestMethod.POST, params={ "viewClientWaitlist" })	
 	public ModelAndView clientViewToClientWaitList(@ModelAttribute Client client, @RequestParam String viewClientWaitlist, BindingResult result) {
 				
 		ModelAndView model = new ModelAndView("ClientWaitlistForm");
-		model.addObject("client", client);	
+		model.addObject("client", client);
+
+
+		List<Waitlist> clientWaitlist = siteInfoService.getClientWaitlistDAO(client.getClientId());
+
+		String client_name = clientWaitlist.get(0).getFullName();
+
+		model.addObject("client_name", client_name);
+
+		model.addObject("clientWaitlist", clientWaitlist);
+
 		return model;
 	}
+
+
+
 	
 	@RequestMapping(value="/ClientEditForm", method = RequestMethod.GET)
 	//public ModelAndView clientEdit(@RequestParam(value="clientId") String clientId, ModelAndView model) {
