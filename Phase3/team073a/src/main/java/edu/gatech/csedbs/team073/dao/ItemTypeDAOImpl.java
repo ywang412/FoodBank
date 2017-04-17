@@ -49,7 +49,7 @@ public class ItemTypeDAOImpl implements ItemTypeDAO {
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.item_type_enum";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item_type_enum";
 
         List <ItemType> ItemTypeList = jdbcTemplate.query(sql, new ItemTypeMapper());
 

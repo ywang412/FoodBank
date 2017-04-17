@@ -52,7 +52,7 @@ public class ItemStorageTypeDAOImpl implements ItemStorageTypeDAO {
         //here we want to to a SELECT * FROM food_pantry  table
         MapSqlParameterSource params = new MapSqlParameterSource();
         //here we want to get total from food pantry table
-        String sql = "SELECT * FROM cs6400_sp17_team073.item_storage_type_enum";
+        String sql = "SELECT * FROM cs6400_sp17_team073.Item_storage_type_enum";
 
         List <ItemStorageType> ItemStorageTypeList = jdbcTemplate.query(sql, new ItemStorageTypeMapper());
 
