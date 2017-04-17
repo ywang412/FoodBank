@@ -155,7 +155,8 @@ public class ShelterDAOImpl implements ShelterDAO {
     }
 
 
-    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use, int available_bunks,int available_rooms) {
+    public int addShelter(int siteid, String description_string, String hours, String conditions_for_use,
+                          int available_bunks,int available_rooms,int male_bunks,int female_bunks,int mixed_bunks) {
 
         MapSqlParameterSource params = new MapSqlParameterSource();
 
@@ -187,6 +188,33 @@ public class ShelterDAOImpl implements ShelterDAO {
         jdbc.update(sql2,params);
 
 
+        //create new rooms and bunks
+        int i= 0;
+        for (i=0;i<available_rooms;i++) {
+            String sql4 = "INSERT INTO  cs6400_sp17_team073.Room (shelter_id, occupied) " +
+                    " VALUES(:shelter_id,FALSE)";
+            jdbc.update(sql4, params);
+        }
+
+        for (i=0;i<male_bunks;i++) {
+            String sql5 = "INSERT INTO  cs6400_sp17_team073.Bunk (bunk_type, shelter_id, occupied) " +
+                    " VALUES(1, :shelter_id,FALSE)";
+            jdbc.update(sql5, params);
+        }
+
+
+        for (i=0;i<female_bunks;i++) {
+            String sql6 = "INSERT INTO  cs6400_sp17_team073.Bunk (bunk_type, shelter_id, occupied) " +
+                    " VALUES(2, :shelter_id,FALSE)";
+            jdbc.update(sql6, params);
+        }
+
+
+        for (i=0;i<mixed_bunks;i++) {
+            String sql7 = "INSERT INTO  cs6400_sp17_team073.Bunk (bunk_type, shelter_id, occupied) " +
+                    " VALUES(3, :shelter_id,FALSE)";
+            jdbc.update(sql7, params);
+        }
         return sh_id;
 
     }
