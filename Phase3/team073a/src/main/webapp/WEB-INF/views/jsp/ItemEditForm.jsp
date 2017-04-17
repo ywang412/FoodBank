@@ -26,6 +26,7 @@
 
 
       <form:form action="ItemEditSubmit" modelAttribute="item" method="post">
+        <input type="hidden" name="username" value="${username}">
     
         <fieldset>
           

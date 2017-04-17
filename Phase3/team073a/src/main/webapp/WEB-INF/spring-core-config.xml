@@ -11,9 +11,9 @@
 
  	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="username" value="root" />
-        <property name="password" value="test" />
-        <property name="url" value="jdbc:mysql://localhost:3306/cs6400_sp17_team073" />
+        <property name="username" value="phebust" />
+        <property name="password" value="j3oPbLoO" />
+        <property name="url" value="jdbc:mysql://phebust.ctddyqkert1t.us-east-1.rds.amazonaws.com:3306/cs6400_sp17_team073" />
 	</bean>
  
  	<bean id="userDaoImpl" class="edu.gatech.csedbs.team073.dao.UserDAOImpl">
