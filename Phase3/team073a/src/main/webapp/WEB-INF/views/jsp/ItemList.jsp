@@ -39,7 +39,7 @@
                 <td>${item.expirationDate}</td>
                 <td>${item.foodBank}</td>
                 <td><c:if test="${item.onSite == '0'}">
-      <input type="hidden" name="username" value="emp1">
+      <input type="hidden" name="username" value="${username}">
       <input type="hidden" name="itemName" value="${item.itemName}">
       <input type="hidden" name="foodBank" value="${item.foodBank}">
       <input type="text" name="count" value="0">

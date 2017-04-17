@@ -234,6 +234,7 @@ public class SiteInfoService {
     public boolean incrementSoupKitchenSeats(int id)  {return soupKitchenDAO.incrementSoupKitchenSeats(id);}
 
     public List GetRequestTable(String user) {  return foodPantryDAO.GetRequestTable(user);}
+    public List GetRequestTable(int foodBank) {  return foodPantryDAO.GetRequestTable(foodBank);}
 
     public int   getBunkCountByShelterIdAndTypeAndOccupancy(int shelterId, int type, boolean occupied) {
 

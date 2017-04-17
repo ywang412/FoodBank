@@ -68,7 +68,7 @@
             </td>
             <td colspan="3">
 
-                <form method="get" action="ViewRequests">
+                <form method="get" action="BankRequestList">
                     <button type="submit" >View Food Bank Requests</button>
                     <input type="hidden" name="username" value="${username}">
                     <input type="hidden" name="siteId" value="${siteId}">
