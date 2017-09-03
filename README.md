@@ -1,14 +1,13 @@
-# Database Systems Concepts and Design 
+## Database Systems Concepts and Design 
 
-Food bank and shelter database implemented using Java Spring framework
+A food bank and shelter database system implemented using Java Spring framework.
  
 ### Requirements
 
-This project requires Spring 2.7 and the following Python libraries installed:
+This project requires Java Spring 3.0 and the following libraries installed:
 
-Matplotlib
-NumPy
-Pandas
-Seaborn
-Run
-Zipline
+spring-context
+spring-web
+spring-webmvc
+spring-orm
+javax.servlet-api
